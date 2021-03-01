@@ -1,0 +1,28 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.armor_stand.geyser_pose": {
+			"loop": true,
+			"bones": {
+				"head": {
+					"rotation": ["math.mod(math.floor(query.mark_variant / 1000000), 1000)", "math.mod(math.floor(query.mark_variant / 1000), 1000)", "math.mod(query.mark_variant, 1000)"]
+				},
+				"geyser_chest": {
+					"rotation": ["math.mod(math.floor(query.variant / 1000000), 1000)", "math.mod(math.floor(query.variant / 1000), 1000)", "math.mod(query.variant, 1000)"]
+				},
+				"leftarm": {
+					"rotation": ["math.mod(math.floor(query.trade_tier / 1000000), 1000)", "math.mod(math.floor(query.trade_tier / 1000), 1000)", "math.mod(query.trade_tier, 1000)"]
+				},
+				"rightarm": {
+					"rotation": ["math.mod(math.floor(query.max_trade_tier / 1000000), 1000)", "math.mod(math.floor(query.max_trade_tier / 1000), 1000)", "math.mod(query.max_trade_tier, 1000)"]
+				},
+				"leftleg": {
+					"rotation": ["math.mod(math.floor(query.skin_id / 1000000), 1000)", "math.mod(math.floor(query.skin_id / 1000), 1000)", "math.mod(query.skin_id, 1000)"]
+				},
+				"rightleg": {
+					"rotation": ["math.mod(math.floor(query.life_span / 1000000), 1000)", "math.mod(math.floor(query.life_span / 1000), 1000)", "math.mod(query.life_span, 1000)"]
+				}
+			}
+		}
+	}
+}
