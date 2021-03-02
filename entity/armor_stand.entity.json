@@ -35,8 +35,8 @@
           "variable.armor_stand.hurt_time = 0;"
         ],
         "animate": [
-          "controller.pose",
-          "controller.wiggling",
+          {"controller.pose": "!query.is_bribed"},
+          {"controller.wiggling": "!query.is_bribed"},
           {"geyser_pose": "query.is_bribed"}
         ]
       },
