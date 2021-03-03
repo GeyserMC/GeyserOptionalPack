@@ -2,7 +2,7 @@
   "format_version": "1.10.0",
   "minecraft:attachable": {
     "description": {
-      "identifier": "minecraft:iron_chestplate.player",
+      "identifier": "minecraft:iron_chestplate.armor_stand",
       "item": { "minecraft:iron_chestplate": "query.owner_identifier == 'minecraft:armor_stand'" },
       "materials": {
         "default": "armor",

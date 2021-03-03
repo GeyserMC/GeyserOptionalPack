@@ -2,7 +2,7 @@
   "format_version": "1.10.0",
   "minecraft:attachable": {
     "description": {
-      "identifier": "minecraft:chainmail_chestplate.player",
+      "identifier": "minecraft:chainmail_chestplate.armor_stand",
       "item": { "minecraft:chainmail_chestplate": "query.owner_identifier == 'minecraft:armor_stand'" },
       "materials": {
         "default": "armor",

@@ -2,7 +2,7 @@
   "format_version": "1.10.0",
   "minecraft:attachable": {
     "description": {
-      "identifier": "minecraft:netherite_chestplate.player",
+      "identifier": "minecraft:netherite_chestplate.armor_stand",
       "item": { "minecraft:netherite_chestplate": "query.owner_identifier == 'minecraft:armor_stand'" },
       "materials": {
         "default": "armor",
