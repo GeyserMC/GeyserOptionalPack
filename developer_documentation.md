@@ -43,4 +43,4 @@ Iron golems in Java edition experience "cracking" as health decreases. Cracking 
 q.health > 99 ? 3 : math.floor(q.health / 25)
 ```
 
-The trinary operator ensures that even if `max_health`, defined at 100, is overflowed, the expression will never produce a value outside the range of 0-3. As all data is derived resource pack side, this addition requires no modification by the server.
+The trinary operator ensures that even if `max_health`, defined at 100, is overflowed, the expression will never produce a value outside the range of 0-3. As all data is derived resource pack side, this addition requires no modification by the server. Currently, the textures provided by the array are blank due to copyright concerns. Eventually, some method of obtaining these assets will be added.
