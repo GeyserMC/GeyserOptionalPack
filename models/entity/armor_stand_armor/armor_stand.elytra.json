@@ -1,0 +1,53 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.armor_stand.elytra",
+				"texture_width": 64,
+				"texture_height": 32,
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "baseplate",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "waist",
+					"parent": "baseplate",
+					"pivot": [0, 12, 0]
+				},
+				{
+					"name": "body",
+					"parent": "waist",
+					"pivot": [0, 24, 0]
+				},
+				{
+					"name": "geyser_chest",
+					"parent": "body",
+					"pivot": [0, 24, 0]
+				},
+				{
+					"name": "left_wing",
+					"parent": "geyser_chest",
+					"pivot": [0, 24, 0],
+					"cubes": [
+						{"origin": [-10, 0, 0], "size": [10, 20, 2], "uv": [22, 0]}
+					]
+				},
+				{
+					"name": "right_wing",
+					"parent": "geyser_chest",
+					"pivot": [0, 24, 0],
+					"mirror": true,
+					"cubes": [
+						{"origin": [0, 0, 0], "size": [10, 20, 2], "uv": [22, 0]}
+					]
+				}
+			]
+		}
+	]
+}
