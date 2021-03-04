@@ -1,8 +1,10 @@
+### Introduction
+
+Entity data and entity flags (known as queries in Molang) are pieces of metadata that store various pieces of information about an entity on the Bedrock Edition of Minecraft. You have a query for an entity's health, for example (a number query, or an entity data), and you have a query for is an entity is angry (an entity flag, which is either 1.0 or 0.0 in Molang). Not all entities use every query, but every entity has access to most queries, though Bedrock by default ignores these. We use this to our advantage in this resource pack.
+
 ### Armor stands
 
 #### Part visibility and rotation encoding
-
-Entity data and entity flags (known as queries in Molang) are pieces of metadata that store various pieces of information about an entity on the Bedrock Edition of Minecraft. You have a query for an entity's health, for example (a number query, or an entity data), and you have a query for is an entity is angry (an entity flag, which is either 1.0 or 0.0 in Molang). Not all entities use every query, but every entity has access to most queries, though Bedrock by default ignores these. We use this to our advantage in this resource pack.
 
 Two flags are designated for toggling an armor stand baseplate and arms. If `query.is_angry` is set to true, the render controller will not render arms on an armor stand. If `query.is_admiring` is set to true, then the armor stand will not render its baseplate. Bedrock without resource packs does not care about these values, so any setup without this resource pack will not break.
 
@@ -43,4 +45,18 @@ Iron golems in Java edition experience "cracking" as health decreases. Cracking 
 q.health > 99 ? 3 : math.floor(q.health / 25)
 ```
 
-The trinary operator ensures that even if `max_health`, defined at 100, is overflowed, the expression will never produce a value outside the range of 0-3. As all data is derived resource pack side, this addition requires no modification by the server. Currently, the textures provided by the array are blank due to copyright concerns. Eventually, some method of obtaining these assets will be added.
+The trinary operator ensures that even if `max_health`, defined at 100, is overflowed, the expression will never produce a value outside the range of 0-3. As all data is derived resource pack side, this addition requires no modification by the server (though `query.is_bribed` enables the feature). Currently, the textures provided by the array are blank due to copyright concerns. Eventually, some method of obtaining these assets will be added.
+
+### Shulkers
+
+See https://github.com/GeyserMC/Geyser/issues/1412 for more context.
+
+In Java Edition, when a shulker is invisible, their "box" will be invisible. In Bedrock Edition, no rendering changes occur. In this pack, this is simply fixed by adding a new render controller that toggles the part visibilities of the `base` and `lid` sections if the entity is invisible and `query.is_bribed` is enabled as a server-authoritative flag:
+
+```json
+"part_visibility": [
+    { "*": true },
+    { "lid": "!(q.is_invisible && q.is_bribed)" },
+    { "base": "!(q.is_invisible && q.is_bribed)" }
+]
+```
