@@ -1,0 +1,24 @@
+{
+  "materials": {
+    "version": "1.0.0",
+    "entity_multitexture_multiplicative_custom_overlay:entity": {
+      "+states": [ "DisableCulling" ],
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureWrap": "Clamp"
+        },
+        {
+          "samplerIndex": 1,
+          "textureWrap": "Clamp"
+        }
+      ],
+      "+defines": [
+        "ALPHA_TEST",
+        "USE_OVERLAY",
+        "MULTIPLICATIVE_TINT"
+      ]
+    },
+    "custom_iron_golem:entity_multitexture_multiplicative_custom_overlay": {}
+  }
+}

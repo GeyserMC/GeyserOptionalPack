@@ -31,13 +31,13 @@
       },
       "scripts": {
         "initialize": [
-          "variable.armor_stand.pose_index = 0;",
-          "variable.armor_stand.hurt_time = 0;"
+          "v.armor_stand.pose_index = 0;",
+          "v.armor_stand.hurt_time = 0;"
         ],
         "animate": [
-          {"controller.pose": "!query.is_bribed"},
-          {"controller.wiggling": "!query.is_bribed"},
-          {"geyser_pose": "query.is_bribed"}
+          {"controller.pose": "!q.is_bribed"},
+          {"controller.wiggling": "!q.is_bribed"},
+          {"geyser_pose": "q.is_bribed"}
         ]
       },
       "geometry": {

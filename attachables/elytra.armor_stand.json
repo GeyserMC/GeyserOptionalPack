@@ -3,7 +3,7 @@
   "minecraft:attachable": {
     "description": {
       "identifier": "minecraft:elytra.armor_stand",
-      "item": { "minecraft:elytra": "query.owner_identifier == 'minecraft:armor_stand'" },
+      "item": { "minecraft:elytra": "q.owner_identifier == 'minecraft:armor_stand'" },
       "materials": {
         "default": "elytra",
         "enchanted": "elytra_glint"
@@ -24,7 +24,7 @@
         "swimming": "animation.elytra.swimming"
       },
       "scripts": {
-        "parent_setup": "variable.chest_layer_visible = 0.0;",
+        "parent_setup": "v.chest_layer_visible = 0.0;",
         "animate": [
           "default_controller"
         ]
