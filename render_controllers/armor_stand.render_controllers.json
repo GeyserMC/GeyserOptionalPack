@@ -5,9 +5,9 @@
       "geometry": "geometry.default",
       "part_visibility": [
         { "*": true },
-        { "geyser_leftarm": "!(query.is_angry)" },
-        { "geyser_rightarm": "!(query.is_angry)" },
-        { "geyser_baseplate": "!(query.is_admiring)" }
+        { "geyser_leftarm": "!(q.is_angry)" },
+        { "geyser_rightarm": "!(q.is_angry)" },
+        { "geyser_baseplate": "!(q.is_admiring)" }
       ],
       "materials": [ { "*": "Material.default" } ],
       "textures": [ "texture.default" ],

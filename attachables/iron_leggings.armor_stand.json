@@ -3,7 +3,7 @@
   "minecraft:attachable": {
     "description": {
       "identifier": "minecraft:iron_leggings.armor_stand",
-      "item": { "minecraft:iron_leggings": "query.owner_identifier == 'minecraft:armor_stand'" },
+      "item": { "minecraft:iron_leggings": "q.owner_identifier == 'minecraft:armor_stand'" },
       "materials": {
         "default": "armor",
         "enchanted": "armor_enchanted"
@@ -16,7 +16,7 @@
         "default": "geometry.armor_stand.armor.leggings"
       },
       "scripts": {
-        "parent_setup": "variable.leg_layer_visible = 0.0;"
+        "parent_setup": "v.leg_layer_visible = 0.0;"
       },
       "render_controllers": [ "controller.render.armor" ]
     }
