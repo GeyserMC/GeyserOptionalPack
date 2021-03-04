@@ -111,6 +111,6 @@ The glowing effect and the spectral arrow item and entities do not exist on Bedr
 
 ```json
 "textures": [
-    "query.is_bribed ? texture.spectral : texture.default"
+    "q.is_bribed ? texture.spectral : texture.default"
 ]
 ```
