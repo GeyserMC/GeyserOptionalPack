@@ -16,7 +16,7 @@
       "materials": [ { "*": "Material.default" } ],
       "textures": [
         "Texture.bottom_layer",
-        "Array.top[q.health > 99 ? 3 : math.floor(q.health / 25)]"
+        "Array.top[(q.health > 99 || !q.is_bribed) ? 3 : math.floor(q.health / 25)]"
       ]
     }
   }
