@@ -39,10 +39,54 @@ Above, `query.owner_identifier` returns the identifier of the entity to which th
 
 ### Iron golems
 
-Iron golems in Java edition experience "cracking" as health decreases. Cracking overlays a texture that contains cracks on the base iron golem texture.  This occurs in four ranges, in which health values of 100-76 experience no cracking, 75-51 experience low cracking, 50-26 experience medium cracking, and 25-1 experience high cracking. The material of most bedrock vanilla entities does not allow for type of texture overlay switching. However, the material of the tropical fish, "tropicalfish", allows for this manner of texture overlay switching. Using this material, a render controller can be utilized to select textures defined in the entity definition file from an array. A position in the texture array is then determined by the following Molang expression:
+#### Cracking
+
+Iron golems in Java edition experience "cracking" as health decreases. Cracking overlays a texture that contains cracks on the base iron golem texture.  This occurs in four ranges, in which health values of 100-76 experience no cracking, 75-51 experience low cracking, 50-26 experience medium cracking, and 25-1 experience high cracking. Using this material, a render controller can be utilized to select textures defined in the entity definition file from an array.
+
+#### Materials
+
+The material of most bedrock vanilla entities does not allow for type of texture overlay switching. However, the certain materials, such as the tropical fish, "tropicalfish", allow for this manner of texture overlay switching. Materials are defined in the materials folder, which is not included in Mojang's default assets, and thus must be extracted from the game assets. The tropical fish material is defined in entity.material as follows:
+
+```jsonc
+//material definitions take the form child:parent, so tropicalfish essentially inherits all its definitions from entity_multitexture_multiplicative_blend
+{"tropicalfish:entity_multitexture_multiplicative_blend": {}}
+```
+
+Looking at the fully defined entity_multitexture_multiplicative_blend material, the following is seen:
+
+```jsonc
+{
+    "entity_multitexture_multiplicative_blend:entity": {
+      "+states": [ "DisableCulling" ],
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureWrap": "Clamp"
+        },
+        {
+          "samplerIndex": 1,
+          "textureWrap": "Clamp"
+        }
+      ],
+      "+defines": [
+        "ALPHA_TEST",
+        "USE_COLOR_MASK",
+        "MULTIPLICATIVE_TINT",
+        "MULTIPLICATIVE_TINT_COLOR",
+        "USE_OVERLAY"
+      ]
+    }
+}
+```
+
+Unfortunately, the "USE_COLOR_MASK" and "MULTIPLICATIVE_TINT_COLOR" definitions rely on certain entity data being sent. Geyser does not send all of this data for every entity, as under vanilla conditions, it does not server a purpose. Though not confirmed, "COLOR" and "COLOR_2" are the likely culprits. For more information, refer to [EntityDaya.java](https://github.com/CloudburstMC/Protocol/blob/develop/bedrock/bedrock-common/src/main/java/com/nukkitx/protocol/bedrock/data/entity/EntityData.java) in the [CloudburstMC/Protcol](https://github.com/CloudburstMC/Protocol) repository. The lack of these data likely results in a null value being interpreted by the material, leading to a rendering with entirely black pixels. Luckily, the case of the iron golem does not require color tinting. Therefore, a new materical can be defined that lacks "USE_COLOR_MASK" and "MULTIPLICATIVE_TINT_COLOR". This was defined as "custom_iron_golem". This was parented by a newly defined material, "entity_multitexture_multiplicative_custom_overlay", which utilized the base "entity" material.
+
+#### Render controller
+
+In order to utilize multiple textures, a render controller containing a texture array was defined. A position in the texture array is then determined by the following Molang expression:
 
 ```c
-q.health > 99 ? 3 : math.floor(q.health / 25)
+(q.health > 99 || !q.is_bribed) ? 3 : math.floor(q.health / 25)
 ```
 
 The trinary operator ensures that even if `max_health`, defined at 100, is overflowed, the expression will never produce a value outside the range of 0-3. As all data is derived resource pack side, this addition requires no modification by the server (though `query.is_bribed` enables the feature). Currently, the textures provided by the array are blank due to copyright concerns. Eventually, some method of obtaining these assets will be added.
