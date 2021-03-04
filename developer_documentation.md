@@ -104,3 +104,13 @@ In Java Edition, when a shulker is invisible, their "box" will be invisible. In 
     { "base": "!(q.is_invisible && q.is_bribed)" }
 ]
 ```
+
+### Spectral arrow entities
+
+The glowing effect and the spectral arrow item and entities do not exist on Bedrock Edition. However, as the spectral arrow entity is just a retexture of a normal arrow, so by defining a new texture for the arrow entity and setting a query we can tell Bedrock to replace the texture in the render controller:
+
+```json
+"textures": [
+    "query.is_bribed ? texture.spectral : texture.default"
+]
+```
