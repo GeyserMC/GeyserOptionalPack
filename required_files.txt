@@ -1,4 +1,4 @@
-assets/minecraft/textures/entity/iron_golem/iron_golem_crackiness_high.png,textures/entity/iron_golem/
-assets/minecraft/textures/entity/iron_golem/iron_golem_crackiness_low.png,textures/entity/iron_golem/
-assets/minecraft/textures/entity/iron_golem/iron_golem_crackiness_medium.png,textures/entity/iron_golem/
-assets/minecraft/textures/entity/projectiles/spectral_arrow.png,textures/entity/arrow/
+assets/minecraft/textures/entity/iron_golem/iron_golem_crackiness_high.png textures/entity/iron_golem/
+assets/minecraft/textures/entity/iron_golem/iron_golem_crackiness_low.png textures/entity/iron_golem/
+assets/minecraft/textures/entity/iron_golem/iron_golem_crackiness_medium.png textures/entity/iron_golem/
+assets/minecraft/textures/entity/projectiles/spectral_arrow.png textures/entity/arrow/
