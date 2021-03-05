@@ -89,7 +89,7 @@ In order to utilize multiple textures, a render controller containing a texture 
 (q.health > 99 || !q.is_bribed) ? 3 : math.floor(q.health / 25)
 ```
 
-The trinary operator ensures that even if `max_health`, defined at 100, is overflowed, the expression will never produce a value outside the range of 0-3. As all data is derived resource pack side, this addition requires no modification by the server (though `query.is_bribed` enables the feature). Currently, the textures provided by the array are blank due to copyright concerns. Eventually, some method of obtaining these assets will be added.
+The trinary operator ensures that even if `max_health`, defined at 100, is overflowed, the expression will never produce a value outside the range of 0-3. As all data is derived resource pack side, this addition requires no modification by the server (though `query.is_bribed` enables the feature). The textures required for this to display can be retrieved during the build process.
 
 ### Shulkers
 
@@ -114,3 +114,5 @@ The glowing effect and the spectral arrow item and entities do not exist on Bedr
     "q.is_bribed ? texture.spectral : texture.default"
 ]
 ```
+
+The texture required for this to be displayed can be retrieved during the build process.
