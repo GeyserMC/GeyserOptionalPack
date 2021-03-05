@@ -10,3 +10,7 @@ Optional Bedrock resource pack to extend Geyser functionality
 - Shulker invisibility parity
 
 Currently is not in use yet. Stay tuned!
+
+### Legal
+
+This repository is not endorsed nor affiliated with Mojang, Minecraft, or Microsoft.
