@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage ('Build') {
             steps {
-                sh './copy_java_files_to_pack.sh'
+                sh 'bash copy_java_files_to_pack.sh'
                 sh 'zip GeyserOptionalPack.zip -r . -x ".*" Jenkinsfile required_files.txt copy_java_files_to_pack.sh'
             }
             post {
