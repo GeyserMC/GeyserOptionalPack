@@ -7,11 +7,11 @@ pipeline {
         stage ('Build') {
             steps {
                 sh 'bash copy_java_files_to_pack.sh'
-                sh 'zip GeyserOptionalPack.zip -r . -x ".*" Jenkinsfile required_files.txt copy_java_files_to_pack.sh'
+                sh 'zip GeyserOptionalPack.mcpack -r . -x ".*" Jenkinsfile required_files.txt copy_java_files_to_pack.sh'
             }
             post {
                 success {
-                    archiveArtifacts artifacts: 'GeyserOptionalPack.zip'
+                    archiveArtifacts artifacts: 'GeyserOptionalPack.mcpack'
                 }
             }
         }
