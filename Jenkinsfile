@@ -6,12 +6,8 @@ pipeline {
     stages {
         stage ('Build') {
             steps {
-                sh 'wget https://launcher.mojang.com/v1/objects/37fd3c903861eeff3bc24b71eed48f828b5269c8/client.jar'
-                sh 'unzip client.jar -d extracted/'
-                sh "while read p; do\nreadarray -d , -t filesToCopy<<< \"$p\"\nmkdir -p filesToCopy[1]\ncp filesToCopy[0] filesToCopy[1]\ndone <required_files.txt"
-                sh 'rm client.jar'
-                sh 'rm -r extracted'
-                sh 'zip GeyserOptionalPack.zip -r . -x ".*" Jenkinsfile'
+                sh './copy_java_files_to_pack.sh'
+                sh 'zip GeyserOptionalPack.zip -r . -x ".*" Jenkinsfile required_files.txt copy_java_files_to_pack.sh'
             }
             post {
                 success {
