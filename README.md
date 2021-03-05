@@ -8,6 +8,7 @@ Optional Bedrock resource pack to extend Geyser functionality
 - Armor stand poses
 - Iron golem cracked textures
 - Shulker invisibility parity
+- Spectral arrow texture
 
 Currently is not in use yet. Stay tuned!
 
