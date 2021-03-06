@@ -3,7 +3,7 @@
   "minecraft:client_entity": {
     "description": {
       "identifier": "minecraft:iron_golem",
-      "materials": { "default": "custom_iron_golem" },
+      "materials": { "default": "tropicalfish" },
       "textures": {
         "crackiness_none": "textures/entity/iron_golem/iron_golem_crackiness_none",
         "crackiness_low": "textures/entity/iron_golem/iron_golem_crackiness_low",
