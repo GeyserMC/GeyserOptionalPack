@@ -7,9 +7,9 @@
       * [Cracking](#Cracking)
       * [Materials](#Materials)
       * [Render controller](Render-controllers)
+   * [Killer bunnies](#Killer-bunnies)
    * [Shulkers](#Shulkers)
    * [Spectral arrow entities](#Spectral-arrow-entities)
-   * [Killer bunnies](#Killer-bunnies)
 <!--te-->
 
 ### Introduction
@@ -49,7 +49,7 @@ Bedrock armor is defined via attachables, which contain geometry that utilize th
 { "minecraft:chainmail_chestplate": "query.owner_identifier == 'minecraft:armor_stand'" }
 ```
 
-Above, `query.owner_identifier` returns the identifier of the entity to which the attachable is applied, and thus this attachble will only be applied when the owner identifier is `minecraft:armor_stand`.
+Above, `query.owner_identifier` returns the identifier of the entity to which the attachable is applied, and thus this attachable will only be applied when the owner identifier is `minecraft:armor_stand`.
 
 ### Iron golems
 
@@ -93,7 +93,7 @@ Looking at the fully defined entity_multitexture_multiplicative_blend material, 
 }
 ```
 
-Unfortunately, the "USE_COLOR_MASK" and "MULTIPLICATIVE_TINT_COLOR" definitions rely on certain entity data being sent. Geyser does not send all of this data for every entity, as under vanilla conditions, it does not server a purpose. For more information, refer to [EntityDaya.java](https://github.com/CloudburstMC/Protocol/blob/develop/bedrock/bedrock-common/src/main/java/com/nukkitx/protocol/bedrock/data/entity/EntityData.java) in the [CloudburstMC/Protcol](https://github.com/CloudburstMC/Protocol) repository. The lack of this data likely results in a null value being interpreted by the material, leading to a rendering with entirely black pixels. Originally, custom materials were defined that remomved the "USE_COLOR_MASK" and "MULTIPLICATIVE_TINT_COLOR" parameters. However, custom materials have been largely broken on Windows 10 devices by the introduction of Render Dragon, which seems to completely remove the ability to define or edit materials in a data-driven fashion. Therefore, Geyser was modified to send the entity component "COLOR_2". This allows for the use of the tropical fish material over Geyser. Due to Render Dragon, this pack will not be able to move ahead with features that require custom materials unless Render Dragon is changed to allow for modifcation of shaders and material assets.
+Unfortunately, the "USE_COLOR_MASK" and "MULTIPLICATIVE_TINT_COLOR" definitions rely on certain entity data being sent. Geyser does not send all of this data for every entity, as under vanilla conditions, it does not server a purpose. For more information, refer to [EntityData.java](https://github.com/CloudburstMC/Protocol/blob/develop/bedrock/bedrock-common/src/main/java/com/nukkitx/protocol/bedrock/data/entity/EntityData.java) in the [CloudburstMC/Protocol](https://github.com/CloudburstMC/Protocol) repository. The lack of this data likely results in a null value being interpreted by the material, leading to a rendering with entirely black pixels. Originally, custom materials were defined that removed the "USE_COLOR_MASK" and "MULTIPLICATIVE_TINT_COLOR" parameters. However, custom materials have been largely broken on Windows 10 devices by the introduction of Render Dragon, which seems to completely remove the ability to define or edit materials in a data-driven fashion. Therefore, Geyser was modified to send the entity component "COLOR_2". This allows for the use of the tropical fish material over Geyser. Due to Render Dragon, this pack will not be able to move ahead with features that require custom materials unless Render Dragon is changed to allow for modification of shaders and material assets.
 
 #### Render controller
 
@@ -106,6 +106,18 @@ In order to utilize multiple textures, a render controller containing a texture 
 ```
 
 The trinary operator ensures that even if `max_health`, defined at 100, is overflowed, the expression will never produce a value outside the range of 0-3. As all data is derived resource pack side, this addition requires no modification by the server (though `query.is_bribed` enables the feature). The textures required for this to display can be retrieved during the build process.
+
+### Killer bunnies
+
+The killer bunny does not exist in Bedrock Edition. Nonetheless, this is primarily a simple texture swap. The "caerbannog" texture is the name of the texture in Java Edition, so that name has been used for consistency. This texture is added to the pack and the rabbit entity definition file. In order to construct the Molang query, the "Toast" rabbit must also be considered. In the event a rabbit is named "Toast", the texture is always overridden as the texture "Toast", including in the case of the killer bunny. Therefore, the query to select the texture is constructed as follows, with `q.is_bribed` being determined by Geyser:
+
+```json
+"textures": [
+    "q.get_name == 'Toast' ? Texture.toast : (q.is_bribed ? Texture.caerbannog : Array.skins[q.variant])"
+]
+```
+
+The texture required for this to be displayed can be retrieved during the build process.
 
 ### Shulkers
 
@@ -128,18 +140,6 @@ The glowing effect and the spectral arrow item and entities do not exist on Bedr
 ```json
 "textures": [
     "q.is_bribed ? texture.spectral : texture.default"
-]
-```
-
-The texture required for this to be displayed can be retrieved during the build process.
-
-### Killer bunnies
-
-The killer bunny does not exist in Bedrock Edition. Nonetheless, this is primarily a simple texture swap. The "caerbannog" texture is the name of the texture in Java Edition, so that name has been used for consistency. This texture is added to the pack and the rabbit entity definition file. In order to construct the Molang query, the "Toast" rabbit must also be considered. In the event a rabbit is named "Toast", the texture is always overridden as the texture "Toast", including in the case of the killer bunny. Therefore, the query to select the texture is constructed as follows, with `q.is_bribed` being determined by Geyser:
-
-```json
-"textures": [
-    "q.get_name == 'Toast' ? Texture.toast : (q.is_bribed ? Texture.caerbannog : Array.skins[q.variant])"
 ]
 ```
 
