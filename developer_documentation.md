@@ -1,3 +1,17 @@
+<!--ts-->
+   * [Introduction](#Introduction)
+   * [Armor stands](#Armor-stands)
+      * [Part visibility and rotation encoding](#Part-visibility-and-rotation-encoding)
+      * [Geometry and attachables](#Geometry-and-attachables)
+   * [Iron golems](#Iron-golems)
+      * [Cracking](#Cracking)
+      * [Materials](#Materials)
+      * [Render controller](Render-controllers)
+   * [Shulkers](#Shulkers)
+   * [Spectral arrow entities](#Spectral-arrow-entities)
+   * [Killer bunnies](#Killer-bunnies)
+<!--te-->
+
 ### Introduction
 
 Entity data and entity flags (known as queries in Molang) are pieces of metadata that store various pieces of information about an entity on the Bedrock Edition of Minecraft. You have a query for an entity's health, for example (a number query, or an entity data), and you have a query for is an entity is angry (an entity flag, which is either 1.0 or 0.0 in Molang). Not all entities use every query, but every entity has access to most queries, though Bedrock by default ignores these. We use this to our advantage in this resource pack.
@@ -85,8 +99,10 @@ Unfortunately, the "USE_COLOR_MASK" and "MULTIPLICATIVE_TINT_COLOR" definitions 
 
 In order to utilize multiple textures, a render controller containing a texture array was defined. A position in the texture array is then determined by the following Molang expression:
 
-```c
-(q.health > 99 || !q.is_bribed) ? 3 : math.floor(q.health / 25)
+```json
+"textures": [
+    "(q.health > 99 || !q.is_bribed) ? 3 : math.floor(q.health / 25)"
+    ]
 ```
 
 The trinary operator ensures that even if `max_health`, defined at 100, is overflowed, the expression will never produce a value outside the range of 0-3. As all data is derived resource pack side, this addition requires no modification by the server (though `query.is_bribed` enables the feature). The textures required for this to display can be retrieved during the build process.
@@ -112,6 +128,18 @@ The glowing effect and the spectral arrow item and entities do not exist on Bedr
 ```json
 "textures": [
     "q.is_bribed ? texture.spectral : texture.default"
+]
+```
+
+The texture required for this to be displayed can be retrieved during the build process.
+
+### Killer bunnies
+
+The killer bunny does not exist in Bedrock Edition. Nonetheless, this is primarily a simple texture swap. The "caerbannog" texture is the name of the texture in Java Edition, so that name has been used for consistency. This texture is added to the pack and the rabbit entity definition file. In order to construct the Molang query, the "Toast" rabbit must also be considered. In the event a rabbit is named "Toast", the texture is always overridden as the texture "Toast", including in the case of the killer bunny. Therefore, the query to select the texture is constructed as follows, with `q.is_bribed` being determined by Geyser:
+
+```json
+"textures": [
+    "q.get_name == 'Toast' ? Texture.toast : (q.is_bribed ? Texture.caerbannog : Array.skins[q.variant])"
 ]
 ```
 
