@@ -4,7 +4,7 @@
         "description": "Geyser Vanilla Assets",
         "name": "Geyser Vanilla Assets",
         "uuid": "5d8f8e98-7a2a-11eb-9439-0242ac130002",
-        "version": [1, 0, 72],
+        "version": [1, 0, 73],
         "min_engine_version": [ 1, 16, 0 ]
     },
     "modules": [
@@ -12,7 +12,7 @@
             "description": "Geyser Vanilla Assets",
             "type": "resources",
             "uuid": "72e9b0ca-7a2a-11eb-9439-0242ac130002",
-            "version": [1, 0, 72]
+            "version": [1, 0, 73]
         }
     ]
 }
