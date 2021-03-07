@@ -21,7 +21,7 @@
         }
       ],
       "textures": [
-        "q.get_name == 'Toast' ? Texture.toast : (q.is_bribed ? 'Texture.caerbannog' : Array.skins[q.variant])"
+        "q.get_name == 'Toast' ? Texture.toast : (q.is_bribed ? Texture.caerbannog : Array.skins[q.variant])"
       ]
     }
   }
