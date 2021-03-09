@@ -4,3 +4,5 @@ assets/minecraft/textures/entity/iron_golem/iron_golem_crackiness_medium.png tex
 assets/minecraft/textures/entity/projectiles/spectral_arrow.png textures/entity/arrow/
 assets/minecraft/textures/entity/rabbit/caerbannog.png textures/entity/rabbit/
 assets/minecraft/textures/particle/damage.png textures/particle/
+assets/minecraft/textures/particle/flash.png textures/particle/
+assets/minecraft/textures/particle/nautilus.png textures/particle/
