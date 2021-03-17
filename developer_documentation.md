@@ -14,7 +14,7 @@
 
 ### Introduction
 
-Entity data and entity flags (known as queries in Molang) are pieces of metadata that store various pieces of information about an entity on the Bedrock Edition of Minecraft. You have a query for an entity's health, for example (a number query, or an entity data), and you have a query for is an entity is angry (an entity flag, which is either 1.0 or 0.0 in Molang). Not all entities use every query, but every entity has access to most queries, though Bedrock by default ignores these. We use this to our advantage in this resource pack.
+Entity data and entity flags (known as queries in Molang) are pieces of metadata that store various pieces of information about an entity on the Bedrock Edition of Minecraft. You have a query for an entity's health, for example (a number query or an entity data), and you have a query for is an entity is angry (an entity flag, which is either 1.0 or 0.0 in Molang). Not all entities use every query, but every entity has access to most queries, though Bedrock by default ignores these. We use this to our advantage in this resource pack.
 
 ### Armor stands
 
@@ -55,7 +55,7 @@ Above, `query.owner_identifier` returns the identifier of the entity to which th
 
 #### Cracking
 
-Iron golems in Java edition experience "cracking" as health decreases. Cracking overlays a texture that contains cracks on the base iron golem texture.  This occurs in four ranges, in which health values of 100-76 experience no cracking, 75-51 experience low cracking, 50-26 experience medium cracking, and 25-1 experience high cracking. Using this material, a render controller can be utilized to select textures defined in the entity definition file from an array.
+Iron golems in Java edition, experience "cracking" as their health decreases. Cracking overlays a texture that contains cracks on the base iron golem texture.  This occurs in four ranges, in which health values of 100-76 experience no cracking, 75-51 experience low cracking, 50-26 experience medium cracking, and 25-1 experience high cracking. Using this material, a render controller can be utilized to select textures defined in the entity definition file from an array.
 
 #### Materials
 
@@ -93,7 +93,7 @@ Looking at the fully defined entity_multitexture_multiplicative_blend material, 
 }
 ```
 
-Unfortunately, the "USE_COLOR_MASK" and "MULTIPLICATIVE_TINT_COLOR" definitions rely on certain entity data being sent. Geyser does not send all of this data for every entity, as under vanilla conditions, it does not server a purpose. For more information, refer to [EntityData.java](https://github.com/CloudburstMC/Protocol/blob/develop/bedrock/bedrock-common/src/main/java/com/nukkitx/protocol/bedrock/data/entity/EntityData.java) in the [CloudburstMC/Protocol](https://github.com/CloudburstMC/Protocol) repository. The lack of this data likely results in a null value being interpreted by the material, leading to a rendering with entirely black pixels. Originally, custom materials were defined that removed the "USE_COLOR_MASK" and "MULTIPLICATIVE_TINT_COLOR" parameters. However, custom materials have been largely broken on Windows 10 devices by the introduction of Render Dragon, which seems to completely remove the ability to define or edit materials in a data-driven fashion. Therefore, Geyser was modified to send the entity component "COLOR_2". This allows for the use of the tropical fish material over Geyser. Due to Render Dragon, this pack will not be able to move ahead with features that require custom materials unless Render Dragon is changed to allow for modification of shaders and material assets.
+Unfortunately, the "USE_COLOR_MASK" and "MULTIPLICATIVE_TINT_COLOR" definitions rely on certain entity data being sent. Geyser does not send all of this data for every entity, as under vanilla conditions, it does not serve any purpose. For more information, refer to [EntityData.java](https://github.com/CloudburstMC/Protocol/blob/develop/bedrock/bedrock-common/src/main/java/com/nukkitx/protocol/bedrock/data/entity/EntityData.java) in the [CloudburstMC/Protocol](https://github.com/CloudburstMC/Protocol) repository. The lack of this data likely results in a null value being interpreted by the material, leading to a rendering with entirely black pixels. Originally, custom materials were defined that removed the "USE_COLOR_MASK" and "MULTIPLICATIVE_TINT_COLOR" parameters. However, custom materials have been largely broken on Windows 10 devices by the introduction of Render Dragon, which seems to completely remove the ability to define or edit materials in a data-driven fashion. Therefore, Geyser was modified to send the entity component "COLOR_2". This allows for the use of the tropical fish material over Geyser. Due to Render Dragon, this pack will not be able to move ahead with features that require custom materials unless Render Dragon is changed to allow for modification of shaders and material assets.
 
 #### Render controller
 
@@ -109,7 +109,7 @@ The trinary operator ensures that even if `max_health`, defined at 100, is overf
 
 ### Killer bunnies
 
-The killer bunny does not exist in Bedrock Edition. Nonetheless, this is primarily a simple texture swap. The "caerbannog" texture is the name of the texture in Java Edition, so that name has been used for consistency. This texture is added to the pack and the rabbit entity definition file. In order to construct the Molang query, the "Toast" rabbit must also be considered. In the event a rabbit is named "Toast", the texture is always overridden as the texture "Toast", including in the case of the killer bunny. Therefore, the query to select the texture is constructed as follows, with `q.is_bribed` being determined by Geyser:
+The killer bunny does not exist in Bedrock Edition. Nonetheless, this is primarily a simple texture swap. The "caerbannog" texture is the name of the texture in Java Edition, so that name has been used for consistency. This texture is added to the pack and the rabbit entity definition file. In order to construct the Molang query, the "Toast" rabbit must also be considered. In the event a rabbit is named "Toast", the texture is always overridden as the texture "Toast", including in the case of the killer bunny. Therefore, the query to select the texture is constructed with `q.is_bribed` being determined by Geyser:
 
 ```json
 "textures": [
@@ -135,7 +135,7 @@ In Java Edition, when a shulker is invisible, their "box" will be invisible. In 
 
 ### Spectral arrow entities
 
-The glowing effect and the spectral arrow item and entities do not exist on Bedrock Edition. However, as the spectral arrow entity is just a retexture of a normal arrow, so by defining a new texture for the arrow entity and setting a query we can tell Bedrock to replace the texture in the render controller:
+The glowing effect and the spectral arrow item and entities do not exist on Bedrock Edition. However, as the spectral arrow entity is just a retexture of a normal arrow, so by defining a new texture for the arrow entity and setting a query, we can tell Bedrock to replace the texture in the render controller:
 
 ```json
 "textures": [
