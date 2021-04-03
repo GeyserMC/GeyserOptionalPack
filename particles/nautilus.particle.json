@@ -31,10 +31,10 @@
 				"size": ["v.size", "v.size"],
 				"facing_camera_mode": "rotate_xyz",
 				"uv": {
-					"texture_width": 16,
-					"texture_height": 16,
+					"texture_width": 8,
+					"texture_height": 8,
 					"uv": [0, 0],
-					"uv_size": ["nautilus", "nautilus"]
+					"uv_size": [8, 8]
 				}
 			}
 		}
