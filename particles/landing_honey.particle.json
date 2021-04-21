@@ -21,7 +21,7 @@
 			},
 			"minecraft:particle_initial_speed": 0.2,
 			"minecraft:particle_motion_dynamic": {
-				"linear_acceleration": [0, -6, 0],
+				"linear_acceleration": [0, -12, 0],
 				"linear_drag_coefficient": 2
 			},
 			"minecraft:particle_appearance_billboard": {

@@ -9,9 +9,6 @@
 			}
 		},
 		"components": {
-			"minecraft:emitter_initialization": {
-				"creation_expression": "v.random = math.random(0, 1);"
-			},
 			"minecraft:emitter_rate_instant": {
 				"num_particles": 1
 			},
@@ -39,13 +36,7 @@
 			},
 			"minecraft:particle_appearance_lighting": {},
 			"minecraft:particle_appearance_tinting": {
-				"color": {
-					"interpolant": "v.random",
-					"gradient": {
-						"0.0": "#ffffffff",
-						"1.0": "#ff000000"
-					}
-				}
+				"color": [0.09804, 0.09804, 0.29804, 1]
 			}
 		}
 	}
