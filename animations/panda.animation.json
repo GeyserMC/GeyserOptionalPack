@@ -1,0 +1,30 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.panda.sneezing": {
+			"loop": true,
+			"animation_length": 2,
+			"bones": {
+				"head": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.16": [-7.5, 0, 0],
+						"0.44": [-22.5, 0, 0],
+						"0.52": [-22.5, 0, 0],
+						"0.6": [15, 0, 0],
+						"0.64": [0, 0, 0]
+					}
+				}
+			},
+			"particle_effects": {
+				"0.52": {
+					"effect": "sneeze",
+					"locator": "particle"
+				}
+			},
+			"timeline": {
+				"1.96": "v.geyser_sneezing = 0;"
+			}
+		}
+	}
+}
