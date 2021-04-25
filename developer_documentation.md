@@ -129,6 +129,8 @@ Currently, the optional pack uses a render controller to perform a simple textur
 
 The position used in the array for the texture is then defined by `Array.skins[q.is_bribed]`.
 
+The geometry of the evoker was also slightly modified to include the hat of the illusioner. Since Bedrock edition uses the textures of Java edition for all illagers, and the evoker has an unused hat on its Java edition texture, the render controller is also utilized to hide the the render controller is set to hide the helmet layer unless `q.is_bribed` is true. 
+
 ### Killer bunnies
 
 The killer bunny does not exist in Bedrock Edition. Nonetheless, this is primarily a simple texture swap. The "caerbannog" texture is the name of the texture in Java Edition, so that name has been used for consistency. This texture is added to the pack and the rabbit entity definition file. In order to construct the Molang query, the "Toast" rabbit must also be considered. In the event a rabbit is named "Toast", the texture is always overridden as the texture "Toast", including in the case of the killer bunny. Therefore, the query to select the texture is constructed with `q.is_bribed` being determined by Geyser:
