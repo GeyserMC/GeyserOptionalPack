@@ -161,7 +161,7 @@ The pack replaces many particles that are not displayed for various reasons. Som
 |     `landing_honey`     |            -            |        `landing_honey`       |                              Not present in Bedrock Edition                              |
 |      `landing_lava`     |            -            |        `landing_lava`        |                              Not present in Bedrock Edition                              |
 | `landing_obsidian_tear` |            -            |    `landing_obsidian_tear`   |                              Not present in Bedrock Edition                              |
-|        `nautilus`       |    `conduit_particle`   |          `nautilus`          |                              Not present in Bedrock Edition                              |
+|        `nautilus`       |            -            |          `nautilus`          |                              Not present in Bedrock Edition                              |
 |         `sneeze`        |            -            |           `sneeze`           |  Part of Bedrock Edition as a variant of redstone dust (local use only in optional pack) |
 |       `underwater`      |            -            |         `underwater`         |                              Not present in Bedrock Edition                              |
 |      `warped_spore`     |            -            |        `warped_spore`        |                              Not present in Bedrock Edition                              |
