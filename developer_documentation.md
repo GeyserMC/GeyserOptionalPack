@@ -8,6 +8,7 @@
       * [Materials](#Materials)
       * [Render controller](Render-controllers)
    * [Killer bunnies](#Killer-bunnies)
+   * [Particles](#Particles)
    * [Shulkers](#Shulkers)
    * [Spectral arrow entities](#Spectral-arrow-entities)
 <!--te-->
@@ -118,6 +119,31 @@ The killer bunny does not exist in Bedrock Edition. Nonetheless, this is primari
 ```
 
 The texture required for this to be displayed can be retrieved during the build process.
+
+### Particles
+
+The pack replaces many particles that are not displayed for various reasons. Some cannot be displayed due to Bedrock's lack of ability to spawn particles with data from required builtin variables. Others simply do not exist in Bedrock edition. The table below summarizes the particle changes implemented by this pack.
+
+|   Java (`minecraft:`)   |  Bedrock (`minecraft:`) | Optional Pack (`geyseropt:`) |                                           Notes                                          |
+|:-----------------------:|:-----------------------:|:----------------------------:|:----------------------------------------------------------------------------------------:|
+|          `ash`          |            -            |             `ash`            |                              Not present in Bedrock Edition                              |
+|        `barrier`        |            -            |           `barrier`          |                     Present in Bedrock Edition, but not as a particle                    |
+|       `bubble_pop`      |            -            |         `bubble_pop`         |                              Not present in Bedrock Edition                              |
+|         `bubble`        |  `basic_bubble_manual`  |               -              | Modified version of the basic_bubble_manual particle is used to spawn in all block types |
+|     `crimson_spore`     |            -            |        `crimson_spore`       |                              Not present in Bedrock Edition                              |
+|    `damage_indicator`   |            -            |      `damage_indicator`      |                              Not present in Bedrock Edition                              |
+|        `dolphin`        | `dolphin_move_particle` |           `dolphin`          |    Present in Bedrock Edition, but cannot be spawned normally due to builtin variables   |
+|     `enchanted_hit`     |            -            |    `enchanted_hit_single`    |                              Not present in Bedrock Edition                              |
+|            -            |            -            |   `enchanted_hit_multiple`   |                  Used for playing multiple scattered particles on attack                 |
+|         `flash`         |            -            |            `flash`           |                              Not present in Bedrock Edition                              |
+|     `landing_honey`     |            -            |        `landing_honey`       |                              Not present in Bedrock Edition                              |
+|      `landing_lava`     |            -            |        `landing_lava`        |                              Not present in Bedrock Edition                              |
+| `landing_obsidian_tear` |            -            |    `landing_obsidian_tear`   |                              Not present in Bedrock Edition                              |
+|        `nautilus`       |    `conduit_particle`   |          `nautilus`          |    Present in Bedrock Edition, but cannot be spawned normally due to builtin variables   |
+|         `sneeze`        |            -            |           `sneeze`           |               Implemented in Bedrock Edition as a variant of redstone dust               |
+|       `underwater`      |            -            |         `underwater`         |                              Not present in Bedrock Edition                              |
+|      `warped_spore`     |            -            |        `warped_spore`        |                              Not present in Bedrock Edition                              |
+|       `white_ash`       |            -            |          `white_ash`         |                              Not present in Bedrock Edition                              |
 
 ### Shulkers
 
