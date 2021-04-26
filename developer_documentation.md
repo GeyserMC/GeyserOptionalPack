@@ -128,19 +128,17 @@ The pack replaces many particles that are not displayed for various reasons. Som
 |:-----------------------:|:-----------------------:|:----------------------------:|:----------------------------------------------------------------------------------------:|
 |          `ash`          |            -            |             `ash`            |                              Not present in Bedrock Edition                              |
 |        `barrier`        |            -            |           `barrier`          |                     Present in Bedrock Edition, but not as a particle                    |
-|       `bubble_pop`      |            -            |         `bubble_pop`         |                              Not present in Bedrock Edition                              |
 |         `bubble`        |  `basic_bubble_manual`  |               -              | Modified version of the basic_bubble_manual particle is used to spawn in all block types |
 |     `crimson_spore`     |            -            |        `crimson_spore`       |                              Not present in Bedrock Edition                              |
 |    `damage_indicator`   |            -            |      `damage_indicator`      |                              Not present in Bedrock Edition                              |
-|        `dolphin`        | `dolphin_move_particle` |           `dolphin`          |    Present in Bedrock Edition, but cannot be spawned normally due to builtin variables   |
 |     `enchanted_hit`     |            -            |    `enchanted_hit_single`    |                              Not present in Bedrock Edition                              |
 |            -            |            -            |   `enchanted_hit_multiple`   |                  Used for playing multiple scattered particles on attack                 |
 |         `flash`         |            -            |            `flash`           |                              Not present in Bedrock Edition                              |
 |     `landing_honey`     |            -            |        `landing_honey`       |                              Not present in Bedrock Edition                              |
 |      `landing_lava`     |            -            |        `landing_lava`        |                              Not present in Bedrock Edition                              |
 | `landing_obsidian_tear` |            -            |    `landing_obsidian_tear`   |                              Not present in Bedrock Edition                              |
-|        `nautilus`       |    `conduit_particle`   |          `nautilus`          |    Present in Bedrock Edition, but cannot be spawned normally due to builtin variables   |
-|         `sneeze`        |            -            |           `sneeze`           |               Implemented in Bedrock Edition as a variant of redstone dust               |
+|        `nautilus`       |    `conduit_particle`   |          `nautilus`          |                              Not present in Bedrock Edition                              |
+|         `sneeze`        |            -            |           `sneeze`           |  Part of Bedrock Edition as a variant of redstone dust (local use only in optional pack) |
 |       `underwater`      |            -            |         `underwater`         |                              Not present in Bedrock Edition                              |
 |      `warped_spore`     |            -            |        `warped_spore`        |                              Not present in Bedrock Edition                              |
 |       `white_ash`       |            -            |          `white_ash`         |                              Not present in Bedrock Edition                              |
