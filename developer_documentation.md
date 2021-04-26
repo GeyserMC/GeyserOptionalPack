@@ -3,6 +3,7 @@
    * [Armor stands](#Armor-stands)
       * [Part visibility and rotation encoding](#Part-visibility-and-rotation-encoding)
       * [Geometry and attachables](#Geometry-and-attachables)
+   * [Illusioners](#Illusioners)
    * [Iron golems](#Iron-golems)
       * [Cracking](#Cracking)
       * [Materials](#Materials)
@@ -106,6 +107,29 @@ In order to utilize multiple textures, a render controller containing a texture 
 ```
 
 The trinary operator ensures that even if `max_health`, defined at 100, is overflowed, the expression will never produce a value outside the range of 0-3. As all data is derived resource pack side, this addition requires no modification by the server (though `query.is_bribed` enables the feature). The textures required for this to display can be retrieved during the build process.
+
+### Illusioners
+
+The illusioner does not exist in Bedrock Edition. Full implementation, however, would require more than a simple texture swap. This is due to the illusioner's special attack, which creates four duplicate false illusioners, which lack a hit box. The actual illusioner remains invisible during this attack. Implementing this would likely be possible from a technical perspective, but it would require either some kind of helper entity attached to the illusioner by Geyser, such as an invisible armor stand, or the removal of invisibility during the illusioner's special attack. The former would be preferable, as it would maintain some degree of functionality for users without the pack.
+
+Currently, the optional pack uses a render controller to perform a simple texture swap on the illusioner. This is accomplished by replacing the evocation illager with the illusioner when the evocation illager returns true for the Molang query `q.is_bribed`. The following texture array is defined in the render controller:
+
+```json
+{
+  "arrays": {
+    "textures": {
+      "Array.skins": [
+        "Texture.default",
+        "Texture.illusioner"
+      ]
+    }
+  }
+}
+```
+
+The position used in the array for the texture is then defined by `Array.skins[q.is_bribed]`.
+
+The geometry of the evoker was also slightly modified to include the hat of the illusioner. Since Bedrock edition uses the textures of Java edition for all illagers, and the evoker has an unused hat on its Java edition texture, the render controller is also utilized to hide the the render controller is set to hide the helmet layer unless `q.is_bribed` is true. 
 
 ### Killer bunnies
 
