@@ -23,7 +23,7 @@ rm -r extracted
 IFS=$'\n'
 
 # One-line our JSON files unless the script is called with -njc (./copy_java_files_to_pack.sh -njc)
-if [[ ${1} != "-njc" ]]
+if [[ ${1} == "-jc" ]]
 then
   for i in $(find . -type f -name "*.json")
   do
