@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage ('Build') {
             steps {
-                sh 'bash prepare_pack.sh -jc'
+                sh 'bash prepare_pack.sh'
                 sh 'zip GeyserOptionalPack.mcpack -r . -x ".*" Jenkinsfile required_files.txt prepare_pack.sh'
             }
             post {
