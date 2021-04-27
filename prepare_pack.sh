@@ -22,7 +22,7 @@ rm -r extracted
 # Set our input field seperator back to new line
 IFS=$'\n'
 
-# One-line our JSON files if the script is called with -jc (./copy_java_files_to_pack.sh -jc)
+# One-line our JSON files if the script is called with -jc (./prepare_pack.sh -jc)
 if [[ ${1} == "-jc" ]]
 then
   for i in $(find . -type f -name "*.json")
