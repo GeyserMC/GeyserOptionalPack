@@ -1,6 +1,6 @@
 # GeyserOptionalPack
 
-Optional Bedrock resource pack to extend Geyser functionality
+Optional Bedrock resource pack to extend Geyser functionality. Learn more at [GeyserMC/GeyserOptionalPack](https://github.com/GeyserMC/GeyserOptionalPack).
 
 ### Implements
 
@@ -9,6 +9,7 @@ Optional Bedrock resource pack to extend Geyser functionality
 - Illusioners
 - Iron golem cracked textures
 - Missing particles
+- Offhand animations
 - Shulker invisibility parity
 - Spectral arrow entity texture
 
