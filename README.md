@@ -2,6 +2,8 @@
 
 Optional Bedrock resource pack to extend Geyser functionality. Learn more at [GeyserMC/GeyserOptionalPack](https://github.com/GeyserMC/GeyserOptionalPack).
 
+Download: https://ci.opencollab.dev/job/GeyserMC/job/GeyserOptionalPack/job/master/lastSuccessfulBuild/artifact/GeyserOptionalPack.mcpack
+
 ### Implements
 
 - Armor base arms/baseplate visibility
