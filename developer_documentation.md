@@ -9,7 +9,9 @@
       * [Materials](#Materials)
       * [Render controller](Render-controllers)
    * [Killer bunnies](#Killer-bunnies)
+   * [Offhand Animation](#Offhand animation)
    * [Particles](#Particles)
+      * [Sweep Attack](#Sweep-attack)
    * [Shulkers](#Shulkers)
    * [Spectral arrow entities](#Spectral-arrow-entities)
 <!--te-->
@@ -144,6 +146,10 @@ The killer bunny does not exist in Bedrock Edition. Nonetheless, this is primari
 
 The texture required for this to be displayed can be retrieved during the build process.
 
+### Offhand Animation
+
+Both Java Edition and Bedrock Edition have offhand support, though Bedrock is very limited in its support. This includes the offhand attack animation. However, Bedrock has support for both custom animations and triggering custom animations from the server using the [AnimateEntityPacket](https://wiki.vg/Bedrock_Protocol#Animate_Entity). Whenever the server indicates that a player entity has swung their offhand, Geyser will indicate that Bedrock should play the offhand animation.
+
 ### Particles
 
 The pack replaces many particles that are not displayed for various reasons. Some cannot be displayed due to Bedrock's lack of ability to spawn particles with data from required builtin variables. Others simply do not exist in Bedrock edition. The table below summarizes the particle changes implemented by this pack.
@@ -163,9 +169,36 @@ The pack replaces many particles that are not displayed for various reasons. Som
 | `landing_obsidian_tear` |            -            |    `landing_obsidian_tear`   |                              Not present in Bedrock Edition                              |
 |        `nautilus`       |            -            |          `nautilus`          |                              Not present in Bedrock Edition                              |
 |         `sneeze`        |            -            |           `sneeze`           |  Part of Bedrock Edition as a variant of redstone dust (local use only in optional pack) |
+|      `sweep_attack`     |            -            |        `sweep_attack`        |                              Not present in Bedrock Edition                              |
 |       `underwater`      |            -            |         `underwater`         |                              Not present in Bedrock Edition                              |
 |      `warped_spore`     |            -            |        `warped_spore`        |                              Not present in Bedrock Edition                              |
 |       `white_ash`       |            -            |          `white_ash`         |                              Not present in Bedrock Edition                              |
+
+#### Sweep attack
+
+Of note, the texture for the sweep attack particle is built on the CI using [Imagemagick](https://imagemagick.org/script/index.php). This creates what is effectively a sprite sheet, and then the UV of the particle is animated from the particle definition. The UV animation in the particle definition is defined as follows:
+
+```jsonc
+{
+  "uv": {
+		"texture_width": 32, // defines texture width for UV purposes
+		"texture_height": 256, // defines texture height for UV purpose
+		"flipbook": {
+			"base_UV": [0, 0], // notes the point on the UV map at which to start
+			"size_UV": [32, 32], // notes the size of the UV emanating from the [+X, +Y] direction of the base_UV point 
+			"step_UV": [0, 32], // defines the value by which the UV will be translated on each step, effectively our frame size
+			"max_frame": 8, // defines the number of frames in our sprite
+			"stretch_to_lifetime": true // defines the length of our UV animation as being equal to that of the particle's lifetime
+}
+```
+
+The Imagemagick command used to create the sprite on the CI is `convert`, which is the subset of Imagemagick that deals with image manipulation. The command is as follows:
+
+```sh
+convert -append extracted/assets/minecraft/textures/particle/sweep_*.png -define png:format=png8 textures/particle/sweep_attack.png
+```
+
+The `-append` flag is used to join the input images which match the defined globular expression (`.../sweep_*.png`). The image format is defined for safety as by default Imagemagick will attempt to change the color mode of the image to grayscale, which Minecraft will not interpret correctly. The image is then placed in the pack at the defined path.
 
 ### Shulkers
 
