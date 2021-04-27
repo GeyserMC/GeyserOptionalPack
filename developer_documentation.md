@@ -9,7 +9,7 @@
       * [Materials](#Materials)
       * [Render controller](Render-controllers)
    * [Killer bunnies](#Killer-bunnies)
-   * [Offhand Animation](#Offhand animation)
+   * [Offhand Animation](#Offhand-animation)
    * [Particles](#Particles)
       * [Sweep Attack](#Sweep-attack)
    * [Shulkers](#Shulkers)
