@@ -1,0 +1,19 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.player.attack.rotations.offhand": {
+			"animation_length": 0.4,
+			"bones": {
+				"body": {
+					"rotation": [0, "-Math.sin(360*Math.sqrt(q.anim_time*2.5)) * 5.0", 0]
+				},
+				"leftArm": {
+					"rotation": ["-(math.sin((1 - math.pow((1 - q.anim_time*2.5), 4)) * 180) * 1.2 + math.sin(q.anim_time*2.5 * 180)) * 30.0", "(math.sin((1 - math.pow((1 - q.anim_time*2.5), 4)) * 180) ? (-90.0 * math.sin((1 - math.pow((1 - q.anim_time*2.5), 4)) * 180)) + 30.0 : 0.0)", 0]
+				},
+				"rightArm": {
+					"rotation": ["-(math.sin((1 - math.pow((1 - q.anim_time*2.5), 4)) * 180) * 1.2 + math.sin(q.anim_time*2.5 * 180)) * 10.0", 0, 0]
+				}
+			}
+		}
+	}
+}

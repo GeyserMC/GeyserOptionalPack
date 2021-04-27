@@ -34,6 +34,10 @@
 					"uv_size": [3, 1]
 				}
 			},
+			"minecraft:particle_motion_collision": {
+				"collision_drag": 100,
+				"collision_radius": 0.1
+			},
 			"minecraft:particle_appearance_lighting": {},
 			"minecraft:particle_appearance_tinting": {
 				"color": [0.48627, 0.37647, 0, 1]
