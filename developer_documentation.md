@@ -12,6 +12,7 @@
    * [Offhand Animation](#Offhand-animation)
    * [Particles](#Particles)
       * [Sweep Attack](#Sweep-attack)
+   * [Player skin parts](#Player-skin-parts)
    * [Shulkers](#Shulkers)
    * [Spectral arrow entities](#Spectral-arrow-entities)
 <!--te-->
@@ -199,6 +200,18 @@ convert -append extracted/assets/minecraft/textures/particle/sweep_*.png -define
 ```
 
 The `-append` flag is used to join the input images which match the defined globular expression (`.../sweep_*.png`). The image format is defined for safety as by default Imagemagick will attempt to change the color mode of the image to grayscale, which Minecraft will not interpret correctly. The image is then placed in the pack at the defined path.
+
+### Player skin parts
+
+On Java Edition, you are able to toggle your cape and second skin layers. Bedrock Edition does not share this property. We're able to solve this by applying Java's player skin parts mask to the `q.mark_variant` query and checking the visibility with this formula in the player render controller and cape render controller:
+
+```
+math.mod(math.floor(q.mark_variant / 32), 2) != 1
+```
+
+Do note that Geyser does invert the bits - that way, on other servers without the GeyserOptionalPack, `q.mark_variant` being 0 means that all parts should be shown. Java interprets 0 to mean all parts are invisible.
+
+Also note that capes are technically possible to implement without the OptionalPack, but this requires re-sending the skin data to Bedrock Edition which would be costly on performance and network usage.
 
 ### Shulkers
 
