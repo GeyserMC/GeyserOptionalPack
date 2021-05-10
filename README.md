@@ -1,6 +1,6 @@
 # GeyserOptionalPack
 
-Optional Bedrock resource pack to extend Geyser functionality. Learn more at [GeyserMC/GeyserOptionalPack](https://github.com/GeyserMC/GeyserOptionalPack).
+Optional Bedrock resource pack to extend Geyser functionality. Learn more on its [wiki page](https://github.com/GeyserMC/Geyser/wiki/GeyserOptionalPack).
 
 Download: https://ci.opencollab.dev/job/GeyserMC/job/GeyserOptionalPack/job/master/lastSuccessfulBuild/artifact/GeyserOptionalPack.mcpack
 
