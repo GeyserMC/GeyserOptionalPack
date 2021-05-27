@@ -7,17 +7,3 @@ assets/minecraft/textures/particle/damage.png textures/particle/
 assets/minecraft/textures/particle/flash.png textures/particle/
 assets/minecraft/textures/particle/nautilus.png textures/particle/
 assets/minecraft/textures/entity/illager/illusioner.png textures/entity/illager/
-assets/minecraft/textures/entity/zombie_villager/profession/armorer.png textures/entity/zombie_villager2/professions
-assets/minecraft/textures/entity/zombie_villager/profession/butcher.png textures/entity/zombie_villager2/professions
-assets/minecraft/textures/entity/zombie_villager/profession/cartographer.png textures/entity/zombie_villager2/professions
-assets/minecraft/textures/entity/zombie_villager/profession/cleric.png textures/entity/zombie_villager2/professions
-assets/minecraft/textures/entity/zombie_villager/profession/farmer.png textures/entity/zombie_villager2/professions
-assets/minecraft/textures/entity/zombie_villager/profession/fisherman.png textures/entity/zombie_villager2/professions
-assets/minecraft/textures/entity/zombie_villager/profession/fletcher.png textures/entity/zombie_villager2/professions
-assets/minecraft/textures/entity/zombie_villager/profession/leatherworker.png textures/entity/zombie_villager2/professions
-assets/minecraft/textures/entity/zombie_villager/profession/librarian.png textures/entity/zombie_villager2/professions
-assets/minecraft/textures/entity/zombie_villager/profession/mason.png textures/entity/zombie_villager2/professions
-assets/minecraft/textures/entity/zombie_villager/profession/nitwit.png textures/entity/zombie_villager2/professions
-assets/minecraft/textures/entity/zombie_villager/profession/shepherd.png textures/entity/zombie_villager2/professions
-assets/minecraft/textures/entity/zombie_villager/profession/toolsmith.png textures/entity/zombie_villager2/professions
-assets/minecraft/textures/entity/zombie_villager/profession/weaponsmith.png textures/entity/zombie_villager2/professions
