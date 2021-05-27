@@ -13,6 +13,9 @@ while read -r p || [ -n "$p" ]; do
   cp "extracted/${filesToCopy[0]}" "${filesToCopy[1]}"
 done <required_files.txt
 
+# Rename mason.png
+mv textures/entity/zombie_villager2/professions/mason.png textures/entity/zombie_villager2/professions/stonemason.png
+
 # Create required sprites with Imagemagick
 convert -append extracted/assets/minecraft/textures/particle/sweep_*.png -define png:format=png8 textures/particle/sweep_attack.png
 
