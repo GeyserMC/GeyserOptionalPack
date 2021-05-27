@@ -29,7 +29,12 @@
         "tool_smith": "textures/entity/villager2/professions/toolsmith",
         "weapon_smith": "textures/entity/villager2/professions/weaponsmith",
         "stonemason": "textures/entity/villager2/professions/stonemason",
-        "nitwit": "textures/entity/villager2/professions/nitwit"
+        "nitwit": "textures/entity/villager2/professions/nitwit",
+        "level_stone": "textures/entity/villager2/levels/level_stone",
+        "level_iron": "textures/entity/villager2/levels/level_iron",
+        "level_gold": "textures/entity/villager2/levels/level_gold",
+        "level_emerald": "textures/entity/villager2/levels/level_emerald",
+        "level_diamond": "textures/entity/villager2/levels/level_diamond"
       },
       "geometry": {
         "default": "geometry.zombie.villager_v2"
@@ -38,7 +43,8 @@
         "pre_animation": [
           "v.num_professions = 14;",
           "v.profession_index = ((q.variant < v.num_professions) ? q.variant : 0);",
-          "v.tcos0 = (Math.cos(q.modified_distance_moved * 38.17) * q.modified_move_speed / v.gliding_speed_value) * 57.3;"
+          "v.tcos0 = (Math.cos(q.modified_distance_moved * 38.17) * q.modified_move_speed / v.gliding_speed_value) * 57.3;",
+          "v.level_index = (q.trade_tier);"
         ]
       },
       "animations": {
@@ -82,7 +88,8 @@
       ],
       "render_controllers": [
         "controller.render.zombie_villager_v2_base",
-        "controller.render.zombie_villager_v2_masked"
+        "controller.render.zombie_villager_v2_masked",
+        "controller.render.villager_v2_level"
       ],
       "enable_attachables": true,
       "spawn_egg": {
