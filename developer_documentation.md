@@ -15,6 +15,7 @@
    * [Player skin parts](#Player-skin-parts)
    * [Shulkers](#Shulkers)
    * [Spectral arrow entities](#Spectral-arrow-entities)
+   * [Zombie villager textures](#Zombie-villager-textures)
 <!--te-->
 
 ### Introduction
@@ -238,3 +239,7 @@ The glowing effect and the spectral arrow item and entities do not exist on Bedr
 ```
 
 The texture required for this to be displayed can be retrieved during the build process.
+
+### Zombie villager textures
+
+Like villagers, zombie villagers in Java Edition have visible biome and profession variants. It appears that initial implementation of this was started in the vanilla resources, given the presence of the entity with the identifier `minecraft:zombie_villager_v2`. However, the textures specified in this vanilla entity definition appear to be entirely blank TGA files. Luckily, the profession textures of zombie villagers and villagers are essentially identical, so the entity definition was updated to reference the villager profession textures. The remainder of the entity definition is unchanged.
