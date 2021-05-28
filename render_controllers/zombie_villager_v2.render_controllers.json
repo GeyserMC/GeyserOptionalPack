@@ -37,8 +37,8 @@
         { "*": "query.is_baby ? Material.default : Material.masked" }
       ],
       "textures": [
-        "Array.biomes[query.mark_variant]",
-        "Array.professions[variable.profession_index]"
+        "Array.biomes[q.mark_variant]",
+        "Array.professions[v.profession_index]"
       ]
     }
   }
