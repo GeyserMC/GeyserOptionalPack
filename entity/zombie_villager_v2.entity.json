@@ -30,6 +30,7 @@
         "weapon_smith": "textures/entity/villager2/professions/weaponsmith",
         "stonemason": "textures/entity/villager2/professions/stonemason",
         "nitwit": "textures/entity/villager2/professions/nitwit",
+        "unskilled": "textures/entity/zombie_villager2/professions/armorer",
         "level_stone": "textures/entity/villager2/levels/level_stone",
         "level_iron": "textures/entity/villager2/levels/level_iron",
         "level_gold": "textures/entity/villager2/levels/level_gold",
