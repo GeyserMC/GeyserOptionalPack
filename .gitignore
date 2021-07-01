@@ -1,14 +1,13 @@
 .idea/
 GeyserOptionalPack.mcpack
 # Java Edition textures that should not be submitted to Git
-textures/entity/iron_golem/iron_golem_crackiness_high.png
-textures/entity/iron_golem/iron_golem_crackiness_low.png
-textures/entity/iron_golem/iron_golem_crackiness_medium.png
-textures/entity/arrow/spectral_arrow.png
-textures/entity/rabbit/caerbannog.png
-textures/particle/damage.png
-textures/particle/flash.png
-textures/particle/nautilus.png
-textures/particle/bubble_pop.png
-textures/particle/sweep_attack.png
-textures/entity/illager/illusioner.png
+textures/geyser/entity/iron_golem/iron_golem_crackiness_high.png
+textures/geyser/entity/iron_golem/iron_golem_crackiness_low.png
+textures/geyser/entity/iron_golem/iron_golem_crackiness_medium.png
+textures/geyser/entity/arrow/spectral_arrow.png
+textures/geyser/entity/rabbit/caerbannog.png
+textures/geyser/particle/damage.png
+textures/geyser/particle/flash.png
+textures/geyser/particle/nautilus.png
+textures/geyser/particle/sweep_attack.png
+textures/geyser/entity/illager/illusioner.png
