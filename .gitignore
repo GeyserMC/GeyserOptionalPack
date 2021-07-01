@@ -1,5 +1,6 @@
 .idea/
 GeyserOptionalPack.mcpack
+GeyserOptionalPack.zip
 # Java Edition textures that should not be submitted to Git
 textures/geyser/entity/iron_golem/iron_golem_crackiness_high.png
 textures/geyser/entity/iron_golem/iron_golem_crackiness_low.png
