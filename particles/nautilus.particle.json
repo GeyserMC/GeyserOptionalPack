@@ -5,7 +5,7 @@
 			"identifier": "geyseropt:nautilus",
 			"basic_render_parameters": {
 				"material": "particles_alpha",
-				"texture": "textures/particle/nautilus"
+				"texture": "textures/geyser/particle/nautilus"
 			}
 		},
 		"components": {

@@ -5,10 +5,10 @@
       "identifier": "minecraft:iron_golem",
       "materials": { "default": "tropicalfish" },
       "textures": {
-        "crackiness_none": "textures/entity/iron_golem/iron_golem_crackiness_none",
-        "crackiness_low": "textures/entity/iron_golem/iron_golem_crackiness_low",
-        "crackiness_medium": "textures/entity/iron_golem/iron_golem_crackiness_medium",
-        "crackiness_high": "textures/entity/iron_golem/iron_golem_crackiness_high",
+        "crackiness_none": "textures/geyser/entity/iron_golem/iron_golem_crackiness_none",
+        "crackiness_low": "textures/geyser/entity/iron_golem/iron_golem_crackiness_low",
+        "crackiness_medium": "textures/geyser/entity/iron_golem/iron_golem_crackiness_medium",
+        "crackiness_high": "textures/geyser/entity/iron_golem/iron_golem_crackiness_high",
         "bottom_layer": "textures/entity/iron_golem"
       },
       "geometry": {

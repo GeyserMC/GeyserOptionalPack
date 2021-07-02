@@ -13,7 +13,7 @@
         "gold": "textures/entity/rabbit/gold",
         "salt": "textures/entity/rabbit/salt",
         "toast": "textures/entity/rabbit/toast",
-        "caerbannog": "textures/entity/rabbit/caerbannog"
+        "caerbannog": "textures/geyser/entity/rabbit/caerbannog"
       },
       "geometry": {
         "default": "geometry.rabbit.v1.8"

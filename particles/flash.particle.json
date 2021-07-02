@@ -5,7 +5,7 @@
 			"identifier": "geyseropt:flash",
 			"basic_render_parameters": {
 				"material": "particles_blend",
-				"texture": "textures/particle/flash"
+				"texture": "textures/geyser/particle/flash"
 			}
 		},
 		"components": {

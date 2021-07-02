@@ -5,7 +5,7 @@
 			"identifier": "geyseropt:sweep_attack",
 			"basic_render_parameters": {
 				"material": "particles_alpha",
-				"texture": "textures/particle/sweep_attack"
+				"texture": "textures/geyser/particle/sweep_attack"
 			}
 		},
 		"components": {
