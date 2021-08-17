@@ -8,7 +8,7 @@
       },
       "textures": {
         "default": "textures/entity/arrows",
-        "spectral": "textures/entity/arrow/spectral_arrow"
+        "spectral": "textures/geyser/entity/arrow/spectral_arrow"
       },
       "geometry": {
         "default": "geometry.arrow"

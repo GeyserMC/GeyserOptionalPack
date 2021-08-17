@@ -9,7 +9,7 @@
       },
       "textures": {
         "default": "textures/entity/illager/evoker",
-        "illusioner": "textures/entity/illager/illusioner"
+        "illusioner": "textures/geyser/entity/illager/illusioner"
       },
       "geometry": {
         "default": "geometry.evoker.v1.8"

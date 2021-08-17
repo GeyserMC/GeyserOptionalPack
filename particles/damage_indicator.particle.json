@@ -5,7 +5,7 @@
 			"identifier": "geyseropt:damage_indicator",
 			"basic_render_parameters": {
 				"material": "particles_alpha",
-				"texture": "textures/particle/damage"
+				"texture": "textures/geyser/particle/damage"
 			}
 		},
 		"components": {
