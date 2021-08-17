@@ -2,16 +2,16 @@
     "format_version": 2,
     "header": {
         "description": "Optional Bedrock resource pack to extend Geyser functionality",
-        "name": "GeyserOptionalPack",
-        "uuid": "e5f5c938-a701-11eb-b2a3-047d7bb283ba",
+        "name": "GeyserOptionalPack Faithful",
+        "uuid": "6e903f9f-46c2-4e1f-aa7c-9de24bf148a5",
         "version": [1, 0, 4],
         "min_engine_version": [ 1, 16, 0 ]
     },
     "modules": [
         {
-            "description": "GeyserOptionalPack",
+            "description": "GeyserOptionalPack Faithful",
             "type": "resources",
-            "uuid": "eebb4ea8-a701-11eb-95ba-047d7bb283ba",
+            "uuid": "060e5fbc-fb5c-45fe-b3a2-5a349c9bba53",
             "version": [1, 0, 4]
         }
     ]
