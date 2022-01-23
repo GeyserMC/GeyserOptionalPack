@@ -1,0 +1,40 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.armor_stand.geyser_pose": {
+			"loop": true,
+			"bones": {
+				"head": {
+					"rotation": ["(math.mod(math.floor(q.mark_variant / 10000), 100) + (math.mod(math.floor(q.mark_variant / 4000000), 2) * 100)) * (q.is_interested > 0 ? -1 : 1)",
+   "(math.mod(math.floor(q.mark_variant / 100), 100) + (math.mod(math.floor(q.mark_variant / 2000000), 2) * 100)) * (q.is_charged > 0 ? -1 : 1)",
+   "((math.mod(q.mark_variant, 100) + math.mod(math.floor(q.mark_variant / 1000000), 2) * 100)) * (q.is_powered > 0 ? -1 : 1)"]
+				},
+				"geyser_chest": {
+					"rotation": ["(math.mod(math.floor(q.variant / 10000), 100) + (math.mod(math.floor(q.variant / 4000000), 2) * 100)) * (q.is_in_love > 0 ? -1 : 1)",
+   "(math.mod(math.floor(q.variant / 100), 100) + (math.mod(math.floor(q.variant / 2000000), 2) * 100)) * (q.is_celebrating > 0 ? -1 : 1)",
+   "((math.mod(q.variant, 100) + math.mod(math.floor(q.variant / 1000000), 2) * 100)) * (q.is_celebrating_special > 0 ? -1 : 1)"]
+				},
+				"leftarm": {
+					"rotation": ["(math.mod(math.floor(q.trade_tier / 10000), 100) + (math.mod(math.floor(q.trade_tier / 4000000), 2) * 100)) * (q.is_charging > 0 ? -1 : 1)",
+   "(math.mod(math.floor(q.trade_tier / 100), 100) + (math.mod(math.floor(q.trade_tier / 2000000), 2) * 100)) * (q.is_critical > 0 ? -1 : 1)",
+   "((math.mod(q.trade_tier, 100) + math.mod(math.floor(q.trade_tier / 1000000), 2) * 100)) * (q.is_dancing > 0 ? -1 : 1)"]
+				},
+				"rightarm": {
+					"rotation": ["(math.mod(math.floor(q.max_trade_tier / 10000), 100) + (math.mod(math.floor(q.max_trade_tier / 4000000), 2) * 100)) * (q.is_elder > 0 ? -1 : 1)",
+   "(math.mod(math.floor(q.max_trade_tier / 100), 100) + (math.mod(math.floor(q.max_trade_tier / 2000000), 2) * 100)) * (q.is_emoting > 0 ? -1 : 1)",
+   "((math.mod(q.max_trade_tier, 100) + math.mod(math.floor(q.max_trade_tier / 1000000), 2) * 100)) * (q.is_idling > 0 ? -1 : 1)"]
+				},
+				"leftleg": {
+					"rotation": ["(math.mod(math.floor(q.skin_id / 10000), 100) + (math.mod(math.floor(q.skin_id / 4000000), 2) * 100)) * (q.is_illager_captain > 0 ? -1 : 1)",
+   "(math.mod(math.floor(q.skin_id / 100), 100) + (math.mod(math.floor(q.skin_id / 2000000), 2) * 100)) * (q.is_in_ui > 0 ? -1 : 1)",
+   "((math.mod(q.skin_id, 100) + math.mod(math.floor(q.skin_id / 1000000), 2) * 100)) * (q.is_lingering > 0 ? -1 : 1)"]
+				},
+				"rightleg": {
+					"rotation": ["(math.mod(math.floor(q.hurt_direction / 10000), 100) + (math.mod(math.floor(q.hurt_direction / 4000000), 2) * 100)) * (q.is_pregnant > 0 ? -1 : 1)",
+   "(math.mod(math.floor(q.hurt_direction / 100), 100) + (math.mod(math.floor(q.hurt_direction / 2000000), 2) * 100)) * (q.is_sheared > 0 ? -1 : 1)",
+   "((math.mod(q.hurt_direction, 100) + math.mod(math.floor(q.hurt_direction / 1000000), 2) * 100)) * (q.is_stalking > 0 ? -1 : 1)"]
+				}
+			}
+		}
+	}
+}
