@@ -27,7 +27,8 @@
         "wiggle": "animation.armor_stand.wiggle",
         "controller.pose": "controller.animation.armor_stand.pose",
         "controller.wiggling": "controller.animation.armor_stand.wiggle",
-        "geyser_pose": "animation.armor_stand.geyser_pose"
+        "geyser_pose": "animation.armor_stand.geyser_pose",
+        "geyser_scale": "animation.armor_stand.geyser_scale"
       },
       "scripts": {
         "initialize": [
@@ -37,7 +38,8 @@
         "animate": [
           {"controller.pose": "!q.is_bribed"},
           {"controller.wiggling": "!q.is_bribed"},
-          {"geyser_pose": "q.is_bribed"}
+          {"geyser_pose": "q.is_bribed"},
+          {"geyser_scale": "q.is_baby"}
         ]
       },
       "geometry": {
