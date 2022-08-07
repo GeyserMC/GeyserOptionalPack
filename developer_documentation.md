@@ -57,6 +57,8 @@ Bedrock armor is defined via attachables, which contain geometry that utilize th
 
 Above, `query.owner_identifier` returns the identifier of the entity to which the attachable is applied, and thus this attachable will only be applied when the owner identifier is `minecraft:armor_stand`.
 
+Geyser scales down small armor stands to 0.5. However, this has the unintended side effect of making the head slot appear smaller than it does on Java Edition. Consequently, the query `q.is_baby` is applied when an armor stand is small, which is then used to trigger an animation which upscales the head slot by 1.3984. This value was derrived from the [attached chart](https://cdn.discordapp.com/attachments/338267383904993291/417695114249371648/unknown.png) linked in the Blockbench Discord. Since large armor stand head slots have a scale of 0.625 to one block, downscaling by half gives a scale of 0.3125 to one block. The proper scale, per the chart, is 0.437. Thus, the slot must be upscaled by 1.3984 to compensate, which is derrived by dividing 0.437 by 0.3125.
+
 ### Iron golems
 
 #### Cracking
