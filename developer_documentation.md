@@ -57,7 +57,11 @@ Bedrock armor is defined via attachables, which contain geometry that utilize th
 
 Above, `query.owner_identifier` returns the identifier of the entity to which the attachable is applied, and thus this attachable will only be applied when the owner identifier is `minecraft:armor_stand`.
 
-Geyser scales down small armor stands to 0.5. However, this has the unintended side effect of making the head slot appear smaller than it does on Java Edition. Consequently, the query `q.is_baby` is applied when an armor stand is small, which is then used to trigger an animation which upscales the head slot by 1.3984. This value was derrived from the [attached chart](https://cdn.discordapp.com/attachments/338267383904993291/417695114249371648/unknown.png) linked in the Blockbench Discord. Since large armor stand head slots have a scale of 0.625 to one block, downscaling by half gives a scale of 0.3125 to one block. The proper scale, per the chart, is 0.437. Thus, the slot must be upscaled by 1.3984 to compensate, which is derrived by dividing 0.437 by 0.3125.
+Geyser scales down small armor stands to 0.5. However, this has the unintended side effect of making the head slot appear smaller than it does on Java Edition. Consequently, the query `q.is_baby` is applied when an armor stand is small, which is then used to trigger an animation which upscales the head slot by 1.3984. This value was derrived from the [attached chart](https://cdn.discordapp.com/attachments/338267383904993291/417695114249371648/unknown.png) linked in the Blockbench Discord. Since large armor stand head slots have a scale of 0.625 to one block, downscaling by half gives a scale of 0.3125 to one block. The proper scale, per the chart, is 0.437. Thus, the slot must be upscaled by 1.3984 to compensate, which is derrived by dividing 0.437 by 0.3125. Behavior pack scale is not spplied to heads, pumpkins, and banners, which do render in the head slot in vanilla Bedrock. Because the downscaling is not applied to these, a Molang expression is used to set the scale to use. When a head or carved pumpkin is placed in the head slot, the scaling is done at half of 1.3984 to account for the fact that the initial downscaling was never applied. Banner scaling for small armor stands cannot be fixed at this time due to their attachment occuring above the root bone of the model, as they must use the chestplate slot on Bedrock.
+
+```c
+v.head_scale = q.is_item_name_any('slot.armor.head', 0, 'minecraft:skull', 'minecraft:carved_pumpkin') ? 0.6992 : 1.3984;
+```
 
 ### Iron golems
 
