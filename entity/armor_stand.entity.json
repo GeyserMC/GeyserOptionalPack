@@ -27,17 +27,20 @@
         "wiggle": "animation.armor_stand.wiggle",
         "controller.pose": "controller.animation.armor_stand.pose",
         "controller.wiggling": "controller.animation.armor_stand.wiggle",
-        "geyser_pose": "animation.armor_stand.geyser_pose"
+        "geyser_pose": "animation.armor_stand.geyser_pose",
+        "geyser_scale": "animation.armor_stand.geyser_scale"
       },
       "scripts": {
         "initialize": [
           "v.armor_stand.pose_index = 0;",
-          "v.armor_stand.hurt_time = 0;"
+          "v.armor_stand.hurt_time = 0;",
+          "v.head_scale = q.is_item_name_any('slot.armor.head', 0, 'minecraft:skull', 'minecraft:carved_pumpkin') ? 0.6992 : 1.3984;"
         ],
         "animate": [
           {"controller.pose": "!q.is_bribed"},
           {"controller.wiggling": "!q.is_bribed"},
-          {"geyser_pose": "q.is_bribed"}
+          {"geyser_pose": "q.is_bribed"},
+          {"geyser_scale": "q.is_baby"}
         ]
       },
       "geometry": {

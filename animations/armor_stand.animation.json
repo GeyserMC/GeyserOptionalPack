@@ -35,6 +35,14 @@
    "((math.mod(q.hurt_direction, 100) + math.mod(math.floor(q.hurt_direction / 1000000), 2) * 100)) * (q.is_stalking > 0 ? -1 : 1)"]
 				}
 			}
+		},
+		"animation.armor_stand.geyser_scale": {
+			"loop": true,
+			"bones": {
+				"head":{
+					"scale": "v.head_scale"
+				}
+			}
 		}
 	}
 }
