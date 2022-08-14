@@ -1,6 +1,3 @@
-assets/minecraft/textures/entity/iron_golem/iron_golem_crackiness_high.png textures/geyser/entity/iron_golem/
-assets/minecraft/textures/entity/iron_golem/iron_golem_crackiness_low.png textures/geyser/entity/iron_golem/
-assets/minecraft/textures/entity/iron_golem/iron_golem_crackiness_medium.png textures/geyser/entity/iron_golem/
 assets/minecraft/textures/entity/projectiles/spectral_arrow.png textures/geyser/entity/arrow/
 assets/minecraft/textures/entity/rabbit/caerbannog.png textures/geyser/entity/rabbit/
 assets/minecraft/textures/particle/damage.png textures/geyser/particle/

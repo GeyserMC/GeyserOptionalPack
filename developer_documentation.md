@@ -4,10 +4,6 @@
       * [Part visibility and rotation encoding](#Part-visibility-and-rotation-encoding)
       * [Geometry and attachables](#Geometry-and-attachables)
    * [Illusioners](#Illusioners)
-   * [Iron golems](#Iron-golems)
-      * [Cracking](#Cracking)
-      * [Materials](#Materials)
-      * [Render controller](Render-controllers)
    * [Killer bunnies](#Killer-bunnies)
    * [Offhand Animation](#Offhand-animation)
    * [Particles](#Particles)
@@ -62,85 +58,6 @@ Geyser scales down small armor stands to 0.5. However, this has the unintended s
 ```c
 v.head_scale = q.is_item_name_any('slot.armor.head', 0, 'minecraft:skull', 'minecraft:carved_pumpkin') ? 0.6992 : 1.3984;
 ```
-
-### Iron golems
-
-#### Cracking
-
-Iron golems in Java edition, experience "cracking" as their health decreases. Cracking overlays a texture that contains cracks on the base iron golem texture.  This occurs in four ranges, in which health values of 100-76 experience no cracking, 75-51 experience low cracking, 50-26 experience medium cracking, and 25-1 experience high cracking. Using this material, a render controller can be utilized to select textures defined in the entity definition file from an array.
-
-#### Materials
-
-The material of most bedrock vanilla entities does not allow for type of texture overlay switching. However, the certain materials, such as the tropical fish, "tropicalfish", allow for this manner of texture overlay switching. Materials are defined in the materials folder, which is not included in Mojang's default assets, and thus must be extracted from the game assets. The tropical fish material is defined in entity.material as follows:
-
-```jsonc
-//material definitions take the form child:parent, so tropicalfish essentially inherits all its definitions from entity_multitexture_multiplicative_blend
-{"tropicalfish:entity_multitexture_multiplicative_blend": {}}
-```
-
-Looking at the fully defined entity_multitexture_multiplicative_blend material, the following is seen:
-
-```jsonc
-{
-    "entity_multitexture_multiplicative_blend:entity": {
-      "+states": [ "DisableCulling" ],
-      "+samplerStates": [
-        {
-          "samplerIndex": 0,
-          "textureWrap": "Clamp"
-        },
-        {
-          "samplerIndex": 1,
-          "textureWrap": "Clamp"
-        }
-      ],
-      "+defines": [
-        "ALPHA_TEST",
-        "USE_COLOR_MASK",
-        "MULTIPLICATIVE_TINT",
-        "MULTIPLICATIVE_TINT_COLOR",
-        "USE_OVERLAY"
-      ]
-    }
-}
-```
-
-Unfortunately, the "USE_COLOR_MASK" and "MULTIPLICATIVE_TINT_COLOR" definitions rely on certain entity data being sent. Geyser does not send all of this data for every entity, as under vanilla conditions, it does not serve any purpose. For more information, refer to [EntityData.java](https://github.com/CloudburstMC/Protocol/blob/develop/bedrock/bedrock-common/src/main/java/com/nukkitx/protocol/bedrock/data/entity/EntityData.java) in the [CloudburstMC/Protocol](https://github.com/CloudburstMC/Protocol) repository. The lack of this data likely results in a null value being interpreted by the material, leading to a rendering with entirely black pixels. Originally, custom materials were defined that removed the "USE_COLOR_MASK" and "MULTIPLICATIVE_TINT_COLOR" parameters. However, custom materials have been largely broken on Windows 10 devices by the introduction of Render Dragon, which seems to completely remove the ability to define or edit materials in a data-driven fashion. Therefore, Geyser was modified to send the entity component "COLOR_2". This allows for the use of the tropical fish material over Geyser. Due to Render Dragon, this pack will not be able to move ahead with features that require custom materials unless Render Dragon is changed to allow for modification of shaders and material assets.
-
-#### Render controller
-
-In order to utilize multiple textures, a render controller containing a texture array was defined. A position in the texture array is then determined by the following Molang expression:
-
-```json
-"textures": [
-    "(q.health > 99 || !q.is_bribed) ? 3 : math.floor(q.health / 25)"
-    ]
-```
-
-The trinary operator ensures that even if `max_health`, defined at 100, is overflowed, the expression will never produce a value outside the range of 0-3. As all data is derived resource pack side, this addition requires no modification by the server (though `query.is_bribed` enables the feature). The textures required for this to display can be retrieved during the build process.
-
-### Illusioners
-
-The illusioner does not exist in Bedrock Edition. Full implementation, however, would require more than a simple texture swap. This is due to the illusioner's special attack, which creates four duplicate false illusioners, which lack a hit box. The actual illusioner remains invisible during this attack. Implementing this would likely be possible from a technical perspective, but it would require either some kind of helper entity attached to the illusioner by Geyser, such as an invisible armor stand, or the removal of invisibility during the illusioner's special attack. The former would be preferable, as it would maintain some degree of functionality for users without the pack.
-
-Currently, the optional pack uses a render controller to perform a simple texture swap on the illusioner. This is accomplished by replacing the evocation illager with the illusioner when the evocation illager returns true for the Molang query `q.is_bribed`. The following texture array is defined in the render controller:
-
-```json
-{
-  "arrays": {
-    "textures": {
-      "Array.skins": [
-        "Texture.default",
-        "Texture.illusioner"
-      ]
-    }
-  }
-}
-```
-
-The position used in the array for the texture is then defined by `Array.skins[q.is_bribed]`.
-
-The geometry of the evoker was also slightly modified to include the hat of the illusioner. Since Bedrock edition uses the textures of Java edition for all illagers, and the evoker has an unused hat on its Java edition texture, the render controller is also utilized to hide the the render controller is set to hide the helmet layer unless `q.is_bribed` is true. 
 
 ### Killer bunnies
 
