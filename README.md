@@ -9,7 +9,6 @@ Download: https://ci.opencollab.dev/job/GeyserMC/job/GeyserOptionalPack/job/mast
 - Armor base arms/baseplate visibility
 - Armor stand poses
 - Illusioners
-- Iron golem cracked textures
 - Missing particles
 - Offhand animations
 - Shulker invisibility parity
