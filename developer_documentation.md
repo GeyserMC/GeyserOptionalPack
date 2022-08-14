@@ -12,6 +12,7 @@
    * [Offhand Animation](#Offhand-animation)
    * [Particles](#Particles)
       * [Sweep Attack](#Sweep-attack)
+   * [Phantoms](#Phantoms)
    * [Player skin parts](#Player-skin-parts)
    * [Shulkers](#Shulkers)
    * [Spectral arrow entities](#Spectral-arrow-entities)
@@ -207,6 +208,41 @@ convert -append extracted/assets/minecraft/textures/particle/sweep_*.png -define
 ```
 
 The `-append` flag is used to join the input images which match the defined globular expression (`.../sweep_*.png`). The image format is defined for safety as by default Imagemagick will attempt to change the color mode of the image to grayscale, which Minecraft will not interpret correctly. The image is then placed in the pack at the defined path.
+
+### Phantoms
+
+Due to a difficult to characterize bug in Bedrock Edition, phantom trail particles are attached to the player entity and fail to despawn when a phantom spawner is present. This seems to be related to how the client perceive the phantom "entity" attached to the spawner. This can be mitigated by adding an additional state to the phantom's animation controller, which ensures its trail particle is only played when the phantom is in motion.
+
+```json
+{
+  "controller.animation.phantom.base_pose": {
+    "initial_state": "default",
+    "states": {
+        "default": {
+            "transitions": [
+                {
+                    "moving": "q.is_moving"
+                }
+            ],
+            "animations": [ "phantom_base_pose" ]
+        },
+        "moving": {
+            "animations": [ "phantom_base_pose" ],
+            "particle_effects": [
+                {
+                    "effect": "wing_dust",
+                    "locator": "left_wing"
+                },
+                {
+                    "effect": "wing_dust",
+                    "locator": "right_wing"
+                }
+            ]
+        }
+    }
+  }
+}
+```
 
 ### Player skin parts
 
