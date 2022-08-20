@@ -1,0 +1,16 @@
+{
+    "format_version" : "1.8.0",
+    "animations" : {
+        "animation.humanoid.holding_spyglass" : {
+			"loop" : true,
+			"bones" : {
+				"rightarm" : {
+					"rotation" : [ "q.is_item_name_any('slot.weapon.mainhand', 0, 'minecraft:spyglass') ? math.clamp(query.target_x_rotation - 105 - (v.is_sneaking ? 15 : 0), -170, 180)", "q.is_item_name_any('slot.weapon.mainhand', 0, 'minecraft:spyglass') ? math.clamp(q.target_y_rotation - 15, -60, 90)", "q.is_item_name_any('slot.weapon.mainhand', 0, 'minecraft:spyglass') ? 5.0" ]
+				},
+                "leftarm" : {
+					"rotation" : [ "q.is_item_name_any('slot.weapon.offhand', 0, 'minecraft:spyglass') ? math.clamp(query.target_x_rotation - 105 - (v.is_sneaking ? 15 : 0), -170, 180)", "q.is_item_name_any('slot.weapon.offhand', 0, 'minecraft:spyglass') ? math.clamp(q.target_y_rotation + 15, -60, 90)", "q.is_item_name_any('slot.weapon.offhand', 0, 'minecraft:spyglass') ? -5.0" ]
+				}
+			}
+		}
+    }
+}

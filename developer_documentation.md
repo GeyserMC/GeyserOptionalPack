@@ -11,6 +11,7 @@
    * [Player skin parts](#Player-skin-parts)
    * [Shulkers](#Shulkers)
    * [Spectral arrow entities](#Spectral-arrow-entities)
+   * [Spyglass animations](#Spyglass-animations)
    * [Zombie villager textures](#Zombie-villager-textures)
 <!--te-->
 
@@ -162,6 +163,70 @@ The glowing effect and the spectral arrow item and entities do not exist on Bedr
 ```
 
 The texture required for this to be displayed can be retrieved during the build process.
+
+### Spyglass animations
+
+The spyglass does not display at all in the offhand on Bedrock edition. Consequently, when using /geyser offhand, the spyglass simply appears in the main hand. This is also true of Bedrock players viewing Java players with an offhand spyglass. The animation for offhand use of the spyglass also does not play properly. Multiple changes are required to remedy this.
+
+The spyglass effectively functions as an attachable, but has no user-facing attachable definition. Nonetheless, many of the principles of attachables can still be applied.
+
+Firstly, the spyglass geometry must be bound to offhand of the player when proper. This is possible with the 1.16.0 geometry format, which has the field "binding". The original spyglass binding expression only allows it to be bound to the mainhand or head. It is replaced with the following expression. The query `q.is_emerging` is set by Geyser specifically for OptionalPack when the client is using an offand item, and is therefore effectively a proxy for `q.main_hand_item_use_duration > 0`. The query `q.is_item_name_any` is then used to check which hand slot the spyglass resides in.
+
+```json
+{
+  "binding": "q.item_slot_to_bone_name((q.main_hand_item_use_duration || q.is_emerging) > 0.0f ? 'head' : (q.is_item_name_any('slot.weapon.mainhand', 0, 'minecraft:spyglass') ? 'main_hand' : 'off_hand'))"
+}
+```
+
+Next, the vanilla player animation controller must be modified to account for the possibility the spyglass is in the offhand.When in the mainhand, the hardcoded variable `variable.is_holding_spyglass` is used to check for the use of the spyglass in the mainhand, as a proxy for this in the offhand, using the Geyser specific query defined above, the following Molang expression is used to check for the use of the spyglass in the offhand. It is used at various points in the animation controller, including to engage the spyglass animation, cancel the bobbing animation, and cancel other item use animations.
+
+```c
+(q.is_item_name_any('slot.weapon.offhand', 0, 'minecraft:spyglass') && q.is_emerging)
+```
+
+The player animation itself must be modified to account for the axis flip of the players arm holding the spyglass on the opposite side. This simply requires flipping the Y and Z axis of rotation, as well as ensuring the slots are use of mainhand and offhand is properly distinguished.
+
+```json
+
+{
+  "rightarm" : {
+    "rotation" : [ 
+      "q.is_item_name_any('slot.weapon.mainhand', 0, 'minecraft:spyglass') ? math.clamp(query.target_x_rotation - 105 - (v.is_sneaking ? 15 : 0), -170, 180)", 
+      "q.is_item_name_any('slot.weapon.mainhand', 0, 'minecraft:spyglass') ? math.clamp(q.target_y_rotation - 15, -60, 90)", 
+      "q.is_item_name_any('slot.weapon.mainhand', 0, 'minecraft:spyglass') ? 5.0"
+      ]
+  },
+  "leftarm" : {
+    "rotation" : [ 
+      "q.is_item_name_any('slot.weapon.offhand', 0, 'minecraft:spyglass') ? math.clamp(query.target_x_rotation - 105 - (v.is_sneaking ? 15 : 0), -170, 180)", 
+      "q.is_item_name_any('slot.weapon.offhand', 0, 'minecraft:spyglass') ? math.clamp(q.target_y_rotation + 15, -60, 90)", 
+      "q.is_item_name_any('slot.weapon.offhand', 0, 'minecraft:spyglass') ? -5.0"
+      ]
+  }
+}
+```
+
+Lastly, the spyglass animation must be modified to account for the spyglass being on the opposite side of the player's head. Unfortunately, the scoping animation cannot be used for this, as its triggering appears to be hardcoded on the client side. Instead, the holding animation is conditionally modified when `q.is_emerging` is true, meaning the spyglass is in use.
+
+```json
+{
+  "spyglass": {
+    "position": [ 
+      "c.is_first_person ? 2.0 : (q.is_emerging ? 3.0 : 1.0)", 
+      "c.is_first_person ? 25.0 : (q.is_emerging ? 27.0 : 22.0)", 
+      "c.is_first_person ? -1.0 : (q.is_emerging ? -3.0 : 0.0)" 
+      ],
+    "rotation": [ 
+      "c.is_first_person ? 58.0 : 0.0", 
+      "c.is_first_person ? -48.0 : -90.0", 
+      "c.is_first_person ? -44.0 : 0.0" 
+      ]
+  }
+}
+```
+
+Unfortunately, the spyglass cannot actually be used in the offhand by Bedrock players, as the triggering of the first person "animation" for it is hardcoded on the client side. However, these changes allow the spyglass to be properly displayed when in the offhand of a Bedrock player, as well as when used in the offhand of a Java player. Furthermore, `q.is_emerging` could be utilized by other resource pack creators working with Geyser to identify if an item is being used in the offhand.
+
 
 ### Zombie villager textures
 
