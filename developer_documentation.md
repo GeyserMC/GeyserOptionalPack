@@ -211,7 +211,7 @@ The `-append` flag is used to join the input images which match the defined glob
 
 ### Phantoms
 
-Due to a difficult to characterize bug in Bedrock Edition, phantom trail particles are attached to the player entity and fail to despawn when a phantom spawner is present. This seems to be related to how the client perceive the phantom "entity" attached to the spawner. This can be mitigated by adding an additional state to the phantom's animation controller, which ensures its trail particle is only played when the phantom is in motion.
+Because Geyser does not utilize the new 1.19 subchunk system, phantom trail particles are attached to the player entity and fail to despawn when a phantom spawner is present. This seems to be related to how the client perceive the phantom "entity" attached to the spawner. This can be mitigated by adding an additional state to the phantom's animation controller, which ensures its trail particle is only played when the phantom is in motion.
 
 ```json
 {
