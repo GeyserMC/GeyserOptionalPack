@@ -13,6 +13,7 @@ Download: https://ci.opencollab.dev/job/GeyserMC/job/GeyserOptionalPack/job/mast
 - Offhand animations
 - Shulker invisibility parity
 - Spectral arrow entity texture
+- Bypass for the scoreboard character limit
 
 ### Manually building
 
