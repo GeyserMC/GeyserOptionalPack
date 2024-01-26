@@ -1,0 +1,23 @@
+{
+  "left_scroll_panel_content/content_stack_panel/offset2": {
+    "ignored": true
+  },
+  "left_scroll_panel_content/content_stack_panel/offset_execute_on_first_tick": {
+    "ignored": true
+  },
+  "left_scroll_panel_content/content_stack_panel/option_label_execute_on_first_tick": {
+    "ignored": true
+  },
+  "left_scroll_panel_content/content_stack_panel/execute_on_first_tick_toggle": {
+    "ignored": true
+  },
+  "left_scroll_panel_content/content_stack_panel/offset_tick_delay": {
+    "ignored": true
+  },
+  "left_scroll_panel_content/content_stack_panel/option_label_tick_delay": {
+    "ignored": true
+  },
+  "left_scroll_panel_content/content_stack_panel/tick_delay_text": {
+    "ignored": true
+  }
+}
