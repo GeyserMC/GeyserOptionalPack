@@ -276,7 +276,7 @@ Some inventories have added functionality on Bedrock, that does not exist on Jav
 - An option to rename maps in the cartography table
 - Command block renaming or enabling/setting command block execution delays
 
-To resolve this issue, this pack uses Json UI modification on these inventories. Here's how:
+To resolve this issue, this pack uses Json UI modification on these inventory UIs. Here's how:
 
 `cartography_screen.json`
 ```json
@@ -288,9 +288,9 @@ To resolve this issue, this pack uses Json UI modification on these inventories.
 ```
 
 This hides the renaming field in the cartography table that cannot be used. This does not modify the textures or functionality, 
-and just the visual appearance for Bedrock players.
+but instead just alters the visual appearance for Bedrock players.
 
-Hiding the 2x2 crafting grid is a bit more involved, and that uses bindings to only conditionally hide the 2x2 grid when we are in creative mode:
+Hiding the 2x2 crafting grid is a bit more involved. We have to use bindings to only conditionally hide the 2x2 grid when we are in creative mode:
 `inventory_screen.json`
 ```json
 {
@@ -309,5 +309,5 @@ Hiding the 2x2 crafting grid is a bit more involved, and that uses bindings to o
 }
 ```
 
-This uses the `#is_creative_mode` binding, and applies it to the crafting panel. Note that we insert this modification 
-instead of directly modifying the UI - this allows the GeyserOptionalPack to stay compatible with other resource packs that modify the UI.
+This uses the `#is_creative_mode` binding, and applies it to the crafting panel. Note that we insert this modification into the bindings array
+instead of directly modifying the UI - this allows the GeyserOptionalPack to stay compatible with other resource packs that modify this screen.
