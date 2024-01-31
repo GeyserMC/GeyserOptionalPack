@@ -1,26 +1,5 @@
 {
-	"namespace": "scoreboard",
     "scoreboard_sidebar_player": {
-        "type": "label",
-        "layer": 2,
-        "text": "#player_name_sidebar",
-        "size": [
-            "default",
-            10
-        ],
-        "max_size": [
-            250,
-            10
-        ],
-        "font_scale_factor": 1.0,
-        "locked_alpha": 1.0,
-        "color": "$player_name_color",
-        "bindings": [
-            {
-                "binding_name": "#player_name_sidebar",
-                "binding_type": "collection",
-                "binding_collection_name": "scoreboard_players"
-            }
-        ]
+        "max_size": [ 250, 10 ]
     }
 }

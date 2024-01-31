@@ -1,0 +1,14 @@
+{
+  "survival_panel_pocket": {
+    "modifications": [
+      {
+        "array_name": "bindings",
+        "operation": "insert_front",
+        "value": {
+          "binding_name": "(not #is_creative_mode)",
+          "binding_name_override": "#visible"
+        }
+      }
+    ]
+  }
+}

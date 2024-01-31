@@ -14,6 +14,10 @@ Download: https://ci.opencollab.dev/job/GeyserMC/job/GeyserOptionalPack/job/mast
 - Shulker invisibility parity
 - Spectral arrow entity texture
 - Bypass for the scoreboard character limit
+- Hides UI elements that do not exist on Java edition, such as:
+  - Text input field in the cartography table
+  - 2x2 crafting grid while in creative mode
+  - Tick-delay and rename fields in the command block menu
 
 ### Manually building
 
