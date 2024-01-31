@@ -14,6 +14,7 @@
    * [Spectral arrow entities](#Spectral-arrow-entities)
    * [Spyglass animations](#Spyglass-animations)
    * [Zombie villager textures](#Zombie-villager-textures)
+   * [UI modifications](#ui-modifications)
 <!--te-->
 
 ### Introduction
@@ -268,3 +269,45 @@ Unfortunately, the spyglass cannot actually be used in the offhand by Bedrock pl
 
 Like villagers, zombie villagers in Java Edition have visible biome and profession variants. It appears that initial implementation of this was started in the Bedrock vanilla resources, given the presence of the entity with the identifier `minecraft:zombie_villager_v2`. However, the textures specified in this vanilla entity definition appear to be entirely blank TGA files. Luckily, the profession textures of zombie villagers and villagers are essentially identical, so the entity definition was updated to reference the villager profession textures. 
 Zombie villagers, like villagers, have a profession level. This is implemented by adding the same vanilla render controller used to create this effect in the villager entity, `controller.render.villager_v2_level`. The remainder of the entity definition is unchanged.
+
+### UI modifications
+Some inventories have added functionality on Bedrock, that does not exist on Java edition. For example, this includes:
+- 2x2 crafting grid while in creative mode
+- An option to rename maps in the cartography table
+- Command block renaming or enabling/setting command block execution delays
+
+To resolve this issue, this pack uses Json UI modification on these inventories. Here's how:
+
+`cartography_screen.json`
+```json
+{
+  "text_box_panel": {
+    "ignored": true
+  }
+}
+```
+
+This hides the renaming field in the cartography table that cannot be used. This does not modify the textures or functionality, 
+and just the visual appearance for Bedrock players.
+
+Hiding the 2x2 crafting grid is a bit more involved, and that uses bindings to only conditionally hide the 2x2 grid when we are in creative mode:
+`inventory_screen.json`
+```json
+{
+  "crafting_panel_2x2": {
+    "modifications": [
+      {
+        "array_name": "bindings",
+        "operation": "insert_front",
+        "value": {
+          "binding_name": "(not #is_creative_mode)",
+          "binding_name_override": "#visible"
+        }
+      }
+    ]
+  }
+}
+```
+
+This uses the `#is_creative_mode` binding, and applies it to the crafting panel. Note that we insert this modification 
+instead of directly modifying the UI - this allows the GeyserOptionalPack to stay compatible with other resource packs that modify the UI.
