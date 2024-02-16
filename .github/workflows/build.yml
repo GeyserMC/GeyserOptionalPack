@@ -20,8 +20,14 @@ jobs:
         run: bash prepare_pack.sh
 
       - name: Zip pack
-        run: zip GeyserOptionalPack.mcpack -r . -x ".*" Jenkinsfile required_files.txt prepare_pack.sh
+        run: zip GeyserOptionalPack.mcpack -r . -x ".*" required_files.txt prepare_pack.sh
 
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v3
+        if: success()
+        with:
+          name: GeyserOptionalPack
+          path: GeyserOptionalPack.mcpack
 
       - name: Publish to Downloads API
         if: ${{ success() && github.repository == 'GeyserMC/GeyserOptionalPack' && github.ref_name == 'master' }}
