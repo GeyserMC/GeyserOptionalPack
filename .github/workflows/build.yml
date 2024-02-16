@@ -43,7 +43,7 @@ jobs:
           # Set the project
           project=geyseroptionalpack
           # Get the version from gradle.properties
-          version=$(cat manifest.json | jq -r '.version | join(".")')
+          version=$(cat manifest.json | jq -r '.header.version | join(".")')
           # Create the build folder
           ssh -o StrictHostKeyChecking=no -i id_ecdsa $DOWNLOADS_USERNAME@$DOWNLOADS_SERVER_IP mkdir -p "~/uploads/$project/$GITHUB_RUN_NUMBER/"
           # Copy over artifacts
