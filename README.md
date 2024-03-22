@@ -18,6 +18,7 @@ Download: [GeyserOptionalPack.mcpack](https://download.geysermc.org/v2/projects/
   - Text input field in the cartography table
   - 2x2 crafting grid while in creative mode
   - Tick-delay and rename fields in the command block menu
+  - Structure block options that do not exist on Java
 
 ### Manually building
 

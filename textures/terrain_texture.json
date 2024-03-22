@@ -1,0 +1,16 @@
+{
+  "resource_pack_name": "geyseroptionalpack",
+  "texture_name": "atlas.terrain",
+  "texture_data": {
+    "structure_block": {
+      "textures": [
+        "textures/blocks/structure_block",
+        "textures/blocks/structure_block_save",
+        "textures/blocks/structure_block_load",
+        "textures/blocks/structure_block_corner",
+        "textures/blocks/structure_block_data",
+        "textures/blocks/structure_block_export"
+      ]
+    }
+  }
+}
