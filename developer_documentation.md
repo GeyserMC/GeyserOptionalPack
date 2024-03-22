@@ -270,13 +270,18 @@ Unfortunately, the spyglass cannot actually be used in the offhand by Bedrock pl
 Like villagers, zombie villagers in Java Edition have visible biome and profession variants. It appears that initial implementation of this was started in the Bedrock vanilla resources, given the presence of the entity with the identifier `minecraft:zombie_villager_v2`. However, the textures specified in this vanilla entity definition appear to be entirely blank TGA files. Luckily, the profession textures of zombie villagers and villagers are essentially identical, so the entity definition was updated to reference the villager profession textures. 
 Zombie villagers, like villagers, have a profession level. This is implemented by adding the same vanilla render controller used to create this effect in the villager entity, `controller.render.villager_v2_level`. The remainder of the entity definition is unchanged.
 
+### Structure block texture changes
+Bedrock edition is currently wrongly assigning textures to the load, save and corner structure block modes. The `terrain_texture.json` file fixes this by
+putting the textures in the correct order. See https://bugs.mojang.com/browse/MCPE-48224 for the associated bug report.
+
 ### UI modifications
 Some inventories have added functionality on Bedrock, that does not exist on Java edition. For example, this includes:
 - 2x2 crafting grid while in creative mode
 - An option to rename maps in the cartography table
 - Command block renaming or enabling/setting command block execution delays
+- Structure block options such as load animations, ability to remove all blocks in selected area, and others.
 
-To resolve this issue, this pack uses Json UI modification on these inventory UIs. Here's how:
+To resolve these issues, this pack uses Json UI modification on these inventory UIs. Here's how:
 
 `cartography_screen.json`
 ```json
