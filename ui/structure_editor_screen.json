@@ -1,0 +1,53 @@
+{
+    "load_mode_panel/remove_blocks_offset": {
+        "ignored": true
+    },
+    "load_mode_panel/waterlog_blocks": {
+        "ignored": true
+    },
+    "load_mode_panel/waterlog_blocks_offset": {
+        "ignored": true
+    },
+    "load_mode_panel/remove_blocks": {
+        "ignored": true
+    },
+    "load_mode_panel/animation_mode": {
+        "ignored": true
+    },
+    "load_mode_panel/animation_time_label": {
+        "ignored": true
+    },
+    "load_mode_panel/animation_time_field": {
+        "ignored": true
+    },
+
+    "save_mode_panel/remove_blocks_offset": {
+        "ignored": true
+    },
+    "save_mode_panel/remove_blocks": {
+        "ignored": true
+    },
+    "save_mode_panel/redstone_save_offset": {
+        "ignored": true
+    },
+    "save_mode_panel/redstone_save_mode": {
+        "ignored": true
+    },
+
+    "button_panel_wrapper/panel/save_panel": {
+        "ignored": true
+    },
+    "button_panel_wrapper/panel/save_panel_no_export": {
+        "ignored": false
+    },
+    "button_panel_wrapper/panel/load_panel": {
+        "ignored": true
+    },
+    "button_panel_wrapper/panel/load_panel_no_export": {
+        "ignored": false
+    },
+
+    "mode_dropdown_content": {
+        "$3DExport_support": false
+    }
+}   
