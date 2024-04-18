@@ -48,12 +48,14 @@ jobs:
           cat metadata.json
           echo
           version=$(cat manifest.json | jq -r '.header.version | join(".")')
+          echo "Version: ${version}"
           cat metadata.json | jq --arg project "${PROJECT}" --arg version "${version}" '
             .
             | .changes |= map({"commit", "summary", "message"}) 
             | .downloads |= map_values({"name", "sha256"})
             | {$project, "repo", $version, "number": .build, "changes", "downloads"}
           ' | tee metadata.json
+          echo ""
 
       - name: Publish to Downloads API
         if: ${{ success() && github.repository == 'GeyserMC/GeyserOptionalPack' && github.ref_name == 'master' }}
