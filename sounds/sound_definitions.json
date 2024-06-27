@@ -1,0 +1,43 @@
+{
+  "format_version": "1.20.20",
+  "sound_definitions": {
+    "geyseropt.entity.player.attack.crit": {
+      "__use_legacy_max_distance": true,
+      "category": "player",
+      "max_distance": null,
+      "min_distance": null,
+      "sounds": [
+        "sounds/geyser/entity/player/attack/crit1",
+        "sounds/geyser/entity/player/attack/crit2",
+        "sounds/geyser/entity/player/attack/crit3"
+      ]
+    },
+    "geyseropt.entity.player.attack.knockback": {
+      "__use_legacy_max_distance": true,
+      "category": "player",
+      "max_distance": null,
+      "min_distance": null,
+      "sounds": [
+        "sounds/geyser/entity/player/attack/knockback1",
+        "sounds/geyser/entity/player/attack/knockback2",
+        "sounds/geyser/entity/player/attack/knockback3",
+        "sounds/geyser/entity/player/attack/knockback4"
+      ]
+    },
+    "geyseropt.entity.player.attack.sweep": {
+      "__use_legacy_max_distance": true,
+      "category": "player",
+      "max_distance": null,
+      "min_distance": null,
+      "sounds": [
+        "sounds/geyser/entity/player/attack/sweep1",
+        "sounds/geyser/entity/player/attack/sweep2",
+        "sounds/geyser/entity/player/attack/sweep3",
+        "sounds/geyser/entity/player/attack/sweep4",
+        "sounds/geyser/entity/player/attack/sweep5",
+        "sounds/geyser/entity/player/attack/sweep6",
+        "sounds/geyser/entity/player/attack/sweep7"
+      ]
+    }
+  }
+}
