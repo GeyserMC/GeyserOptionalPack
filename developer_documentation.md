@@ -1,5 +1,4 @@
 <!--ts-->
-
 - [Introduction](#Introduction)
 - [Armor stands](#Armor-stands)
   - [Part visibility and rotation encoding](#Part-visibility-and-rotation-encoding)
@@ -53,9 +52,7 @@ Bedrock entity animations and entity geometry are data driven. The geometry of t
 Bedrock armor is defined via attachables, which contain geometry that utilize the bone structure of the entity to which the attachable attaches. Resultantly, items placed and rendered on the armor stand via attachables do not support rotation of the chestplate either, as attachable structure depends on the geometry of the entity to which the attachable is attached. Therefore, any attachables utilizing the newly added chestplate slot must be redefined. This includes all chestplates, leggings (which place their uppermost portion on the chestplate group), and the elytra. To ensure the redefined attachable is only used in the case of armor stands, `minecraft:attachable.description.item` is set as follows:
 
 ```json
-{
-  "minecraft:chainmail_chestplate": "query.owner_identifier == 'minecraft:armor_stand'"
-}
+{ "minecraft:chainmail_chestplate": "query.owner_identifier == 'minecraft:armor_stand'" }
 ```
 
 Above, `query.owner_identifier` returns the identifier of the entity to which the attachable is applied, and thus this attachable will only be applied when the owner identifier is `minecraft:armor_stand`.
@@ -86,25 +83,25 @@ Both Java Edition and Bedrock Edition have offhand support, though Bedrock is ve
 
 The pack replaces many particles that are not displayed for various reasons. Some cannot be displayed due to Bedrock's lack of ability to spawn particles with data from required builtin variables. Others simply do not exist in Bedrock edition. The table below summarizes the particle changes implemented by this pack.
 
-|   Java (`minecraft:`)   | Bedrock (`minecraft:`) | Optional Pack (`geyseropt:`) |                                          Notes                                           |
-| :---------------------: | :--------------------: | :--------------------------: | :--------------------------------------------------------------------------------------: |
-|          `ash`          |           -            |            `ash`             |                              Not present in Bedrock Edition                              |
-|        `barrier`        |           -            |          `barrier`           |                    Present in Bedrock Edition, but not as a particle                     |
-|        `bubble`         | `basic_bubble_manual`  |              -               | Modified version of the basic_bubble_manual particle is used to spawn in all block types |
-|     `crimson_spore`     |           -            |       `crimson_spore`        |                              Not present in Bedrock Edition                              |
-|   `damage_indicator`    |           -            |      `damage_indicator`      |                              Not present in Bedrock Edition                              |
-|     `enchanted_hit`     |           -            |    `enchanted_hit_single`    |                              Not present in Bedrock Edition                              |
-|            -            |           -            |   `enchanted_hit_multiple`   |                 Used for playing multiple scattered particles on attack                  |
-|         `flash`         |           -            |           `flash`            |                              Not present in Bedrock Edition                              |
-|     `landing_honey`     |           -            |       `landing_honey`        |                              Not present in Bedrock Edition                              |
-|     `landing_lava`      |           -            |        `landing_lava`        |                              Not present in Bedrock Edition                              |
-| `landing_obsidian_tear` |           -            |   `landing_obsidian_tear`    |                              Not present in Bedrock Edition                              |
-|       `nautilus`        |           -            |          `nautilus`          |                              Not present in Bedrock Edition                              |
-|        `sneeze`         |           -            |           `sneeze`           | Part of Bedrock Edition as a variant of redstone dust (local use only in optional pack)  |
-|     `sweep_attack`      |           -            |        `sweep_attack`        |                              Not present in Bedrock Edition                              |
-|      `underwater`       |           -            |         `underwater`         |                              Not present in Bedrock Edition                              |
-|     `warped_spore`      |           -            |        `warped_spore`        |                              Not present in Bedrock Edition                              |
-|       `white_ash`       |           -            |         `white_ash`          |                              Not present in Bedrock Edition                              |
+|   Java (`minecraft:`)   |  Bedrock (`minecraft:`) | Optional Pack (`geyseropt:`) |                                           Notes                                          |
+|:-----------------------:|:-----------------------:|:----------------------------:|:----------------------------------------------------------------------------------------:|
+|          `ash`          |            -            |             `ash`            |                              Not present in Bedrock Edition                              |
+|        `barrier`        |            -            |           `barrier`          |                     Present in Bedrock Edition, but not as a particle                    |
+|         `bubble`        |  `basic_bubble_manual`  |               -              | Modified version of the basic_bubble_manual particle is used to spawn in all block types |
+|     `crimson_spore`     |            -            |        `crimson_spore`       |                              Not present in Bedrock Edition                              |
+|    `damage_indicator`   |            -            |      `damage_indicator`      |                              Not present in Bedrock Edition                              |
+|     `enchanted_hit`     |            -            |    `enchanted_hit_single`    |                              Not present in Bedrock Edition                              |
+|            -            |            -            |   `enchanted_hit_multiple`   |                  Used for playing multiple scattered particles on attack                 |
+|         `flash`         |            -            |            `flash`           |                              Not present in Bedrock Edition                              |
+|     `landing_honey`     |            -            |        `landing_honey`       |                              Not present in Bedrock Edition                              |
+|      `landing_lava`     |            -            |        `landing_lava`        |                              Not present in Bedrock Edition                              |
+| `landing_obsidian_tear` |            -            |    `landing_obsidian_tear`   |                              Not present in Bedrock Edition                              |
+|        `nautilus`       |            -            |          `nautilus`          |                              Not present in Bedrock Edition                              |
+|         `sneeze`        |            -            |           `sneeze`           |  Part of Bedrock Edition as a variant of redstone dust (local use only in optional pack) |
+|      `sweep_attack`     |            -            |        `sweep_attack`        |                              Not present in Bedrock Edition                              |
+|       `underwater`      |            -            |         `underwater`         |                              Not present in Bedrock Edition                              |
+|      `warped_spore`     |            -            |        `warped_spore`        |                              Not present in Bedrock Edition                              |
+|       `white_ash`       |            -            |          `white_ash`         |                              Not present in Bedrock Edition                              |
 
 #### Sweep attack
 
@@ -117,7 +114,7 @@ Of note, the texture for the sweep attack particle is built on the CI using [Ima
 		"texture_height": 256, // defines texture height for UV purpose
 		"flipbook": {
 			"base_UV": [0, 0], // notes the point on the UV map at which to start
-			"size_UV": [32, 32], // notes the size of the UV emanating from the [+X, +Y] direction of the base_UV point
+			"size_UV": [32, 32], // notes the size of the UV emanating from the [+X, +Y] direction of the base_UV point 
 			"step_UV": [0, 32], // defines the value by which the UV will be translated on each step, effectively our frame size
 			"max_frame": 8, // defines the number of frames in our sprite
 			"stretch_to_lifetime": true // defines the length of our UV animation as being equal to that of the particle's lifetime
@@ -141,27 +138,27 @@ Because Geyser does not utilize the 1.17.40 subchunk system, phantom trail parti
   "controller.animation.phantom.base_pose": {
     "initial_state": "default",
     "states": {
-      "default": {
-        "transitions": [
-          {
-            "moving": "q.is_moving"
-          }
-        ],
-        "animations": ["phantom_base_pose"]
-      },
-      "moving": {
-        "animations": ["phantom_base_pose"],
-        "particle_effects": [
-          {
-            "effect": "wing_dust",
-            "locator": "left_wing"
-          },
-          {
-            "effect": "wing_dust",
-            "locator": "right_wing"
-          }
-        ]
-      }
+        "default": {
+            "transitions": [
+                {
+                    "moving": "q.is_moving"
+                }
+            ],
+            "animations": [ "phantom_base_pose" ]
+        },
+        "moving": {
+            "animations": [ "phantom_base_pose" ],
+            "particle_effects": [
+                {
+                    "effect": "wing_dust",
+                    "locator": "left_wing"
+                },
+                {
+                    "effect": "wing_dust",
+                    "locator": "right_wing"
+                }
+            ]
+        }
     }
   }
 }
@@ -228,20 +225,21 @@ Next, the vanilla player animation controller must be modified to account for th
 The player animation itself must be modified to account for the axis flip of the players arm holding the spyglass on the opposite side. This simply requires flipping the Y and Z axis of rotation, as well as ensuring the slots are use of mainhand and offhand is properly distinguished.
 
 ```json
+
 {
-  "rightarm": {
-    "rotation": [
-      "q.is_item_name_any('slot.weapon.mainhand', 0, 'minecraft:spyglass') ? math.clamp(query.target_x_rotation - 105 - (v.is_sneaking ? 15 : 0), -170, 180)",
-      "q.is_item_name_any('slot.weapon.mainhand', 0, 'minecraft:spyglass') ? math.clamp(q.target_y_rotation - 15, -60, 90)",
+  "rightarm" : {
+    "rotation" : [ 
+      "q.is_item_name_any('slot.weapon.mainhand', 0, 'minecraft:spyglass') ? math.clamp(query.target_x_rotation - 105 - (v.is_sneaking ? 15 : 0), -170, 180)", 
+      "q.is_item_name_any('slot.weapon.mainhand', 0, 'minecraft:spyglass') ? math.clamp(q.target_y_rotation - 15, -60, 90)", 
       "q.is_item_name_any('slot.weapon.mainhand', 0, 'minecraft:spyglass') ? 5.0"
-    ]
+      ]
   },
-  "leftarm": {
-    "rotation": [
-      "q.is_item_name_any('slot.weapon.offhand', 0, 'minecraft:spyglass') ? math.clamp(query.target_x_rotation - 105 - (v.is_sneaking ? 15 : 0), -170, 180)",
-      "q.is_item_name_any('slot.weapon.offhand', 0, 'minecraft:spyglass') ? math.clamp(q.target_y_rotation + 15, -60, 90)",
+  "leftarm" : {
+    "rotation" : [ 
+      "q.is_item_name_any('slot.weapon.offhand', 0, 'minecraft:spyglass') ? math.clamp(query.target_x_rotation - 105 - (v.is_sneaking ? 15 : 0), -170, 180)", 
+      "q.is_item_name_any('slot.weapon.offhand', 0, 'minecraft:spyglass') ? math.clamp(q.target_y_rotation + 15, -60, 90)", 
       "q.is_item_name_any('slot.weapon.offhand', 0, 'minecraft:spyglass') ? -5.0"
-    ]
+      ]
   }
 }
 ```
@@ -251,36 +249,34 @@ Lastly, the spyglass animation must be modified to account for the spyglass bein
 ```json
 {
   "spyglass": {
-    "position": [
-      "c.is_first_person ? 2.0 : (q.is_emerging ? 3.0 : 1.0)",
-      "c.is_first_person ? 25.0 : (q.is_emerging ? 27.0 : 22.0)",
-      "c.is_first_person ? -1.0 : (q.is_emerging ? -3.0 : 0.0)"
-    ],
-    "rotation": [
-      "c.is_first_person ? 58.0 : 0.0",
-      "c.is_first_person ? -48.0 : -90.0",
-      "c.is_first_person ? -44.0 : 0.0"
-    ]
+    "position": [ 
+      "c.is_first_person ? 2.0 : (q.is_emerging ? 3.0 : 1.0)", 
+      "c.is_first_person ? 25.0 : (q.is_emerging ? 27.0 : 22.0)", 
+      "c.is_first_person ? -1.0 : (q.is_emerging ? -3.0 : 0.0)" 
+      ],
+    "rotation": [ 
+      "c.is_first_person ? 58.0 : 0.0", 
+      "c.is_first_person ? -48.0 : -90.0", 
+      "c.is_first_person ? -44.0 : 0.0" 
+      ]
   }
 }
 ```
 
 Unfortunately, the spyglass cannot actually be used in the offhand by Bedrock players, as the triggering of the first person "animation" for it is hardcoded on the client side. However, these changes allow the spyglass to be properly displayed when in the offhand of a Bedrock player, as well as when used in the offhand of a Java player. Furthermore, `q.is_emerging` could be utilized by other resource pack creators working with Geyser to identify if an item is being used in the offhand.
 
+
 ### Zombie villager textures
 
-Like villagers, zombie villagers in Java Edition have visible biome and profession variants. It appears that initial implementation of this was started in the Bedrock vanilla resources, given the presence of the entity with the identifier `minecraft:zombie_villager_v2`. However, the textures specified in this vanilla entity definition appear to be entirely blank TGA files. Luckily, the profession textures of zombie villagers and villagers are essentially identical, so the entity definition was updated to reference the villager profession textures.
+Like villagers, zombie villagers in Java Edition have visible biome and profession variants. It appears that initial implementation of this was started in the Bedrock vanilla resources, given the presence of the entity with the identifier `minecraft:zombie_villager_v2`. However, the textures specified in this vanilla entity definition appear to be entirely blank TGA files. Luckily, the profession textures of zombie villagers and villagers are essentially identical, so the entity definition was updated to reference the villager profession textures. 
 Zombie villagers, like villagers, have a profession level. This is implemented by adding the same vanilla render controller used to create this effect in the villager entity, `controller.render.villager_v2_level`. The remainder of the entity definition is unchanged.
 
 ### Structure block texture changes
-
 Bedrock edition is currently wrongly assigning textures to the load, save and corner structure block modes. The `terrain_texture.json` file fixes this by
 putting the textures in the correct order. See https://bugs.mojang.com/browse/MCPE-48224 for the associated bug report.
 
 ### UI modifications
-
 Some inventories have added functionality on Bedrock, that does not exist on Java edition. For example, this includes:
-
 - 2x2 crafting grid while in creative mode
 - An option to rename maps in the cartography table
 - Command block renaming or enabling/setting command block execution delays
@@ -289,7 +285,6 @@ Some inventories have added functionality on Bedrock, that does not exist on Jav
 To resolve these issues, this pack uses Json UI modification on these inventory UIs. Here's how:
 
 `cartography_screen.json`
-
 ```json
 {
   "text_box_panel": {
@@ -298,12 +293,11 @@ To resolve these issues, this pack uses Json UI modification on these inventory 
 }
 ```
 
-This hides the renaming field in the cartography table that cannot be used. This does not modify the textures or functionality,
+This hides the renaming field in the cartography table that cannot be used. This does not modify the textures or functionality, 
 but instead just alters the visual appearance for Bedrock players.
 
 Hiding the 2x2 crafting grid is a bit more involved. We have to use bindings to only conditionally hide the 2x2 grid when we are in creative mode:
 `inventory_screen.json`
-
 ```json
 {
   "crafting_panel_2x2": {
@@ -326,13 +320,15 @@ instead of directly modifying the UI - this allows the GeyserOptionalPack to sta
 
 ### Combat Sounds
 
-Bedrock Editions combat system is similar to Java Edition 1.8's combat system, however it includes some updated sounds for strong and weak attacks. 
+Bedrock Edition's combat system is similar to Java Edition 1.8's combat system, however it includes some updated sounds for strong and weak attacks. 
 We can use these as they are the exact same as Java Edition's sounds, however we have to manually add some audio files that aren't in Bedrock Edition's default resources due to Java Edition 1.9's combat system having mechanics that simply aren't in Bedrock, meaning the related sounds are not present.
 
-|         Java (`entity.`)         |       Bedrock (`game.`)       |        Optional Pack (`geyseropt.`)        |                                                                                                                 Notes                                                                                                                  |
-| :------------------------------: | :---------------------------: | :----------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|   `entity.player.attack.crit`    |               -               |   `geyseropt.entity.player.attack.crit`    |                                                                                                     Not present in Bedrock Edition                                                                                                     |
-| `entity.player.attack.knockback` |               -               | `geyseropt.entity.player.attack.knockback` |                                                                                                     Not present in Bedrock Edition                                                                                                     |
-|  `entity.player.attack.strong`   |  `game.player.attack.strong`  |                     -                      |                                                                     Quieter in bedrock edition, so the pack changes the volume from 0.2 to 0.6-0.7 to match Java.                                                                      |
-|   `entity.player.attack.sweep`   |               -               |   `geyseropt.entity.player.attack.sweep`   |                                                                                                     Not present in Bedrock Edition                                                                                                     |
-|   `entity.player.attack.weak`    | `game.player.attack.nodamage` |                     -                      | Quieter in bedrock edition, so the pack changes the volume from 0.2 to 0.7 to match Java. This sound is usually played when swinging your arm at nothing in the air in vanilla Bedrock, but it uses the same audio files as Java's weak attack. |
+|         Java (`entity.`)         |       Bedrock (`game.`)       |        Optional Pack (`geyseropt.`)        |
+| :------------------------------: | :---------------------------: | :----------------------------------------: |
+|   `entity.player.attack.crit`    |               -               |   `geyseropt.entity.player.attack.crit`    |
+| `entity.player.attack.knockback` |               -               | `geyseropt.entity.player.attack.knockback` |
+|  `entity.player.attack.strong`   |  `game.player.attack.strong`  |                     -                      |
+|   `entity.player.attack.sweep`   |               -               |   `geyseropt.entity.player.attack.sweep`   |
+|   `entity.player.attack.weak`    | `game.player.attack.nodamage` |                     -                      |
+
+Note that this pack still makes changes to the sounds available in Bedrock Edition. The volume of both the strong and weak sounds are quieter, so the optional pack raises the volume of the sounds from 20% to 70% to match Java Edition.
