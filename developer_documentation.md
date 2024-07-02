@@ -1,20 +1,21 @@
 <!--ts-->
-   * [Introduction](#Introduction)
-   * [Armor stands](#Armor-stands)
-      * [Part visibility and rotation encoding](#Part-visibility-and-rotation-encoding)
-      * [Geometry and attachables](#Geometry-and-attachables)
-   * [Illusioners](#Illusioners)
-   * [Killer bunnies](#Killer-bunnies)
-   * [Offhand Animation](#Offhand-animation)
-   * [Particles](#Particles)
-      * [Sweep Attack](#Sweep-attack)
-   * [Phantoms](#Phantoms)
-   * [Player skin parts](#Player-skin-parts)
-   * [Shulkers](#Shulkers)
-   * [Spectral arrow entities](#Spectral-arrow-entities)
-   * [Spyglass animations](#Spyglass-animations)
-   * [Zombie villager textures](#Zombie-villager-textures)
-   * [UI modifications](#ui-modifications)
+* [Introduction](#Introduction)
+* [Armor stands](#Armor-stands)
+  * [Part visibility and rotation encoding](#Part-visibility-and-rotation-encoding)
+  * [Geometry and attachables](#Geometry-and-attachables)
+* [Illusioners](#Illusioners)
+* [Killer bunnies](#Killer-bunnies)
+* [Offhand Animation](#Offhand-animation)
+* [Particles](#Particles)
+  * [Sweep Attack](#Sweep-attack)
+* [Phantoms](#Phantoms)
+* [Player skin parts](#Player-skin-parts)
+* [Shulkers](#Shulkers)
+* [Spectral arrow entities](#Spectral-arrow-entities)
+* [Spyglass animations](#Spyglass-animations)
+* [Zombie villager textures](#Zombie-villager-textures)
+* [UI modifications](#ui-modifications)
+* [Combat Sounds](#combat-sounds)
 <!--te-->
 
 ### Introduction
@@ -316,3 +317,18 @@ Hiding the 2x2 crafting grid is a bit more involved. We have to use bindings to 
 
 This uses the `#is_creative_mode` binding, and applies it to the crafting panel. Note that we insert this modification into the bindings array
 instead of directly modifying the UI - this allows the GeyserOptionalPack to stay compatible with other resource packs that modify this screen.
+
+### Combat Sounds
+
+Bedrock Edition's combat system is similar to Java Edition 1.8's combat system, however it includes some updated sounds for strong and weak attacks.
+We can use these as they are the exact same as Java Edition's sounds, however we have to manually add some audio files that aren't in Bedrock Edition's default resources due to Java Edition 1.9's combat system having mechanics that simply aren't in Bedrock, meaning the related sounds are not present.
+
+|         Java (`entity.`)         |       Bedrock (`game.`)       |    Optional Pack (`geyseropt.`)     |
+| :------------------------------: | :---------------------------: | :---------------------------------: |
+|   `entity.player.attack.crit`    |               -               |   `geyseropt.player.attack.crit`    |
+| `entity.player.attack.knockback` |               -               | `geyseropt.player.attack.knockback` |
+|  `entity.player.attack.strong`   |  `game.player.attack.strong`  |                  -                  |
+|   `entity.player.attack.sweep`   |               -               |   `geyseropt.player.attack.sweep`   |
+|   `entity.player.attack.weak`    | `game.player.attack.nodamage` |                  -                  |
+
+Note that this pack still makes changes to the sounds available in Bedrock Edition. The volume of both the strong and weak sounds are quieter, so the optional pack raises the volume of the sounds from 20% to 70% to match Java Edition.
