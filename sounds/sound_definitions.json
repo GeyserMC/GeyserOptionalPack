@@ -59,7 +59,7 @@
         }
       ]
     },
-    "geyseropt.entity.player.attack.crit": {
+    "geyseropt.player.attack.crit": {
       "__use_legacy_max_distance": true,
       "category": "player",
       "max_distance": null,
@@ -80,7 +80,7 @@
         }
       ]
     },
-    "geyseropt.entity.player.attack.knockback": {
+    "geyseropt.player.attack.knockback": {
       "__use_legacy_max_distance": true,
       "category": "player",
       "max_distance": null,
@@ -101,7 +101,7 @@
         }
       ]
     },
-    "geyseropt.entity.player.attack.sweep": {
+    "geyseropt.player.attack.sweep": {
       "__use_legacy_max_distance": true,
       "category": "player",
       "max_distance": null,
