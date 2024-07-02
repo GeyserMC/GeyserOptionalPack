@@ -320,15 +320,15 @@ instead of directly modifying the UI - this allows the GeyserOptionalPack to sta
 
 ### Combat Sounds
 
-Bedrock Edition's combat system is similar to Java Edition 1.8's combat system, however it includes some updated sounds for strong and weak attacks. 
+Bedrock Edition's combat system is similar to Java Edition 1.8's combat system, however it includes some updated sounds for strong and weak attacks.
 We can use these as they are the exact same as Java Edition's sounds, however we have to manually add some audio files that aren't in Bedrock Edition's default resources due to Java Edition 1.9's combat system having mechanics that simply aren't in Bedrock, meaning the related sounds are not present.
 
-|         Java (`entity.`)         |       Bedrock (`game.`)       |        Optional Pack (`geyseropt.`)        |
-| :------------------------------: | :---------------------------: | :----------------------------------------: |
-|   `entity.player.attack.crit`    |               -               |   `geyseropt.entity.player.attack.crit`    |
-| `entity.player.attack.knockback` |               -               | `geyseropt.entity.player.attack.knockback` |
-|  `entity.player.attack.strong`   |  `game.player.attack.strong`  |                     -                      |
-|   `entity.player.attack.sweep`   |               -               |   `geyseropt.entity.player.attack.sweep`   |
-|   `entity.player.attack.weak`    | `game.player.attack.nodamage` |                     -                      |
+|         Java (`entity.`)         |       Bedrock (`game.`)       |    Optional Pack (`geyseropt.`)     |
+| :------------------------------: | :---------------------------: | :---------------------------------: |
+|   `entity.player.attack.crit`    |               -               |   `geyseropt.player.attack.crit`    |
+| `entity.player.attack.knockback` |               -               | `geyseropt.player.attack.knockback` |
+|  `entity.player.attack.strong`   |  `game.player.attack.strong`  |                  -                  |
+|   `entity.player.attack.sweep`   |               -               |   `geyseropt.player.attack.sweep`   |
+|   `entity.player.attack.weak`    | `game.player.attack.nodamage` |                  -                  |
 
 Note that this pack still makes changes to the sounds available in Bedrock Edition. The volume of both the strong and weak sounds are quieter, so the optional pack raises the volume of the sounds from 20% to 70% to match Java Edition.
