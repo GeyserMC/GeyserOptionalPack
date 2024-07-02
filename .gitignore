@@ -12,3 +12,5 @@ textures/geyser/particle/flash.png
 textures/geyser/particle/nautilus.png
 textures/geyser/particle/sweep_attack.png
 textures/geyser/entity/illager/illusioner.png
+# Blockception's Minecraft Bedrock Development VS Code Extension settings
+.mcattributes
