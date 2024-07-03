@@ -137,6 +137,26 @@
           "volume": 0.7
         }
       ]
+    }, 
+    "close.cherry_wood_fence_gate": {
+      "category": "block",
+      "max_distance": null,
+      "min_distance": null,
+      "sounds": [
+        "sounds/block/cherry_wood_fence_gate/toggle1",
+        "sounds/block/cherry_wood_fence_gate/toggle2",
+        "sounds/block/cherry_wood_fence_gate/toggle3"
+      ]
+    },
+    "open.cherry_wood_fence_gate": {
+      "category": "block",
+      "max_distance": null,
+      "min_distance": null,
+      "sounds": [
+        "sounds/block/cherry_wood_fence_gate/toggle1",
+        "sounds/block/cherry_wood_fence_gate/toggle2",
+        "sounds/block/cherry_wood_fence_gate/toggle3"
+      ]
     }
   }
 }

@@ -16,6 +16,8 @@
 * [Zombie villager textures](#Zombie-villager-textures)
 * [UI modifications](#ui-modifications)
 * [Combat Sounds](#combat-sounds)
+* [Structure block texture changes (MCPE-48224)](#structure-block-texture-changes-mcpe-48224)
+* [Cherry Fence Gate Sound Fix (MCPE-168021)](#cherry-fence-gate-sound-fix-mcpe-168021)
 <!--te-->
 
 ### Introduction
@@ -271,10 +273,6 @@ Unfortunately, the spyglass cannot actually be used in the offhand by Bedrock pl
 Like villagers, zombie villagers in Java Edition have visible biome and profession variants. It appears that initial implementation of this was started in the Bedrock vanilla resources, given the presence of the entity with the identifier `minecraft:zombie_villager_v2`. However, the textures specified in this vanilla entity definition appear to be entirely blank TGA files. Luckily, the profession textures of zombie villagers and villagers are essentially identical, so the entity definition was updated to reference the villager profession textures. 
 Zombie villagers, like villagers, have a profession level. This is implemented by adding the same vanilla render controller used to create this effect in the villager entity, `controller.render.villager_v2_level`. The remainder of the entity definition is unchanged.
 
-### Structure block texture changes
-Bedrock edition is currently wrongly assigning textures to the load, save and corner structure block modes. The `terrain_texture.json` file fixes this by
-putting the textures in the correct order. See https://bugs.mojang.com/browse/MCPE-48224 for the associated bug report.
-
 ### UI modifications
 Some inventories have added functionality on Bedrock, that does not exist on Java edition. For example, this includes:
 - 2x2 crafting grid while in creative mode
@@ -332,3 +330,72 @@ We can use these as they are the exact same as Java Edition's sounds, however we
 |   `entity.player.attack.weak`    | `game.player.attack.nodamage` |                  -                  |
 
 Note that this pack still makes changes to the sounds available in Bedrock Edition. The volume of both the strong and weak sounds are quieter, so the optional pack raises the volume of the sounds from 20% to 70% to match Java Edition.
+
+
+### Structure block texture changes (MCPE-48224)
+
+Bedrock edition is currently wrongly assigning textures to the load, save and corner structure block modes. The `terrain_texture.json` file fixes this by
+putting the textures in the correct order. 
+
+See https://bugs.mojang.com/browse/MCPE-48224 for the associated bug report.
+
+### Cherry fence gate sound fix (MCPE-168021)
+
+Likely due to a copy and paste mistake as the bamboo and nether wood fence gates have 4 sounds, the Bedrock Edition default resource pack defines opening and closing a Cherry Fence Gate to have four sounds as seen below:
+
+```json
+"open.cherry_wood_fence_gate" : {
+    "category" : "block",
+    "max_distance" : null,
+    "min_distance" : null,
+    "sounds" : [
+      "sounds/block/cherry_wood_fence_gate/toggle1",
+      "sounds/block/cherry_wood_fence_gate/toggle2",
+      "sounds/block/cherry_wood_fence_gate/toggle3",
+      "sounds/block/cherry_wood_fence_gate/toggle4"
+    ]
+},
+
+...
+
+"close.cherry_wood_fence_gate" : {
+    "category" : "block",
+    "max_distance" : null,
+    "min_distance" : null,
+    "sounds" : [
+      "sounds/block/cherry_wood_fence_gate/toggle1",
+      "sounds/block/cherry_wood_fence_gate/toggle2",
+      "sounds/block/cherry_wood_fence_gate/toggle3",
+      "sounds/block/cherry_wood_fence_gate/toggle4"
+    ]
+},      
+```
+
+This `toggle4` sound does not exist in Bedrock Editions's default resources, meaning that sometimes the Cherry Fence Gate can play no sound.
+
+Both Java and Bedrock don't have this sound, so GeyserOptionalPack fixes this by redefining these sound events, and removing `toggle4` from the `sound_definitions.json` as seen below:
+
+```json
+"close.cherry_wood_fence_gate": {
+  "category": "block",
+  "max_distance": null,
+  "min_distance": null,
+  "sounds": [
+    "sounds/block/cherry_wood_fence_gate/toggle1",
+    "sounds/block/cherry_wood_fence_gate/toggle2",
+    "sounds/block/cherry_wood_fence_gate/toggle3"
+  ]
+},
+"open.cherry_wood_fence_gate": {
+  "category": "block",
+  "max_distance": null,
+  "min_distance": null,
+  "sounds": [
+    "sounds/block/cherry_wood_fence_gate/toggle1",
+    "sounds/block/cherry_wood_fence_gate/toggle2",
+    "sounds/block/cherry_wood_fence_gate/toggle3"
+  ]
+}
+```
+
+See https://bugs.mojang.com/browse/MCPE-168021 for the associated bug report.
