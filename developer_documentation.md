@@ -354,7 +354,7 @@ Likely due to a copy and paste mistake as the bamboo and nether wood fence gates
 },      
 ```
 
-This `toggle4` sound does not exist in Bedrock Editions's default resources, meaning that sometimes the Cherry Fence Gate can play no sound sometimes.
+This `toggle4` sound does not exist in Bedrock Editions's default resources, meaning that sometimes the Cherry Fence Gate can play no sound.
 
 Both Java and Bedrock dont have this sound, so GeyserOptionalPack fixes this by redefining these sound events, and removing `toggle4` from the `sound_definitions.json` as seen below:
 
