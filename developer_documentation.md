@@ -331,7 +331,6 @@ We can use these as they are the exact same as Java Edition's sounds, however we
 
 Note that this pack still makes changes to the sounds available in Bedrock Edition. The volume of both the strong and weak sounds are quieter, so the optional pack raises the volume of the sounds from 20% to 70% to match Java Edition.
 
-
 ### Structure block texture changes (MCPE-48224)
 
 Bedrock edition is currently wrongly assigning textures to the load, save and corner structure block modes. The `terrain_texture.json` file fixes this by
