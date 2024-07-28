@@ -11,6 +11,7 @@
    * [Phantoms](#Phantoms)
    * [Player skin parts](#Player-skin-parts)
    * [Shulkers](#Shulkers)
+   * [Skeleton horses](#Skeleton-horses)
    * [Spectral arrow entities](#Spectral-arrow-entities)
    * [Spyglass animations](#Spyglass-animations)
    * [Zombie villager textures](#Zombie-villager-textures)
@@ -190,6 +191,22 @@ In Java Edition, when a shulker is invisible, their "box" will be invisible. In 
     { "base": "!(q.is_invisible && q.is_bribed)" }
 ]
 ```
+
+### Skeleton horses
+
+Skeleton horses can have saddles in Java Edition, but Bedrock Edition hides them. In this pack, the parts in the render controller hiding the saddle textures are changed to match the other horse models' behavior.
+
+```json
+"part_visibility": [
+    { "*saddle*": "query.is_saddled" }, // Replaced from "false"
+    { "SaddleMouthLine": "query.is_saddled && query.has_rider" }, // Replaced from "false"
+    { "SaddleMouthLineR": "query.is_saddled && query.has_rider" }, // Replaced from "false"
+    { "Bag*": false },
+    { "MuleEar*": false }
+]
+```
+
+Note that the V3 renderer present in the example resource pack is unused (as of 1.21.2).
 
 ### Spectral arrow entities
 
