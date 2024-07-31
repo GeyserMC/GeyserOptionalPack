@@ -407,7 +407,6 @@ As seen below, the models of all throwable item entities (e.g. snowballs, ender 
 
 Java
 ![Java](https://github.com/user-attachments/assets/1b77bb09-5c49-465e-ae84-f626184354f2)
-
 Bedrock
 ![Bedrock](https://github.com/user-attachments/assets/eda75501-42b2-4b1f-a19f-47b7be81d754)
 
