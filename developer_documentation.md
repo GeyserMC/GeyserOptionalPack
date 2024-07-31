@@ -18,6 +18,7 @@
    * [UI modifications](#ui-modifications)
    * [Structure block texture changes (MCPE-48224)](#structure-block-texture-changes-mcpe-48224)
    * [Cherry Fence Gate Sound Fix (MCPE-168021)](#cherry-fence-gate-sound-fix-mcpe-168021)
+   * [Flipped throwable item sprites fix (MCPE-66385)](#flipped-throwable-item-sprites-fix-mcpe-66385)
 <!--te-->
 
 ### Introduction
