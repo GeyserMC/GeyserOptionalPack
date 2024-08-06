@@ -65,6 +65,29 @@ Geyser scales down small armor stands to 0.5. However, this has the unintended s
 v.head_scale = q.is_item_name_any('slot.armor.head', 0, 'minecraft:skull', 'minecraft:carved_pumpkin') ? 0.6992 : 1.3984;
 ```
 
+### Illusioners
+
+The illusioner does not exist in Bedrock Edition. Full implementation, however, would require more than a simple texture swap. This is due to the illusioner's special attack, which creates four duplicate false illusioners, which lack a hit box. The actual illusioner remains invisible during this attack. Implementing this would likely be possible from a technical perspective, but it would require either some kind of helper entity attached to the illusioner by Geyser, such as an invisible armor stand, or the removal of invisibility during the illusioner's special attack. The former would be preferable, as it would maintain some degree of functionality for users without the pack.
+
+Currently, the optional pack uses a render controller to perform a simple texture swap on the illusioner. This is accomplished by replacing the evocation illager with the illusioner when the evocation illager returns true for the Molang query `q.is_bribed`. The following texture array is defined in the render controller:
+
+```json
+{
+  "arrays": {
+    "textures": {
+      "Array.skins": [
+        "Texture.default",
+        "Texture.illusioner"
+      ]
+    }
+  }
+}
+```
+
+The position used in the array for the texture is then defined by `Array.skins[q.is_bribed]`.
+
+The geometry of the evoker was also slightly modified to include the hat of the illusioner. Since Bedrock edition uses the textures of Java edition for all illagers, and the evoker has an unused hat on its Java edition texture, the render controller is also utilized to hide the the render controller is set to hide the helmet layer unless `q.is_bribed` is true. 
+
 ### Killer bunnies
 
 The killer bunny does not exist in Bedrock Edition. Nonetheless, this is primarily a simple texture swap. The "caerbannog" texture is the name of the texture in Java Edition, so that name has been used for consistency. This texture is added to the pack and the rabbit entity definition file. In order to construct the Molang query, the "Toast" rabbit must also be considered. In the event a rabbit is named "Toast", the texture is always overridden as the texture "Toast", including in the case of the killer bunny. Therefore, the query to select the texture is constructed with `q.is_bribed` being determined by Geyser:
