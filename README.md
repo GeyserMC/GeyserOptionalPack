@@ -19,6 +19,7 @@ Download: [GeyserOptionalPack.mcpack](https://download.geysermc.org/v2/projects/
   - 2x2 crafting grid while in creative mode
   - Tick-delay and rename fields in the command block menu
   - Structure block options that do not exist on Java
+- Removes the (sub)title background for attack cooldowns 
 
 ### Manually building
 

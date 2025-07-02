@@ -1,0 +1,31 @@
+{
+  "hud_title_text/title_frame/title_background": {
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string",
+        "binding_name_override": "#text",
+        "binding_type": "global"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "((#text - ' ') = #text)",
+        "target_property_name": "#visible"
+      }
+    ]
+  }
+  ,
+  "hud_title_text/subtitle_frame/subtitle_background": {
+    "bindings": [
+      {
+        "binding_name": "#hud_subtitle_text_string",
+        "binding_name_override": "#text",
+        "binding_type": "global"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "((#text - '˙') = #text)",
+        "target_property_name": "#visible"
+      }
+    ]
+  }
+}
