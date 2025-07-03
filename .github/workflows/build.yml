@@ -17,6 +17,9 @@ jobs:
         # See https://github.com/actions/checkout/commits
         uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
 
+      - name: Install imagemagick
+        run: apt install imagemagick
+
       - name: Prepare pack
         run: bash prepare_pack.sh
 
