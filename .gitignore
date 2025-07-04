@@ -1,16 +1,47 @@
 .idea/
 GeyserOptionalPack.mcpack
 GeyserOptionalPack.zip
-# Java Edition textures that should not be submitted to Git
-textures/geyser/entity/iron_golem/iron_golem_crackiness_high.png
-textures/geyser/entity/iron_golem/iron_golem_crackiness_low.png
-textures/geyser/entity/iron_golem/iron_golem_crackiness_medium.png
-textures/geyser/entity/arrow/spectral_arrow.png
-textures/geyser/entity/rabbit/caerbannog.png
-textures/geyser/particle/damage.png
-textures/geyser/particle/flash.png
-textures/geyser/particle/nautilus.png
-textures/geyser/particle/sweep_attack.png
-textures/geyser/entity/illager/illusioner.png
 # Blockception's Minecraft Bedrock Development VS Code Extension settings
 .mcattributes
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### IntelliJ IDEA ###
+.idea/modules.xml
+.idea/jarRepositories.xml
+.idea/compiler.xml
+.idea/libraries/
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store

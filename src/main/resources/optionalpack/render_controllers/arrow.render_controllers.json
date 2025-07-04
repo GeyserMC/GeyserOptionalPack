@@ -1,0 +1,13 @@
+{
+  "format_version": "1.10.0",
+  "render_controllers": {
+    "controller.render.arrow": {
+      "geometry": "geometry.default",
+      "materials": [ { "*": "Material.default" } ],
+      "textures": [
+        "q.is_bribed ? texture.spectral : texture.default"
+      ],
+      "filter_lighting": true
+    }
+  }
+}
