@@ -25,13 +25,6 @@ public class OptionalPack {
             new SweepAttackRenderer()
     );
 
-    // Files that don't need to be in the pack
-    private static List<String> blacklistFiles = List.of(
-            "required_files.txt",
-            "README.md",
-            "prepare_pack.sh",
-            "developer_documentation.md"
-    );
     private static Instant start;
 
     public static void main(String[] args) {
@@ -66,15 +59,6 @@ public class OptionalPack {
             }
 
             /* Step 4: Compile pack folder into a mcpack. */
-            // Remove unnecessary files that don't need to be in the pack.
-            for (String path : blacklistFiles) {
-                Path filePath = WORKING_PATH.resolve(path);
-
-                if (Files.exists(filePath)) {
-                    Files.delete(filePath);
-                }
-            }
-
             log("Zipping as GeyserOptionalPack.mcpack...");
             zipFolder(WORKING_PATH, Path.of("GeyserOptionalPack.mcpack"));
 
