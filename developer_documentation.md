@@ -363,7 +363,6 @@ putting the textures in the correct order.
 
 See https://bugs.mojang.com/browse/MCPE-48224 for the associated bug report.
 
-
 ### Cherry fence gate sound fix (MCPE-168021)
 
 Likely due to a copy and paste mistake as the bamboo and nether wood fence gates have 4 sounds, the Bedrock Edition default resource pack defines opening and closing a Cherry Fence Gate to have four sounds as seen below:
