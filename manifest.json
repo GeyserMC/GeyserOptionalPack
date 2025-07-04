@@ -4,7 +4,7 @@
         "description": "Optional Bedrock resource pack to extend Geyser functionality",
         "name": "GeyserOptionalPack",
         "uuid": "e5f5c938-a701-11eb-b2a3-047d7bb283ba",
-        "version": [1, 0, 12],
+        "version": [1, 0, 13],
         "min_engine_version": [ 1, 16, 0 ]
     },
     "modules": [
@@ -12,7 +12,7 @@
             "description": "GeyserOptionalPack",
             "type": "resources",
             "uuid": "eebb4ea8-a701-11eb-95ba-047d7bb283ba",
-            "version": [1, 0, 12]
+            "version": [1, 0, 13]
         }
     ]
 }
