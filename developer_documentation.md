@@ -18,6 +18,7 @@
    * [UI modifications](#ui-modifications)
    * [Structure block texture changes (MCPE-48224)](#structure-block-texture-changes-mcpe-48224)
    * [Cherry Fence Gate Sound Fix (MCPE-168021)](#cherry-fence-gate-sound-fix-mcpe-168021)
+   * [Flipped throwable item sprites fix (MCPE-66385)](#flipped-throwable-item-sprites-fix-mcpe-66385)
 <!--te-->
 
 ### Introduction
@@ -422,3 +423,16 @@ Both Java and Bedrock don't have this sound, so GeyserOptionalPack fixes this by
 ```
 
 See https://bugs.mojang.com/browse/MCPE-168021 for the associated bug report.
+
+### Flipped throwable item sprites fix (MCPE-66385)
+
+As seen below, the models of all throwable item entities (e.g. snowballs, ender pearls, potions) are incorrectly flipped:
+
+Java
+![Java](https://github.com/user-attachments/assets/1b77bb09-5c49-465e-ae84-f626184354f2)
+Bedrock
+![Bedrock](https://github.com/user-attachments/assets/eda75501-42b2-4b1f-a19f-47b7be81d754)
+
+GeyserOptionalPack fixes this by correctly rotating the model 180 degrees on the Y axis.
+
+The model was also updated to be 3D like Java, as on Bedrock the model is a 2D sprite.
