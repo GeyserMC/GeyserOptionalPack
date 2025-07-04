@@ -13,7 +13,7 @@ public class JavaAssetRetriever {
 
     public static void extract(ZipFile clientJar) {
         try {
-            InputStream is = new FileInputStream(OptionalPack.WORKING_PATH.resolve("required_files.txt").toFile());
+            InputStream is = JavaAssetRetriever.class.getClassLoader().getResourceAsStream("required_files.txt");
             String str = new String(is.readAllBytes());
             for (String line : str.lines().toList()) {
                 String[] paths = line.split(" ");
