@@ -1,23 +1,24 @@
 <!--ts-->
-* [Introduction](#Introduction)
-* [Armor stands](#Armor-stands)
-  * [Part visibility and rotation encoding](#Part-visibility-and-rotation-encoding)
-  * [Geometry and attachables](#Geometry-and-attachables)
-* [Illusioners](#Illusioners)
-* [Killer bunnies](#Killer-bunnies)
-* [Offhand Animation](#Offhand-animation)
-* [Particles](#Particles)
-  * [Sweep Attack](#Sweep-attack)
-* [Phantoms](#Phantoms)
-* [Player skin parts](#Player-skin-parts)
-* [Shulkers](#Shulkers)
-* [Spectral arrow entities](#Spectral-arrow-entities)
-* [Spyglass animations](#Spyglass-animations)
-* [Zombie villager textures](#Zombie-villager-textures)
-* [UI modifications](#ui-modifications)
-* [Combat Sounds](#combat-sounds)
-* [Structure block texture changes (MCPE-48224)](#structure-block-texture-changes-mcpe-48224)
-* [Cherry Fence Gate Sound Fix (MCPE-168021)](#cherry-fence-gate-sound-fix-mcpe-168021)
+   * [Introduction](#Introduction)
+   * [Armor stands](#Armor-stands)
+      * [Part visibility and rotation encoding](#Part-visibility-and-rotation-encoding)
+      * [Geometry and attachables](#Geometry-and-attachables)
+   * [Illusioners](#Illusioners)
+   * [Killer bunnies](#Killer-bunnies)
+   * [Offhand Animation](#Offhand-animation)
+   * [Particles](#Particles)
+      * [Sweep Attack](#Sweep-attack)
+   * [Phantoms](#Phantoms)
+   * [Player skin parts](#Player-skin-parts)
+   * [Shulkers](#Shulkers)
+   * [Skeleton horses](#Skeleton-horses)
+   * [Spectral arrow entities](#Spectral-arrow-entities)
+   * [Spyglass animations](#Spyglass-animations)
+   * [Zombie villager textures](#Zombie-villager-textures)
+   * [UI modifications](#ui-modifications)
+   * [Structure block texture changes (MCPE-48224)](#structure-block-texture-changes-mcpe-48224)
+   * [Cherry Fence Gate Sound Fix (MCPE-168021)](#cherry-fence-gate-sound-fix-mcpe-168021)
+   * [Combat Sounds](#combat-sounds)
 <!--te-->
 
 ### Introduction
@@ -64,6 +65,29 @@ Geyser scales down small armor stands to 0.5. However, this has the unintended s
 ```c
 v.head_scale = q.is_item_name_any('slot.armor.head', 0, 'minecraft:skull', 'minecraft:carved_pumpkin') ? 0.6992 : 1.3984;
 ```
+
+### Illusioners
+
+The illusioner does not exist in Bedrock Edition. Full implementation, however, would require more than a simple texture swap. This is due to the illusioner's special attack, which creates four duplicate false illusioners, which lack a hit box. The actual illusioner remains invisible during this attack. Implementing this would likely be possible from a technical perspective, but it would require either some kind of helper entity attached to the illusioner by Geyser, such as an invisible armor stand, or the removal of invisibility during the illusioner's special attack. The former would be preferable, as it would maintain some degree of functionality for users without the pack.
+
+Currently, the optional pack uses a render controller to perform a simple texture swap on the illusioner. This is accomplished by replacing the evocation illager with the illusioner when the evocation illager returns true for the Molang query `q.is_bribed`. The following texture array is defined in the render controller:
+
+```json
+{
+  "arrays": {
+    "textures": {
+      "Array.skins": [
+        "Texture.default",
+        "Texture.illusioner"
+      ]
+    }
+  }
+}
+```
+
+The position used in the array for the texture is then defined by `Array.skins[q.is_bribed]`.
+
+The geometry of the evoker was also slightly modified to include the hat of the illusioner. Since Bedrock edition uses the textures of Java edition for all illagers, and the evoker has an unused hat on its Java edition texture, the render controller is also utilized to hide the the render controller is set to hide the helmet layer unless `q.is_bribed` is true. 
 
 ### Killer bunnies
 
@@ -192,6 +216,22 @@ In Java Edition, when a shulker is invisible, their "box" will be invisible. In 
 ]
 ```
 
+### Skeleton horses
+
+Skeleton horses can have saddles in Java Edition, but Bedrock Edition hides them. In this pack, the parts in the render controller hiding the saddle textures are changed to match the other horse models' behavior.
+
+```json
+"part_visibility": [
+    { "*saddle*": "query.is_saddled" }, // Replaced from "false"
+    { "SaddleMouthLine": "query.is_saddled && query.has_rider" }, // Replaced from "false"
+    { "SaddleMouthLineR": "query.is_saddled && query.has_rider" }, // Replaced from "false"
+    { "Bag*": false },
+    { "MuleEar*": false }
+]
+```
+
+Note that the V3 renderer present in the example resource pack is unused (as of 1.21.2).
+
 ### Spectral arrow entities
 
 The glowing effect and the spectral arrow item and entities do not exist on Bedrock Edition. However, as the spectral arrow entity is just a retexture of a normal arrow, so by defining a new texture for the arrow entity and setting a query, we can tell Bedrock to replace the texture in the render controller:
@@ -316,27 +356,13 @@ Hiding the 2x2 crafting grid is a bit more involved. We have to use bindings to 
 This uses the `#is_creative_mode` binding, and applies it to the crafting panel. Note that we insert this modification into the bindings array
 instead of directly modifying the UI - this allows the GeyserOptionalPack to stay compatible with other resource packs that modify this screen.
 
-### Combat Sounds
-
-Bedrock Edition's combat system is similar to Java Edition 1.8's combat system, however it includes some updated sounds for strong and weak attacks.
-We can use these as they are the exact same as Java Edition's sounds, however we have to manually add some audio files that aren't in Bedrock Edition's default resources due to Java Edition 1.9's combat system having mechanics that simply aren't in Bedrock, meaning the related sounds are not present.
-
-|         Java (`entity.`)         |       Bedrock (`game.`)       |    Optional Pack (`geyseropt.`)     |
-| :------------------------------: | :---------------------------: | :---------------------------------: |
-|   `entity.player.attack.crit`    |               -               |   `geyseropt.player.attack.crit`    |
-| `entity.player.attack.knockback` |               -               | `geyseropt.player.attack.knockback` |
-|  `entity.player.attack.strong`   |  `game.player.attack.strong`  |                  -                  |
-|   `entity.player.attack.sweep`   |               -               |   `geyseropt.player.attack.sweep`   |
-|   `entity.player.attack.weak`    | `game.player.attack.nodamage` |                  -                  |
-
-Note that this pack still makes changes to the sounds available in Bedrock Edition. The volume of both the strong and weak sounds are quieter, so the optional pack raises the volume of the sounds from 20% to 70% to match Java Edition.
-
 ### Structure block texture changes (MCPE-48224)
 
 Bedrock edition is currently wrongly assigning textures to the load, save and corner structure block modes. The `terrain_texture.json` file fixes this by
 putting the textures in the correct order. 
 
 See https://bugs.mojang.com/browse/MCPE-48224 for the associated bug report.
+
 
 ### Cherry fence gate sound fix (MCPE-168021)
 
@@ -398,3 +424,18 @@ Both Java and Bedrock don't have this sound, so GeyserOptionalPack fixes this by
 ```
 
 See https://bugs.mojang.com/browse/MCPE-168021 for the associated bug report.
+
+### Combat Sounds
+
+Bedrock Edition's combat system is similar to Java Edition 1.8's combat system, however it includes some updated sounds for strong and weak attacks.
+We can use these as they are the exact same as Java Edition's sounds, however we have to manually add some audio files that aren't in Bedrock Edition's default resources due to Java Edition 1.9's combat system having mechanics that simply aren't in Bedrock, meaning the related sounds are not present.
+
+|         Java (`entity.`)         |       Bedrock (`game.`)       |    Optional Pack (`geyseropt.`)     |
+| :------------------------------: | :---------------------------: | :---------------------------------: |
+|   `entity.player.attack.crit`    |               -               |   `geyseropt.player.attack.crit`    |
+| `entity.player.attack.knockback` |               -               | `geyseropt.player.attack.knockback` |
+|  `entity.player.attack.strong`   |  `game.player.attack.strong`  |                  -                  |
+|   `entity.player.attack.sweep`   |               -               |   `geyseropt.player.attack.sweep`   |
+|   `entity.player.attack.weak`    | `game.player.attack.nodamage` |                  -                  |
+
+Note that this pack still makes changes to the sounds available in Bedrock Edition. The volume of both the strong and weak sounds are quieter, so the optional pack raises the volume of the sounds from 20% to 70% to match Java Edition.

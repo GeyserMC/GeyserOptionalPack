@@ -1,6 +1,6 @@
 # GeyserOptionalPack
 
-Optional Bedrock resource pack to extend Geyser functionality. Learn more on its [wiki page](https://github.com/GeyserMC/Geyser/wiki/GeyserOptionalPack).
+Optional Bedrock resource pack to extend Geyser functionality. Learn more on its [wiki page](https://geysermc.org/wiki/other/geyseroptionalpack).
 
 Download: [GeyserOptionalPack.mcpack](https://download.geysermc.org/v2/projects/geyseroptionalpack/versions/latest/builds/latest/downloads/geyseroptionalpack)
 
@@ -19,6 +19,7 @@ Download: [GeyserOptionalPack.mcpack](https://download.geysermc.org/v2/projects/
   - 2x2 crafting grid while in creative mode
   - Tick-delay and rename fields in the command block menu
   - Structure block options that do not exist on Java
+- Removes the (sub)title background for attack cooldowns 
 
 ### Manually building
 
