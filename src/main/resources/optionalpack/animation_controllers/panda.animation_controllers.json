@@ -1,0 +1,17 @@
+{
+	"format_version" : "1.10.0",
+	"animation_controllers" : {
+		"controller.animation.panda.sneezing" : {
+			"initial_state" : "baby",
+			"states" : {
+				"baby" : {
+					"animations" : [
+						{
+							"sneezing": false
+						}
+					]
+				}
+			}
+		}
+	}
+}

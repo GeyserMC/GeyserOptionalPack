@@ -1,0 +1,27 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.evoker": {
+      "arrays": {
+        "textures": {
+          "Array.skins": [
+            "Texture.default",
+            "Texture.illusioner"
+          ]
+        }
+      },
+      "geometry": "Geometry.default",
+      "materials": [ { "*": "Material.default" } ],
+      "part_visibility": [
+        { "*": true },
+        { "arms": "!(q.is_casting || q.is_celebrating)" },
+        { "leftarm": "q.is_casting || q.is_celebrating" },
+        { "rightarm": "q.is_casting || q.is_celebrating" },
+        { "helmet": "q.is_bribed" }
+      ],
+      "textures": [ 
+        "Array.skins[q.is_bribed]"
+      ]
+    }
+  }
+}

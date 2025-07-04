@@ -1,0 +1,53 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "minecraft:panda",
+      "materials": { "default": "panda" },
+      "textures": {
+        "default": "textures/entity/panda/panda",
+        "lazy": "textures/entity/panda/panda_lazy",
+        "worried": "textures/entity/panda/panda_worried",
+        "playful": "textures/entity/panda/panda_playful",
+        "brown": "textures/entity/panda/panda_brown",
+        "weak": "textures/entity/panda/panda_sneezy",
+        "aggressive": "textures/entity/panda/panda_aggressive"
+      },
+      "geometry": {
+        "default": "geometry.panda"
+      },
+      "particle_effects": {
+        "sneeze": "geyseropt:sneeze"
+      },
+      "animations": {
+        "unhappy": "animation.panda.unhappy",
+        "geyser_sneezing": "animation.panda.sneezing",
+        "walk": "animation.quadruped.walk",
+        "look_at_target": "animation.common.look_at_target",
+        "baby_transform": "animation.panda.baby_transform",
+        "sitting": "animation.panda.sitting",
+        "rolling": "animation.panda.rolling",
+        "lying": "animation.panda.lying",
+        "controller.move": "controller.animation.panda.move",
+        "controller.unhappy": "controller.animation.panda.unhappy",
+        "controller.baby": "controller.animation.panda.baby"
+      },
+      "scripts": {
+        "pre_animation": [
+          "v.geyser_sneezing = q.sneeze_counter > 0 ? 1 : (v.geyser_sneezing ?? 0);"
+        ],
+        "animate": [
+          "controller.move",
+          "controller.unhappy",
+          "controller.baby",
+          {"geyser_sneezing": "v.geyser_sneezing"}
+        ]
+      },
+      "render_controllers": [ "controller.render.panda" ],
+      "spawn_egg": {
+        "texture": "spawn_egg",
+        "texture_index": 54
+      }
+    }
+  }
+}
