@@ -1,6 +1,143 @@
 {
   "format_version": "1.20.20",
   "sound_definitions": {
+    "game.player.attack.nodamage": {
+      "__use_legacy_max_distance": true,
+      "category": "player",
+      "max_distance": null,
+      "min_distance": null,
+      "sounds": [
+        {
+          "name": "sounds/mob/player/attack/weak1",
+          "volume": 0.7
+        },
+        {
+          "load_on_low_memory": true,
+          "name": "sounds/mob/player/attack/weak2",
+          "volume": 0.7
+        },
+        {
+          "name": "sounds/mob/player/attack/weak3",
+          "volume": 0.7
+        },
+        {
+          "name": "sounds/mob/player/attack/weak4",
+          "volume": 0.7
+        }
+      ]
+    },
+    "game.player.attack.strong": {
+      "__use_legacy_max_distance": true,
+      "category": "player",
+      "max_distance": null,
+      "min_distance": null,
+      "sounds": [
+        {
+          "load_on_low_memory": true,
+          "name": "sounds/mob/player/attack/strong1",
+          "volume": 0.6
+        },
+        {
+          "name": "sounds/mob/player/attack/strong2",
+          "volume": 0.6
+        },
+        {
+          "name": "sounds/mob/player/attack/strong3",
+          "volume": 0.6
+        },
+        {
+          "name": "sounds/mob/player/attack/strong4",
+          "volume": 0.6
+        },
+        {
+          "name": "sounds/mob/player/attack/strong5",
+          "volume": 0.7
+        },
+        {
+          "name": "sounds/mob/player/attack/strong6",
+          "volume": 0.7
+        }
+      ]
+    },
+    "geyseropt.player.attack.crit": {
+      "__use_legacy_max_distance": true,
+      "category": "player",
+      "max_distance": null,
+      "min_distance": null,
+      "sounds": [
+        {
+          "load_on_low_memory": true,
+          "name": "sounds/geyser/entity/player/attack/crit1",
+          "volume": 0.7
+        },
+        {
+          "name": "sounds/geyser/entity/player/attack/crit2",
+          "volume": 0.7
+        },
+        {
+          "name": "sounds/geyser/entity/player/attack/crit3",
+          "volume": 0.7
+        }
+      ]
+    },
+    "geyseropt.player.attack.knockback": {
+      "__use_legacy_max_distance": true,
+      "category": "player",
+      "max_distance": null,
+      "min_distance": null,
+      "sounds": [
+        {
+          "load_on_low_memory": true,
+          "name": "sounds/geyser/entity/player/attack/knockback1",
+          "volume": 0.7
+        },
+        {
+          "name": "sounds/geyser/entity/player/attack/knockback2",
+          "volume": 0.7
+        },
+        {
+          "name": "sounds/geyser/entity/player/attack/knockback3",
+          "volume": 0.7
+        }
+      ]
+    },
+    "geyseropt.player.attack.sweep": {
+      "__use_legacy_max_distance": true,
+      "category": "player",
+      "max_distance": null,
+      "min_distance": null,
+      "sounds": [
+        {
+          "load_on_low_memory": true,
+          "name": "sounds/geyser/entity/player/attack/sweep1",
+          "volume": 0.7
+        },
+        {
+          "name": "sounds/geyser/entity/player/attack/sweep2",
+          "volume": 0.7
+        },
+        {
+          "name": "sounds/geyser/entity/player/attack/sweep3",
+          "volume": 0.7
+        },
+        {
+          "name": "sounds/geyser/entity/player/attack/sweep4",
+          "volume": 0.7
+        },
+        {
+          "name": "sounds/geyser/entity/player/attack/sweep5",
+          "volume": 0.7
+        },
+        {
+          "name": "sounds/geyser/entity/player/attack/sweep6",
+          "volume": 0.7
+        },
+        {
+          "name": "sounds/geyser/entity/player/attack/sweep7",
+          "volume": 0.7
+        }
+      ]
+    },
     "close.cherry_wood_fence_gate": {
       "category": "block",
       "max_distance": null,
