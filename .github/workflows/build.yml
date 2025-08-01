@@ -30,9 +30,9 @@ jobs:
           chmod +x ./gradlew
           ./gradlew build --no-daemon
 
-      - name: test
-        id: test
-        run: "tree"
+      - name: Run Compiler
+        id: pack-compiler
+        run: "java -jar build/libs/GeyserOptionalPackCompiler-1.0-SNAPSHOT.jar"
           
       - name: Archive artifacts
         # See https://github.com/actions/upload-artifact/commits
