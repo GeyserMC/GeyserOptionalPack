@@ -26,7 +26,9 @@ jobs:
 
       - name: Build with Gradle
         id: gradle-build
-        run: "./gradlew build --no-daemon"
+        run: |
+          chmod +x ./gradlew
+          ./gradlew build --no-daemon
 
       - name: test
         id: test
