@@ -46,7 +46,7 @@ jobs:
         if: ${{ success() && github.repository == 'GeyserMC/GeyserOptionalPack' && github.ref_name == 'master' }}
         id: get-version
         run: |
-          version=$(cat manifest.json | jq -r '.header.version | join(".")')
+          version=$(cat src/main/resources/optionalpack/manifest.json | jq -r '.header.version | join(".")')
           echo "VERSION=${version}" >> $GITHUB_OUTPUT
 
       - name: Get Release Metadata
