@@ -17,15 +17,18 @@ jobs:
         # See https://github.com/actions/checkout/commits
         uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
 
-      - name: Install ImageMagick
-        run: sudo apt install -y imagemagick
+      - name: Setup Java JDK
+        uses: actions/setup-java@v3.14.1
+        with:
+          java-version: 21
+      
+      - name: Build with Gradle
+        uses: gradle/actions@ac638b010cf58a27ee6c972d7336334ccaf61c96 # v4.4.1
 
-      - name: Prepare pack
-        run: bash prepare_pack.sh
-
-      - name: Zip pack
-        run: zip GeyserOptionalPack.mcpack -r . -x ".*" required_files.txt prepare_pack.sh
-
+      - name: test
+        id: test
+        run: "ls"
+          
       - name: Archive artifacts
         # See https://github.com/actions/upload-artifact/commits
         uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
