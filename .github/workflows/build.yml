@@ -32,7 +32,7 @@ jobs:
 
       - name: test
         id: test
-        run: "ls"
+        run: "tree"
           
       - name: Archive artifacts
         # See https://github.com/actions/upload-artifact/commits
