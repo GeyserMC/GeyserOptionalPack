@@ -21,10 +21,12 @@ jobs:
         uses: actions/setup-java@v3.14.1
         with:
           java-version: '21'
-          distribution: 'graalvm'
-      
+          distribution: 'temurin'
+          cache: 'gradle'
+
       - name: Build with Gradle
-        uses: gradle/actions@ac638b010cf58a27ee6c972d7336334ccaf61c96 # v4.4.1
+        id: gradle-build
+        run: "./gradlew build --no-daemon"
 
       - name: test
         id: test
