@@ -37,6 +37,8 @@ import java.util.zip.ZipFile;
 
 public class JavaResources {
     private static ZipFile clientJar;
+
+    // This function copies the files from the jar to the pack and initializes the class for getting resources when needed in renderers.
     public static void extract(ZipFile clientJar) {
         JavaResources.clientJar = clientJar;
         try {
@@ -47,7 +49,7 @@ public class JavaResources {
                 String destinationPath = paths[1];
                 InputStream location = clientJar.getInputStream(clientJar.getEntry(jarAsset));
 
-                OptionalPack.log("Extracting " + jarAsset + " to " + destinationPath + "...");
+                OptionalPack.log("Copying " + jarAsset + " to " + destinationPath + "...");
                 // it works
                 Path destination = OptionalPack.WORKING_PATH.resolve(destinationPath).resolve(Path.of(jarAsset).toFile().getName());
                 if (destination.toFile().mkdirs()) {
