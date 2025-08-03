@@ -39,7 +39,7 @@ public class HTTP {
         try {
             URLConnection cn = url.openConnection();
             cn.setConnectTimeout(5000);
-          //  cn.setRequestProperty("User-Agent", "GeyserOptionalPackCompiler/GeyserOptionalPackCompiler/1.0.0");
+            cn.setRequestProperty("User-Agent", "GeyserMC/GeyserOptionalPackCompiler/1.0.0");
             cn.connect();
             return cn.getInputStream();
         } catch (IOException e) {
@@ -55,20 +55,12 @@ public class HTTP {
         }
     }
 
-    public static String asText(URL url) {
+    public static String getAsString(URL url) {
         try {
             return new String(request(url).readAllBytes(), StandardCharsets.UTF_8);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-    }
-
-    public static String asText(String url) {
-        try {
-            return asText(new URL(url));
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

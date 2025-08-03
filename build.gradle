@@ -19,6 +19,7 @@ test {
 }
 
 jar {
+    archiveFileName = "GeyserOptionalPackCompiler.jar"
     manifest {
         attributes 'Main-Class': 'org.geysermc.optionalpack.OptionalPack'
     }

@@ -23,23 +23,34 @@
  * @link https://github.com/GeyserMC/GeyserOptionalPack
  */
 
-package org.geysermc.optionalpack.renderers;
+package org.geysermc.optionalpack;
 
-import java.util.List;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
 
-// Output of this renderer is used by optionalpack/particles/sweep_attack.particle.json
-public class SweepAttackRenderer extends VerticalSpriteSheetRenderer {
+public class Resources {
+    public static InputStream getAsStream(String resourcePath) {
+        return Resources.class.getClassLoader().getResourceAsStream(resourcePath);
+    }
 
-    public SweepAttackRenderer() {
-        super("Sweep Attack", "textures/geyser/particle/sweep_attack.png", List.of(
-                "assets/minecraft/textures/particle/sweep_0.png",
-                "assets/minecraft/textures/particle/sweep_1.png",
-                "assets/minecraft/textures/particle/sweep_2.png",
-                "assets/minecraft/textures/particle/sweep_3.png",
-                "assets/minecraft/textures/particle/sweep_4.png",
-                "assets/minecraft/textures/particle/sweep_5.png",
-                "assets/minecraft/textures/particle/sweep_6.png",
-                "assets/minecraft/textures/particle/sweep_7.png"
-        ));
+    public static String getAsText(String resourcePath) throws IOException {
+        return getAsText(resourcePath, Charset.defaultCharset());
+    }
+
+    public static String getAsText(String resourcePath, Charset charset) throws IOException {
+        InputStream is = getAsStream(resourcePath);
+        String text = new String(is.readAllBytes(), charset);
+        is.close();
+        return text;
+    }
+
+    public static BufferedImage getAsImage(String resourcePath) throws IOException {
+        InputStream is = getAsStream(resourcePath);
+        BufferedImage image = ImageIO.read(is);
+        is.close();
+        return image;
     }
 }

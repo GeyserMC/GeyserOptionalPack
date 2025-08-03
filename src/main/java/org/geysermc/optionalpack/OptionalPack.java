@@ -27,6 +27,7 @@ package org.geysermc.optionalpack;
 
 import org.geysermc.optionalpack.renderers.Renderer;
 import org.geysermc.optionalpack.renderers.SweepAttackRenderer;
+import org.geysermc.optionalpack.renderers.VerticalSpriteSheetRenderer;
 
 import javax.imageio.ImageIO;
 import java.io.*;
@@ -46,6 +47,10 @@ public class OptionalPack {
     public static final Path WORKING_PATH = Path.of("temp-pack/optionalpack/");
     public static ZipFile CLIENT_JAR;
 
+    /*
+    List of renderers that will be used to convert sprites for the resource pack.
+    They are executed in order from start to end.
+     */
     private static List<Renderer> renderers = List.of(
             new SweepAttackRenderer()
     );
@@ -72,7 +77,7 @@ public class OptionalPack {
             File jarFile = jarPath.toFile();
 
             CLIENT_JAR = new ZipFile(jarFile);
-            JavaAssetRetriever.extract(CLIENT_JAR);
+            JavaResources.extract(CLIENT_JAR);
 
             /* Step 3: Rendering sprites in a format that we use in the resource pack */
             for (Renderer renderer : renderers) {
@@ -121,7 +126,6 @@ public class OptionalPack {
                 .toURI());
 
         unzipPack(f, TEMP_PATH);
-
     }
 
     // thank you https://stackoverflow.com/a/57997601
@@ -137,7 +141,6 @@ public class OptionalPack {
             }
         });
         zos.close();
-
     }
 
     private static void unzipPack(File file, Path destDir) {
@@ -176,7 +179,6 @@ public class OptionalPack {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public static void log(String message) {

@@ -25,44 +25,66 @@
 
 package org.geysermc.optionalpack;
 
-import java.io.FileInputStream;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.zip.ZipFile;
 
-public class JavaAssetRetriever {
-
-
+public class JavaResources {
+    private static ZipFile clientJar;
     public static void extract(ZipFile clientJar) {
+        JavaResources.clientJar = clientJar;
         try {
-            InputStream is = JavaAssetRetriever.class.getClassLoader().getResourceAsStream("required_files.txt");
-            String str = new String(is.readAllBytes());
+            String str = Resources.getAsText("required_files.txt");
             for (String line : str.lines().toList()) {
                 String[] paths = line.split(" ");
-                InputStream location = clientJar.getInputStream(clientJar.getEntry(paths[0]));
+                String jarAsset = paths[0];
+                String destinationPath = paths[1];
+                InputStream location = clientJar.getInputStream(clientJar.getEntry(jarAsset));
 
-                OptionalPack.log("Extracting " + paths[0] + " to " + paths[1] + "...");
+                OptionalPack.log("Extracting " + jarAsset + " to " + destinationPath + "...");
                 // it works
-                Path destination = OptionalPack.WORKING_PATH.resolve(paths[1]).resolve(Path.of(paths[0]).toFile().getName());
-                destination.toFile().mkdirs();
-
-                Files.copy(location, destination, StandardCopyOption.REPLACE_EXISTING);
+                Path destination = OptionalPack.WORKING_PATH.resolve(destinationPath).resolve(Path.of(jarAsset).toFile().getName());
+                if (destination.toFile().mkdirs()) {
+                    Files.copy(location, destination, StandardCopyOption.REPLACE_EXISTING);
+                }
+                else {
+                    OptionalPack.log("Could not make directories for copying " + jarAsset + " to " + destinationPath + "!");
+                }
             }
-            is.close();
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static InputStream get(ZipFile clientJar, String path) {
+    public static InputStream getAsStream(String path) {
         try {
             return clientJar.getInputStream(clientJar.getEntry(path));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static String getAsText(String resourcePath) throws IOException {
+        return getAsText(resourcePath, Charset.defaultCharset());
+    }
+
+    public static String getAsText(String resourcePath, Charset charset) throws IOException {
+        InputStream is = getAsStream(resourcePath);
+        String text = new String(is.readAllBytes(), charset);
+        is.close();
+        return text;
+    }
+    public static BufferedImage getAsImage(String resourcePath) throws IOException {
+        InputStream is = getAsStream(resourcePath);
+        BufferedImage image = ImageIO.read(is);
+        is.close();
+        return image;
     }
 }
