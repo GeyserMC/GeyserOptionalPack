@@ -22,7 +22,9 @@
 
 ### Introduction
 
-Entity data and entity flags (known as queries in Molang) are pieces of metadata that store various pieces of information about an entity on the Bedrock Edition of Minecraft. You have a query for an entity's health, for example (a number query or an entity data), and you have a query for is an entity is angry (an entity flag, which is either 1.0 or 0.0 in Molang). Not all entities use every query, but every entity has access to most queries, though Bedrock by default ignores these. We use this to our advantage in this resource pack.
+The GeyserOptionalPack is compiled using a program written in Java. It contains various renderers and utilities for converting Java Edition assets into a format that works with Geyser to work on Bedrock Edition.
+
+Entity data and entity flags (known as queries in Molang) are pieces of metadata that store various pieces of information about an entity on the Bedrock Edition of Minecraft. You can query for an entity's health, for example (a number query or an entity data), and can query for if an entity is angry (an entity flag, which is either 1.0 or 0.0 in Molang). Not all entities use every query, but every entity has access to most queries, though Bedrock by default ignores these. These queries can be sent by Geyser and change how an entity looks. We use this to our advantage in this resource pack.
 
 ### Armor stands
 
@@ -98,7 +100,7 @@ The killer bunny does not exist in Bedrock Edition. Nonetheless, this is primari
 ]
 ```
 
-The texture required for this to be displayed can be retrieved during the build process.
+The texture required for this to be displayed can be retrieved during the compilation process.
 
 ### Offhand Animation
 
@@ -130,7 +132,7 @@ The pack replaces many particles that are not displayed for various reasons. Som
 
 #### Sweep attack
 
-Of note, the texture for the sweep attack particle is built on the CI using [Imagemagick](https://imagemagick.org/script/index.php). This creates what is effectively a sprite sheet, and then the UV of the particle is animated from the particle definition. The UV animation in the particle definition is defined as follows:
+Of note, the texture for the sweep attack particle is built using the GeyserOptionalPackCompiler. This creates what is effectively a sprite sheet, and then the UV of the particle is animated from the particle definition. The UV animation in the particle definition is defined as follows:
 
 ```jsonc
 {
@@ -146,13 +148,7 @@ Of note, the texture for the sweep attack particle is built on the CI using [Ima
 }
 ```
 
-The Imagemagick command used to create the sprite on the CI is `convert`, which is the subset of Imagemagick that deals with image manipulation. The command is as follows:
-
-```sh
-convert -append extracted/assets/minecraft/textures/particle/sweep_*.png -define png:format=png8 textures/particle/sweep_attack.png
-```
-
-The `-append` flag is used to join the input images which match the defined globular expression (`.../sweep_*.png`). The image format is defined for safety as by default Imagemagick will attempt to change the color mode of the image to grayscale, which Minecraft will not interpret correctly. The image is then placed in the pack at the defined path.
+The class for rendering the sweep attack texture can be found here: [SweepAttackRenderer.java](https://github.com/GeyserMC/GeyserOptionalPack/blob/master/src/main/java/org/geysermc/optionalpack/renderers/SweepAttackRenderer.java)
 
 ### Phantoms
 
@@ -241,7 +237,7 @@ The glowing effect and the spectral arrow item and entities do not exist on Bedr
 ]
 ```
 
-The texture required for this to be displayed can be retrieved during the build process.
+The texture required for this to be displayed can be retrieved during the compilation process.
 
 ### Spyglass animations
 
