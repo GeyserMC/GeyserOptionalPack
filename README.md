@@ -1,6 +1,6 @@
 # GeyserOptionalPack
 
-Optional Bedrock resource pack to extend Geyser functionality. Learn more on its [wiki page](https://geysermc.org/wiki/other/geyseroptionalpack).
+Optional Bedrock resource pack to extend Geyser functionality. Learn more on its [wiki page](https://github.com/GeyserMC/Geyser/wiki/GeyserOptionalPack).
 
 Download: [GeyserOptionalPack.mcpack](https://download.geysermc.org/v2/projects/geyseroptionalpack/versions/latest/builds/latest/downloads/geyseroptionalpack)
 
@@ -19,11 +19,13 @@ Download: [GeyserOptionalPack.mcpack](https://download.geysermc.org/v2/projects/
   - 2x2 crafting grid while in creative mode
   - Tick-delay and rename fields in the command block menu
   - Structure block options that do not exist on Java
-- Removes the (sub)title background for attack cooldowns 
 
-### Manually building
+### Manually compiling the pack
 
-Run `./prepare_pack.sh` in this directory and the necessary files from the vanilla jar will be copied to the required directories. Zip up and you're set. Optionally, you may compress the output JSON files by running `./prepare_pack.sh -jc`. This should not be done when planning to contribute. You may then package with `zip GeyserOptionalPack.mcpack -r . -x ".*" Jenkinsfile required_files.txt prepare_pack.sh`.
+1. Clone the repo to your computer
+2. Run `gradlew build`.
+3. Run the pack compiler using `java -jar build/libs/GeyserOptionalPackCompiler.jar`
+4. When it finishes compiling, it will output the `GeyserOptionalPack.mcpack`.
 
 ### Legal
 
