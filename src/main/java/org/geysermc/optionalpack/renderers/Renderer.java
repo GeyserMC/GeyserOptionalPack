@@ -29,7 +29,27 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public interface Renderer {
+    /**
+     * Gets the name of the renderer for logging in the console.
+     *
+     * @return The name of the renderer.
+     */
     String getName();
-    String getDestination();
+
+    /**
+     * Gets the destination path for the rendered output.
+     *
+     * @return The destination path as a String.
+     */
+    default String getDestination() {
+        return "";
+    }
+
+    /**
+     * Draws the image as a BufferedImage.
+     *
+     * @return The rendered output as a BufferedImage.
+     * @throws IOException If an error occurs during rendering.
+     */
     BufferedImage render() throws IOException;
 }

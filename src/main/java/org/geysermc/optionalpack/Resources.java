@@ -32,14 +32,33 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 
 public class Resources {
+    /**
+     * Returns a resource as an InputStream.
+     *
+     * @param resourcePath The path to the resource in the Compiler JAR file.
+     * @return The resource as a BufferedImage.
+     */
     public static InputStream getAsStream(String resourcePath) {
         return Resources.class.getClassLoader().getResourceAsStream(resourcePath);
     }
 
+    /**
+     * Returns a resource as a String using the default charset (UTF-8).
+     *
+     * @param resourcePath The path to the resource in the Compiler JAR file.
+     * @return The resource as a String.
+     */
     public static String getAsText(String resourcePath) throws IOException {
         return getAsText(resourcePath, Charset.defaultCharset());
     }
 
+    /**
+     * Returns a resource as a String.
+     *
+     * @param resourcePath The path to the resource in the Compiler JAR file.
+     * @param charset The charset to use for decoding the resource.
+     * @return The resource as a String.
+     */
     public static String getAsText(String resourcePath, Charset charset) throws IOException {
         InputStream is = getAsStream(resourcePath);
         String text = new String(is.readAllBytes(), charset);
@@ -47,6 +66,12 @@ public class Resources {
         return text;
     }
 
+    /**
+     * Returns a resource as a BufferedImage.
+     *
+     * @param resourcePath The path to the resource in the Compiler JAR file.
+     * @return The resource as a BufferedImage.
+     */
     public static BufferedImage getAsImage(String resourcePath) throws IOException {
         InputStream is = getAsStream(resourcePath);
         BufferedImage image = ImageIO.read(is);

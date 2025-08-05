@@ -42,21 +42,24 @@ public class JavaResources {
     public static void extract(ZipFile clientJar) {
         JavaResources.clientJar = clientJar;
         try {
+            // Get the files we need to copy from the jar to the pack.
             String str = Resources.getAsText("required_files.txt");
             for (String line : str.lines().toList()) {
                 String[] paths = line.split(" ");
-                String jarAsset = paths[0];
+                String jarAssetPath = paths[0];
                 String destinationPath = paths[1];
-                InputStream location = clientJar.getInputStream(clientJar.getEntry(jarAsset));
+                InputStream asset = clientJar.getInputStream(clientJar.getEntry(jarAssetPath));
 
-                OptionalPack.log("Copying " + jarAsset + " to " + destinationPath + "...");
-                // it works
-                Path destination = OptionalPack.WORKING_PATH.resolve(destinationPath).resolve(Path.of(jarAsset).toFile().getName());
+                OptionalPack.log("Copying " + jarAssetPath + " to " + destinationPath + "...");
+
+                String assetFileName = Path.of(jarAssetPath).toFile().getName();
+                Path destination = OptionalPack.WORKING_PATH.resolve(destinationPath).resolve(assetFileName);
+
                 if (destination.toFile().mkdirs()) {
-                    Files.copy(location, destination, StandardCopyOption.REPLACE_EXISTING);
+                    Files.copy(asset, destination, StandardCopyOption.REPLACE_EXISTING);
                 }
                 else {
-                    OptionalPack.log("Could not make directories for copying " + jarAsset + " to " + destinationPath + "!");
+                    OptionalPack.log("Could not make directories for copying " + jarAssetPath + " to " + destinationPath + "!");
                 }
             }
 
@@ -65,24 +68,50 @@ public class JavaResources {
         }
     }
 
-    public static InputStream getAsStream(String path) {
+    /**
+     * Returns a resource as an InputStream.
+     *
+     * @param resourcePath The path to the resource in the Minecraft JAR file.
+     * @return The resource as a BufferedImage.
+     */
+    public static InputStream getAsStream(String resourcePath) {
         try {
-            return clientJar.getInputStream(clientJar.getEntry(path));
+            return clientJar.getInputStream(clientJar.getEntry(resourcePath));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
+    /**
+     * Returns a resource as a String using the default charset (UTF-8).
+     *
+     * @param resourcePath The path to the resource in the Minecraft JAR file.
+     * @return The resource as a String.
+     */
     public static String getAsText(String resourcePath) throws IOException {
         return getAsText(resourcePath, Charset.defaultCharset());
     }
 
+    /**
+     * Returns a resource as a String.
+     *
+     * @param resourcePath The path to the resource in the Minecraft JAR file.
+     * @param charset The charset to use for decoding the resource.
+     * @return The resource as a String.
+     */
     public static String getAsText(String resourcePath, Charset charset) throws IOException {
         InputStream is = getAsStream(resourcePath);
         String text = new String(is.readAllBytes(), charset);
         is.close();
         return text;
     }
+
+    /**
+     * Returns a resource as a BufferedImage.
+     *
+     * @param resourcePath The path to the resource in the Minecraft JAR file.
+     * @return The resource as a BufferedImage.
+     */
     public static BufferedImage getAsImage(String resourcePath) throws IOException {
         InputStream is = getAsStream(resourcePath);
         BufferedImage image = ImageIO.read(is);

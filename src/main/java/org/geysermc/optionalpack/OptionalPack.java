@@ -112,11 +112,14 @@ public class OptionalPack {
 
     // thank you https://www.geeksforgeeks.org/java/java-program-to-delete-a-directory/
     public static void deleteDirectory(File file) {
-        for (File subfile : file.listFiles()) {
-            if (subfile.isDirectory()) {
-                deleteDirectory(subfile);
+        File[] files = file.listFiles();
+        if (files != null) {
+            for (File subfile : file.listFiles()) {
+                if (subfile.isDirectory()) {
+                    deleteDirectory(subfile);
+                }
+                subfile.delete();
             }
-            subfile.delete();
         }
     }
 
@@ -131,7 +134,7 @@ public class OptionalPack {
     // thank you https://stackoverflow.com/a/57997601
     private static void zipFolder(Path sourceFolderPath, Path zipPath) throws Exception {
         ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(zipPath.toFile()));
-        Files.walkFileTree(sourceFolderPath, new SimpleFileVisitor<Path>() {
+        Files.walkFileTree(sourceFolderPath, new SimpleFileVisitor<>() {
             @Override
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                 zos.putNextEntry(new ZipEntry(sourceFolderPath.relativize(file).toString()));
@@ -180,6 +183,11 @@ public class OptionalPack {
         }
     }
 
+    /**
+     * Prints a message to the console.
+     *
+     * @param message The message to log.
+     */
     public static void log(String message) {
         System.out.println(message);
     }

@@ -27,18 +27,23 @@ package org.geysermc.optionalpack;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
+import java.net.*;
 import java.nio.charset.StandardCharsets;
 
 
-
 public class HTTP {
+
+    /**
+     * Requests a URL and returns the InputStream.
+     *
+     * @param url The URL to request.
+     * @return The InputStream of the requested URL.
+     */
     public static InputStream request(URL url) {
         try {
             URLConnection cn = url.openConnection();
             cn.setConnectTimeout(5000);
+            // TODO: proper versioning here
             cn.setRequestProperty("User-Agent", "GeyserMC/GeyserOptionalPackCompiler/1.0.0");
             cn.connect();
             return cn.getInputStream();
@@ -47,20 +52,31 @@ public class HTTP {
         }
     }
 
+    /**
+     * Requests a URL and returns the InputStream.
+     *
+     * @param url The URL to request.
+     * @return The InputStream of the requested URL.
+     */
     public static InputStream request(String url) {
         try {
-            return request(new URL(url));
+            return request(URI.create(url).toURL());
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
     }
 
+    /**
+     * Requests a URL and returns the data as a String.
+     *
+     * @param url The URL to request.
+     * @return The data of the requested URL as a String.
+     */
     public static String getAsString(URL url) {
-        try {
-            return new String(request(url).readAllBytes(), StandardCharsets.UTF_8);
+        try (InputStream request = request(url)) {
+            return new String(request.readAllBytes(), StandardCharsets.UTF_8);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 }
