@@ -147,35 +147,34 @@ public class OptionalPack {
         File dir = destDir.toFile();
         // create output directory if it doesn't exist
         if (!dir.exists()) dir.mkdirs();
-        FileInputStream fis;
 
         byte[] buffer = new byte[1024];
         try {
-            fis = new FileInputStream(file);
-            ZipInputStream zis = new ZipInputStream(fis);
-            ZipEntry ze = zis.getNextEntry();
-            while (ze != null) {
-                if (!ze.isDirectory()) {
-                    String fileName = ze.getName();
+            FileInputStream fileStream = new FileInputStream(file);
+            ZipInputStream zipStream = new ZipInputStream(fileStream);
+            ZipEntry entry = zipStream.getNextEntry();
+            while (entry != null) {
+                if (!entry.isDirectory()) {
+                    String fileName = entry.getName();
                     File newFile = new File(destDir + File.separator + fileName);
                     // create directories for subdirectories in zip
                     new File(newFile.getParent()).mkdirs();
-                    FileOutputStream fos = new FileOutputStream(newFile);
+                    FileOutputStream extractedFile = new FileOutputStream(newFile);
                     int len;
-                    while ((len = zis.read(buffer)) > 0) {
-                        fos.write(buffer, 0, len);
+                    while ((len = zipStream.read(buffer)) > 0) {
+                        extractedFile.write(buffer, 0, len);
                     }
-                    fos.close();
+                    extractedFile.close();
                 }
                 // close this ZipEntry
 
-                zis.closeEntry();
-                ze = zis.getNextEntry();
+                zipStream.closeEntry();
+                entry = zipStream.getNextEntry();
             }
-            // close last ZipEntry
-            zis.closeEntry();
-            zis.close();
-            fis.close();
+            // close the last ZipEntry
+            zipStream.closeEntry();
+            zipStream.close();
+            fileStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
