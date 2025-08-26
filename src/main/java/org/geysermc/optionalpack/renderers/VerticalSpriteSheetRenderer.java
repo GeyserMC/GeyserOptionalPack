@@ -66,7 +66,8 @@ public class VerticalSpriteSheetRenderer implements Renderer {
             sprites.add(is);
         }
 
-        BufferedImage canvas = new BufferedImage(sprites.getFirst().getWidth(), sprites.getFirst().getHeight() * sprites.size(), BufferedImage.TYPE_INT_ARGB);
+        BufferedImage firstSprite = sprites.getFirst();
+        BufferedImage canvas = new BufferedImage(firstSprite.getWidth(), firstSprite.getHeight() * sprites.size(), BufferedImage.TYPE_INT_ARGB);
         for (int i = 0; i < sprites.size(); i++) {
             BufferedImage sprite = sprites.get(i);
             canvas.getGraphics().drawImage(sprite, 0, i * sprite.getHeight(), null);

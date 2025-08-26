@@ -27,7 +27,9 @@ package org.geysermc.optionalpack.renderers;
 
 import java.util.List;
 
-// Output of this renderer is used by optionalpack/particles/sweep_attack.particle.json
+/**
+ * Output of this renderer is used by optionalpack/particles/sweep_attack.particle.json
+ */
 public class SweepAttackRenderer extends VerticalSpriteSheetRenderer {
 
     public SweepAttackRenderer() {

@@ -13,25 +13,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        # See https://github.com/actions/checkout/commits
-        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
-
-      - name: Setup Java JDK
-        uses: actions/setup-java@v3.14.1
+      - name: Setup Gradle
+        uses: GeyserMC/actions/setup-gradle-composite@master
         with:
-          java-version: '21'
-          distribution: 'temurin'
-          cache: 'gradle'
+          setup-java_java-version: 21
 
       - name: Build with Gradle
-        id: gradle-build
-        run: |
-          chmod +x ./gradlew
-          ./gradlew build --no-daemon
+        run: ./gradlew build
 
       - name: Run Compiler
-        id: pack-compiler
         run: "java -jar build/libs/GeyserOptionalPackCompiler.jar"
       
       - name: Archive resource pack artifact

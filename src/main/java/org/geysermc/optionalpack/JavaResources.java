@@ -36,11 +36,16 @@ import java.nio.file.StandardCopyOption;
 import java.util.zip.ZipFile;
 
 public class JavaResources {
-    private static ZipFile clientJar;
+    private static ZipFile CLIENT_JAR;
 
-    // This function copies the files from the jar to the pack and initializes the class for getting resources when needed in renderers.
+    /**
+     * This function copies the files from the jar to the pack and initializes the class for getting resources when needed in renderers.
+     *
+     * @param clientJar The java client jar
+     */
     public static void extract(ZipFile clientJar) {
-        JavaResources.clientJar = clientJar;
+        CLIENT_JAR = clientJar;
+
         try {
             // Get the files we need to copy from the jar to the pack.
             String str = Resources.getAsText("required_files.txt");
@@ -48,7 +53,7 @@ public class JavaResources {
                 String[] paths = line.split(" ");
                 String jarAssetPath = paths[0];
                 String destinationPath = paths[1];
-                InputStream asset = clientJar.getInputStream(clientJar.getEntry(jarAssetPath));
+                InputStream asset = getAsStream(jarAssetPath);
 
                 OptionalPack.log("Copying " + jarAssetPath + " to " + destinationPath + "...");
 
@@ -76,7 +81,7 @@ public class JavaResources {
      */
     public static InputStream getAsStream(String resourcePath) {
         try {
-            return clientJar.getInputStream(clientJar.getEntry(resourcePath));
+            return CLIENT_JAR.getInputStream(CLIENT_JAR.getEntry(resourcePath));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

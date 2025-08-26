@@ -1,8 +1,9 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
-group = 'org.geysermc'
+group = 'org.geysermc.optionalpack'
 version = '1.0-SNAPSHOT'
 
 repositories {
@@ -10,17 +11,13 @@ repositories {
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.9.1')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-}
-
-test {
-    useJUnitPlatform()
+    // None currently
 }
 
 jar {
-    archiveFileName = "GeyserOptionalPackCompiler.jar"
-    manifest {
-        attributes 'Main-Class': 'org.geysermc.optionalpack.OptionalPack'
-    }
+    archiveFileName = 'GeyserOptionalPackCompiler.jar'
+}
+
+application {
+    mainClass = 'org.geysermc.optionalpack.OptionalPack'
 }

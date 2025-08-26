@@ -45,7 +45,6 @@ import java.util.zip.ZipOutputStream;
 public class OptionalPack {
     public static final Path TEMP_PATH = Path.of("temp-pack/");
     public static final Path WORKING_PATH = Path.of("temp-pack/optionalpack/");
-    public static ZipFile CLIENT_JAR;
 
     /*
     List of renderers that will be used to convert sprites for the resource pack.
@@ -62,22 +61,23 @@ public class OptionalPack {
         try {
             log("===GeyserOptionalPack Compiler===");
 
-            /* Step 1: Extract the GeyserOptionalPack data to a working folder */
+            // Step 1: Extract the GeyserOptionalPack data to a working folder
 
             log("Extracting pre-made optional pack data to folder...");
-            extractOptionalPackDataToFolder();
+            // there are probably better ways to do this, but this is the way im doing it
+            File f = new File(OptionalPack.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+            unzipPack(f, TEMP_PATH);
 
-            // todo: maybe update this to something more recent e.g 1.21.7
-            /* Step 2: Download the 1.16 client.jar and copy all files needed to working folder */
+            // Step 2: Download the 1.21.8 client.jar and copy all files needed to working folder
 
             log("Downloading client.jar from Mojang...");
-            InputStream in = HTTP.request("https://launcher.mojang.com/v1/objects/37fd3c903861eeff3bc24b71eed48f828b5269c8/client.jar");
+            InputStream in = HTTP.request("https://piston-data.mojang.com/v1/objects/a19d9badbea944a4369fd0059e53bf7286597576/client.jar");
             Path jarPath = Path.of("client.jar");
             Files.copy(in, jarPath, StandardCopyOption.REPLACE_EXISTING);
             File jarFile = jarPath.toFile();
 
-            CLIENT_JAR = new ZipFile(jarFile);
-            JavaResources.extract(CLIENT_JAR);
+            ZipFile clientJar = new ZipFile(jarFile);
+            JavaResources.extract(clientJar);
 
             /* Step 3: Rendering sprites in a format that we use in the resource pack */
             for (Renderer renderer : renderers) {
@@ -88,19 +88,18 @@ public class OptionalPack {
                 }
             }
 
-            /* Step 4: Compile pack folder into a mcpack. */
+            // Step 4: Compile pack folder into a mcpack.
             log("Zipping as GeyserOptionalPack.mcpack...");
             zipFolder(WORKING_PATH, Path.of("GeyserOptionalPack.mcpack"));
 
-            /* Step 5: Cleanup temporary folders and files */
+            // Step 5: Cleanup temporary folders and files
             log("Clearing temporary files...");
-            CLIENT_JAR.close();
+            clientJar.close();
             jarFile.delete();
 
             deleteDirectory(TEMP_PATH.toFile());
-            TEMP_PATH.toFile().delete();
 
-            /* Step 6: Finish!! */
+            // Step 6: Finish!!
             DecimalFormat r3 = new DecimalFormat("0.000");
             Instant finish = Instant.now();
 
@@ -110,28 +109,33 @@ public class OptionalPack {
         }
     }
 
-    // thank you https://www.geeksforgeeks.org/java/java-program-to-delete-a-directory/
-    public static void deleteDirectory(File file) {
-        File[] files = file.listFiles();
+    /**
+     * Delete a directory and all files within it
+     * From: https://www.geeksforgeeks.org/java/java-program-to-delete-a-directory/
+     *
+     * @param directory The directory to remove
+     */
+    public static void deleteDirectory(File directory) {
+        File[] files = directory.listFiles();
         if (files != null) {
-            for (File subfile : file.listFiles()) {
+            for (File subfile : directory.listFiles()) {
                 if (subfile.isDirectory()) {
                     deleteDirectory(subfile);
                 }
                 subfile.delete();
             }
         }
+
+        directory.delete();
     }
 
-    // there are probably better ways to do this, but this is the way im doing it
-    private static void extractOptionalPackDataToFolder() throws Exception {
-        File f = new File(OptionalPack.class.getProtectionDomain().getCodeSource().getLocation()
-                .toURI());
-
-        unzipPack(f, TEMP_PATH);
-    }
-
-    // thank you https://stackoverflow.com/a/57997601
+    /**
+     * Zip a folder
+     * From: https://stackoverflow.com/a/57997601
+     *
+     * @param sourceFolderPath Folder to zip
+     * @param zipPath Output path for the zip
+     */
     private static void zipFolder(Path sourceFolderPath, Path zipPath) throws Exception {
         ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(zipPath.toFile()));
         Files.walkFileTree(sourceFolderPath, new SimpleFileVisitor<>() {
@@ -146,6 +150,12 @@ public class OptionalPack {
         zos.close();
     }
 
+    /**
+     * Extract a zip to a given directory
+     *
+     * @param file The zip to extract
+     * @param destDir THe destination to put all the files
+     */
     private static void unzipPack(File file, Path destDir) {
         File dir = destDir.toFile();
         // create output directory if it doesn't exist
