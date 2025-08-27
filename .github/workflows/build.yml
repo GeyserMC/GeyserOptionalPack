@@ -27,7 +27,7 @@ jobs:
         if: success()
         with:
           name: GeyserOptionalPack
-          path: GeyserOptionalPack.mcpack
+          path: run/GeyserOptionalPack.mcpack
           
       - name: Get Version
         if: ${{ success() && github.repository == 'GeyserMC/GeyserOptionalPack' && github.ref_name == 'master' }}
@@ -44,7 +44,7 @@ jobs:
           appID: ${{ secrets.RELEASE_APP_ID }}
           appPrivateKey: ${{ secrets.RELEASE_APP_PK }}
           files: |
-            geyseroptionalpack:GeyserOptionalPack.mcpack
+            geyseroptionalpack:run/GeyserOptionalPack.mcpack
           releaseEnabled: false
           saveMetadata: true
           releaseProject: 'geyseroptionalpack'
@@ -58,4 +58,4 @@ jobs:
           privateKey: ${{ secrets.DOWNLOADS_PRIVATE_KEY }}
           host: ${{ secrets.DOWNLOADS_SERVER_IP }}
           files: |
-            GeyserOptionalPack.mcpack
+            run/GeyserOptionalPack.mcpack
