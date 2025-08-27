@@ -55,10 +55,8 @@ public class OptionalPack {
             new SweepAttackRenderer()
     );
 
-    private static Instant start;
-
     public static void main(String[] args) {
-        start = Instant.now();
+        Instant start = Instant.now();
         try {
             log("===GeyserOptionalPack Compiler===");
 
@@ -69,12 +67,7 @@ public class OptionalPack {
             unzipPack(Resources.get("optionalpack"), WORKING_PATH);
 
             // Step 2: Download the 1.21.8 client.jar and copy all files needed to working folder
-
-            log("Downloading client.jar from Mojang...");
-            InputStream in = HTTP.request("https://piston-data.mojang.com/v1/objects/a19d9badbea944a4369fd0059e53bf7286597576/client.jar");
-            Path jarPath = TEMP_PATH.resolve("client.jar");
-            Files.copy(in, jarPath, StandardCopyOption.REPLACE_EXISTING);
-            File jarFile = jarPath.toFile();
+            File jarFile = LauncherMetaWrapper.getLatest().toFile();
 
             ZipFile clientJar = new ZipFile(jarFile);
             JavaResources.extract(clientJar);
@@ -95,9 +88,7 @@ public class OptionalPack {
             // Step 5: Cleanup temporary folders and files
             log("Clearing temporary files...");
             clientJar.close();
-            jarFile.delete();
-
-            deleteDirectory(TEMP_PATH.toFile());
+            deleteDirectory(WORKING_PATH.toFile());
 
             // Step 6: Finish!!
             DecimalFormat r3 = new DecimalFormat("0.000");

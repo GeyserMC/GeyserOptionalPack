@@ -11,7 +11,7 @@ repositories {
 }
 
 dependencies {
-    // None currently
+    implementation 'com.google.code.gson:gson:2.13.1'
 }
 
 jar {
