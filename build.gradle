@@ -16,6 +16,9 @@ dependencies {
 
 jar {
     archiveFileName = 'GeyserOptionalPackCompiler.jar'
+    manifest {
+        attributes 'Main-Class': application.mainClass
+    }
 }
 
 application {

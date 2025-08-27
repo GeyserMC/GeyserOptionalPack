@@ -27,10 +27,11 @@ package org.geysermc.optionalpack;
 
 import org.geysermc.optionalpack.renderers.Renderer;
 import org.geysermc.optionalpack.renderers.SweepAttackRenderer;
-import org.geysermc.optionalpack.renderers.VerticalSpriteSheetRenderer;
 
 import javax.imageio.ImageIO;
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.text.DecimalFormat;
@@ -43,8 +44,8 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 public class OptionalPack {
-    public static final Path TEMP_PATH = Path.of("temp-pack/");
-    public static final Path WORKING_PATH = Path.of("temp-pack/optionalpack/");
+    public static final Path TEMP_PATH = Path.of("temp");
+    public static final Path WORKING_PATH = TEMP_PATH.resolve("optionalpack");
 
     /*
     List of renderers that will be used to convert sprites for the resource pack.
@@ -65,14 +66,13 @@ public class OptionalPack {
 
             log("Extracting pre-made optional pack data to folder...");
             // there are probably better ways to do this, but this is the way im doing it
-            File f = new File(OptionalPack.class.getProtectionDomain().getCodeSource().getLocation().toURI());
-            unzipPack(f, TEMP_PATH);
+            unzipPack(Resources.get("optionalpack"), WORKING_PATH);
 
             // Step 2: Download the 1.21.8 client.jar and copy all files needed to working folder
 
             log("Downloading client.jar from Mojang...");
             InputStream in = HTTP.request("https://piston-data.mojang.com/v1/objects/a19d9badbea944a4369fd0059e53bf7286597576/client.jar");
-            Path jarPath = Path.of("client.jar");
+            Path jarPath = TEMP_PATH.resolve("client.jar");
             Files.copy(in, jarPath, StandardCopyOption.REPLACE_EXISTING);
             File jarFile = jarPath.toFile();
 
@@ -156,40 +156,56 @@ public class OptionalPack {
      * @param file The zip to extract
      * @param destDir THe destination to put all the files
      */
-    private static void unzipPack(File file, Path destDir) {
+    private static void unzipPack(URL file, Path destDir) {
         File dir = destDir.toFile();
         // create output directory if it doesn't exist
         if (!dir.exists()) dir.mkdirs();
 
-        byte[] buffer = new byte[1024];
         try {
-            FileInputStream fileStream = new FileInputStream(file);
-            ZipInputStream zipStream = new ZipInputStream(fileStream);
-            ZipEntry entry = zipStream.getNextEntry();
-            while (entry != null) {
-                if (!entry.isDirectory()) {
-                    String fileName = entry.getName();
-                    File newFile = new File(destDir + File.separator + fileName);
-                    // create directories for subdirectories in zip
-                    new File(newFile.getParent()).mkdirs();
-                    FileOutputStream extractedFile = new FileOutputStream(newFile);
-                    int len;
-                    while ((len = zipStream.read(buffer)) > 0) {
-                        extractedFile.write(buffer, 0, len);
+            if (file.getProtocol().equals("file")) {
+                Path resourceDir = Paths.get(file.toURI());
+                Files.walk(resourceDir)
+                    .filter(Files::isRegularFile)
+                    .forEach(source -> {
+                        try {
+                            Path relative = resourceDir.relativize(source);
+                            Path target = destDir.resolve(relative);
+                            Files.createDirectories(target.getParent());
+                            Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
+                        } catch (IOException e) {
+                            throw new UncheckedIOException(e);
+                        }
+                    });
+            } else {
+                byte[] buffer = new byte[1024];
+                FileInputStream fileStream = new FileInputStream(new File(file.toURI()));
+                ZipInputStream zipStream = new ZipInputStream(fileStream);
+                ZipEntry entry = zipStream.getNextEntry();
+                while (entry != null) {
+                    if (!entry.isDirectory()) {
+                        String fileName = entry.getName();
+                        File newFile = new File(destDir + File.separator + fileName);
+                        // create directories for subdirectories in zip
+                        new File(newFile.getParent()).mkdirs();
+                        FileOutputStream extractedFile = new FileOutputStream(newFile);
+                        int len;
+                        while ((len = zipStream.read(buffer)) > 0) {
+                            extractedFile.write(buffer, 0, len);
+                        }
+                        extractedFile.close();
                     }
-                    extractedFile.close();
-                }
-                // close this ZipEntry
+                    // close this ZipEntry
 
+                    zipStream.closeEntry();
+                    entry = zipStream.getNextEntry();
+                }
+                // close the last ZipEntry
                 zipStream.closeEntry();
-                entry = zipStream.getNextEntry();
+                zipStream.close();
+                fileStream.close();
             }
-            // close the last ZipEntry
-            zipStream.closeEntry();
-            zipStream.close();
-            fileStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException | URISyntaxException e) {
+            throw new RuntimeException("Unable to unzip pack!", e);
         }
     }
 

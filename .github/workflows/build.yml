@@ -18,11 +18,8 @@ jobs:
         with:
           setup-java_java-version: 21
 
-      - name: Build with Gradle
-        run: ./gradlew build
-
-      - name: Run Compiler
-        run: "java -jar build/libs/GeyserOptionalPackCompiler.jar"
+      - name: Build and run with Gradle
+        run: ./gradlew run
       
       - name: Archive resource pack artifact
         # See https://github.com/actions/upload-artifact/commits
@@ -31,14 +28,6 @@ jobs:
         with:
           name: GeyserOptionalPack
           path: GeyserOptionalPack.mcpack
-          
-      - name: Archive compiler artifact
-        # See https://github.com/actions/upload-artifact/commits
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
-        if: success()
-        with:
-          name: GeyserOptionalPackCompiler
-          path: build/libs/GeyserOptionalPackCompiler.jar
           
       - name: Get Version
         if: ${{ success() && github.repository == 'GeyserMC/GeyserOptionalPack' && github.ref_name == 'master' }}

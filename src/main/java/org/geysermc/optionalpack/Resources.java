@@ -29,13 +29,14 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.nio.charset.Charset;
 
 public class Resources {
     /**
      * Returns a resource as an InputStream.
      *
-     * @param resourcePath The path to the resource in the Compiler JAR file.
+     * @param resourcePath The path to the resource in the JAR file.
      * @return The resource as a BufferedImage.
      */
     public static InputStream getAsStream(String resourcePath) {
@@ -43,9 +44,19 @@ public class Resources {
     }
 
     /**
+     * Returns a resource as a URL.
+     *
+     * @param resourcePath The path to the resource in the JAR file.
+     * @return The resource as a URL.
+     */
+    public static URL get(String resourcePath) {
+        return Resources.class.getClassLoader().getResource(resourcePath);
+    }
+
+    /**
      * Returns a resource as a String using the default charset (UTF-8).
      *
-     * @param resourcePath The path to the resource in the Compiler JAR file.
+     * @param resourcePath The path to the resource in the JAR file.
      * @return The resource as a String.
      */
     public static String getAsText(String resourcePath) throws IOException {
@@ -55,7 +66,7 @@ public class Resources {
     /**
      * Returns a resource as a String.
      *
-     * @param resourcePath The path to the resource in the Compiler JAR file.
+     * @param resourcePath The path to the resource in the JAR file.
      * @param charset The charset to use for decoding the resource.
      * @return The resource as a String.
      */
@@ -69,7 +80,7 @@ public class Resources {
     /**
      * Returns a resource as a BufferedImage.
      *
-     * @param resourcePath The path to the resource in the Compiler JAR file.
+     * @param resourcePath The path to the resource in the JAR file.
      * @return The resource as a BufferedImage.
      */
     public static BufferedImage getAsImage(String resourcePath) throws IOException {
