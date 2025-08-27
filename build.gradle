@@ -24,3 +24,7 @@ jar {
 application {
     mainClass = 'org.geysermc.optionalpack.OptionalPack'
 }
+
+run {
+    workingDir = file("$projectDir/run")
+}
