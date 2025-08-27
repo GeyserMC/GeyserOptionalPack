@@ -1,0 +1,22 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.armor_stand": {
+      "geometry": "geometry.default",
+      "part_visibility": [
+        { "*": true },
+        { "geyser_leftarm": "!(q.is_angry)" },
+        { "geyser_rightarm": "!(q.is_angry)" },
+        { "geyser_baseplate": "!(q.is_admiring)" }
+      ],
+      "materials": [ { "*": "Material.default" } ],
+      "textures": [ "texture.default" ],
+      "overlay_color": {
+        "r": "this",
+        "g": "this",
+        "b": "this",
+        "a": "0.0"
+      }
+    }
+  }
+}

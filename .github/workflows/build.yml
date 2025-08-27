@@ -13,32 +13,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        # See https://github.com/actions/checkout/commits
-        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+      - name: Setup Gradle
+        uses: GeyserMC/actions/setup-gradle-composite@master
+        with:
+          setup-java_java-version: 21
 
-      - name: Install ImageMagick
-        run: sudo apt install -y imagemagick
-
-      - name: Prepare pack
-        run: bash prepare_pack.sh
-
-      - name: Zip pack
-        run: zip GeyserOptionalPack.mcpack -r . -x ".*" required_files.txt prepare_pack.sh
-
-      - name: Archive artifacts
+      - name: Build and run with Gradle
+        run: ./gradlew run
+      
+      - name: Archive resource pack artifact
         # See https://github.com/actions/upload-artifact/commits
         uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
         if: success()
         with:
           name: GeyserOptionalPack
           path: GeyserOptionalPack.mcpack
-
+          
       - name: Get Version
         if: ${{ success() && github.repository == 'GeyserMC/GeyserOptionalPack' && github.ref_name == 'master' }}
         id: get-version
         run: |
-          version=$(cat manifest.json | jq -r '.header.version | join(".")')
+          version=$(cat src/main/resources/optionalpack/manifest.json | jq -r '.header.version | join(".")')
           echo "VERSION=${version}" >> $GITHUB_OUTPUT
 
       - name: Get Release Metadata
