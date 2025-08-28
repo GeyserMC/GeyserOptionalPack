@@ -27,10 +27,21 @@ package org.geysermc.optionalpack;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UncheckedIOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 public class Resources {
     /**
@@ -88,5 +99,65 @@ public class Resources {
         BufferedImage image = ImageIO.read(is);
         is.close();
         return image;
+    }
+
+    /**
+     * Extract a resource folder to a given directory
+     *
+     * @param folder The resource folder to extract
+     * @param destDir The destination to put all the files
+     */
+    public static void extractFolder(String folder, Path destDir) {
+        URL file = get(folder);
+        File dir = destDir.toFile();
+        // create output directory if it doesn't exist
+        if (!dir.exists()) dir.mkdirs();
+
+        try {
+            if (file.getProtocol().equals("file")) {
+                Path resourceDir = Paths.get(file.toURI());
+                Files.walk(resourceDir)
+                    .filter(Files::isRegularFile)
+                    .forEach(source -> {
+                        try {
+                            Path relative = resourceDir.relativize(source);
+                            Path target = destDir.resolve(relative);
+                            Files.createDirectories(target.getParent());
+                            Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
+                        } catch (IOException e) {
+                            throw new UncheckedIOException(e);
+                        }
+                    });
+            } else {
+                byte[] buffer = new byte[1024];
+                FileInputStream fileStream = new FileInputStream(new File(file.toURI()));
+                ZipInputStream zipStream = new ZipInputStream(fileStream);
+                ZipEntry entry = zipStream.getNextEntry();
+                while (entry != null) {
+                    if (!entry.isDirectory()) {
+                        String fileName = entry.getName();
+                        File newFile = new File(destDir + File.separator + fileName);
+                        // create directories for subdirectories in zip
+                        new File(newFile.getParent()).mkdirs();
+                        FileOutputStream extractedFile = new FileOutputStream(newFile);
+                        int len;
+                        while ((len = zipStream.read(buffer)) > 0) {
+                            extractedFile.write(buffer, 0, len);
+                        }
+                        extractedFile.close();
+                    }
+                    // close this ZipEntry
+
+                    zipStream.closeEntry();
+                    entry = zipStream.getNextEntry();
+                }
+                // close the last ZipEntry
+                zipStream.closeEntry();
+                zipStream.close();
+                fileStream.close();
+            }
+        } catch (IOException | URISyntaxException e) {
+            throw new RuntimeException("Unable to unzip pack!", e);
+        }
     }
 }

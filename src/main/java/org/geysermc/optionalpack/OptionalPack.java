@@ -74,7 +74,7 @@ public class OptionalPack {
 
             log("Extracting pre-made optional pack data to folder...");
             // there are probably better ways to do this, but this is the way im doing it
-            unzipPack(Resources.get("optionalpack"), WORKING_PATH);
+            Resources.extractFolder("optionalpack", WORKING_PATH);
 
             // Step 2: Download the 1.21.8 client.jar and copy all files needed to working folder
             File jarFile = LauncherMetaWrapper.getLatest().toFile();
@@ -96,12 +96,12 @@ public class OptionalPack {
 
             // Step 4: Compile pack folder into a mcpack.
             log("Zipping as GeyserOptionalPack.mcpack...");
-            zipFolder(WORKING_PATH, Path.of("GeyserOptionalPack.mcpack"));
+            FileUtils.zipFolder(WORKING_PATH, Path.of("GeyserOptionalPack.mcpack"));
 
             // Step 5: Cleanup temporary folders and files
             log("Clearing temporary files...");
             clientJar.close();
-            deleteDirectory(WORKING_PATH.toFile());
+            FileUtils.deleteDirectory(WORKING_PATH);
 
             // Step 6: Finish!!
             DecimalFormat r3 = new DecimalFormat("0.000");
@@ -110,106 +110,6 @@ public class OptionalPack {
             log("===Done! (" + r3.format(Duration.between(start, finish).toMillis() / 1000.0d) + "s)===");
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    /**
-     * Delete a directory and all files within it
-     * From: https://www.geeksforgeeks.org/java/java-program-to-delete-a-directory/
-     *
-     * @param directory The directory to remove
-     */
-    public static void deleteDirectory(File directory) {
-        File[] files = directory.listFiles();
-        if (files != null) {
-            for (File subfile : directory.listFiles()) {
-                if (subfile.isDirectory()) {
-                    deleteDirectory(subfile);
-                }
-                subfile.delete();
-            }
-        }
-
-        directory.delete();
-    }
-
-    /**
-     * Zip a folder
-     * From: https://stackoverflow.com/a/57997601
-     *
-     * @param sourceFolderPath Folder to zip
-     * @param zipPath Output path for the zip
-     */
-    private static void zipFolder(Path sourceFolderPath, Path zipPath) throws Exception {
-        ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(zipPath.toFile()));
-        Files.walkFileTree(sourceFolderPath, new SimpleFileVisitor<>() {
-            @Override
-            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                zos.putNextEntry(new ZipEntry(sourceFolderPath.relativize(file).toString()));
-                Files.copy(file, zos);
-                zos.closeEntry();
-                return FileVisitResult.CONTINUE;
-            }
-        });
-        zos.close();
-    }
-
-    /**
-     * Extract a zip to a given directory
-     *
-     * @param file The zip to extract
-     * @param destDir THe destination to put all the files
-     */
-    private static void unzipPack(URL file, Path destDir) {
-        File dir = destDir.toFile();
-        // create output directory if it doesn't exist
-        if (!dir.exists()) dir.mkdirs();
-
-        try {
-            if (file.getProtocol().equals("file")) {
-                Path resourceDir = Paths.get(file.toURI());
-                Files.walk(resourceDir)
-                    .filter(Files::isRegularFile)
-                    .forEach(source -> {
-                        try {
-                            Path relative = resourceDir.relativize(source);
-                            Path target = destDir.resolve(relative);
-                            Files.createDirectories(target.getParent());
-                            Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
-                        } catch (IOException e) {
-                            throw new UncheckedIOException(e);
-                        }
-                    });
-            } else {
-                byte[] buffer = new byte[1024];
-                FileInputStream fileStream = new FileInputStream(new File(file.toURI()));
-                ZipInputStream zipStream = new ZipInputStream(fileStream);
-                ZipEntry entry = zipStream.getNextEntry();
-                while (entry != null) {
-                    if (!entry.isDirectory()) {
-                        String fileName = entry.getName();
-                        File newFile = new File(destDir + File.separator + fileName);
-                        // create directories for subdirectories in zip
-                        new File(newFile.getParent()).mkdirs();
-                        FileOutputStream extractedFile = new FileOutputStream(newFile);
-                        int len;
-                        while ((len = zipStream.read(buffer)) > 0) {
-                            extractedFile.write(buffer, 0, len);
-                        }
-                        extractedFile.close();
-                    }
-                    // close this ZipEntry
-
-                    zipStream.closeEntry();
-                    entry = zipStream.getNextEntry();
-                }
-                // close the last ZipEntry
-                zipStream.closeEntry();
-                zipStream.close();
-                fileStream.close();
-            }
-        } catch (IOException | URISyntaxException e) {
-            throw new RuntimeException("Unable to unzip pack!", e);
         }
     }
 

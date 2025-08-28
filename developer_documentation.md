@@ -26,6 +26,11 @@ The GeyserOptionalPack is compiled using a program written in Java. It contains 
 
 Entity data and entity flags (known as queries in Molang) are pieces of metadata that store various pieces of information about an entity on the Bedrock Edition of Minecraft. You can query for an entity's health, for example (a number query or an entity data), and can query for if an entity is angry (an entity flag, which is either 1.0 or 0.0 in Molang). Not all entities use every query, but every entity has access to most queries, though Bedrock by default ignores these. These queries can be sent by Geyser and change how an entity looks. We use this to our advantage in this resource pack.
 
+### Patches
+There is a system within the compiler to apply patches to the vanilla Bedrock json files. This is done by placing a `.patch.json` in the `patches` resource folder, with the same path as the file you want to patch. The patch file will be merged with the original file, replacing any existing keys. This is useful for small changes to vanilla files, such as adding an extra texture to an entity.
+
+The source for these files is https://github.com/Mojang/bedrock-samples/tree/main/resource_pack with each patch being the same name and path as the original file but with `.json` replaced with `.patch.json`.
+
 ### Armor stands
 
 #### Part visibility and rotation encoding

@@ -5,39 +5,57 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.geysermc.optionalpack.BedrockResourcesWrapper;
 import org.geysermc.optionalpack.Constants;
+import org.geysermc.optionalpack.FileUtils;
+import org.geysermc.optionalpack.OptionalPack;
+import org.geysermc.optionalpack.Resources;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class JsonPatchRenderer implements Renderer {
-    private final String name;
-    private final String file;
-    private final String patch;
-
-    public JsonPatchRenderer(String name, String file, String patch) {
-        this.name = name;
-        this.file = file;
-        this.patch = patch;
-    }
+    private static final Path PATCHES_PATH = OptionalPack.TEMP_PATH.resolve("patches");
 
     @Override
     public String getName() {
-        return name;
+        return "Json Patcher";
     }
 
     @Override
     public String getDestination() {
-        return file;
+        return "";
     }
 
     @Override
     public void render() throws IOException {
-        JsonObject sourceJson = JsonParser.parseString(BedrockResourcesWrapper.getResourceAsString(getDestination())).getAsJsonObject();
-        JsonObject patchJson = JsonParser.parseString(patch).getAsJsonObject();
+        log("Extracting JSON patches...");
+        Resources.extractFolder("patches", PATCHES_PATH);
+
+        log("Patching JSON files...");
+        try (var stream = Files.walk(PATCHES_PATH)) {
+            for (var path : stream.filter(Files::isRegularFile).toList()) {
+                String patchFile = PATCHES_PATH.relativize(path).toString().replace("\\", "/");
+
+                log("Applying patch: " + patchFile);
+                patchJsonFile(patchFile);
+            }
+        }
+
+        // Clean up patches folder
+        FileUtils.deleteDirectory(PATCHES_PATH);
+    }
+
+    private void patchJsonFile(String patchFile) throws IOException {
+        String realPath = patchFile.replace(".patch.json", ".json");
+
+        JsonObject sourceJson = JsonParser.parseString(BedrockResourcesWrapper.getResourceAsString(realPath)).getAsJsonObject();
+        JsonObject patchJson = JsonParser.parseString(Files.readString(PATCHES_PATH.resolve(patchFile), StandardCharsets.UTF_8)).getAsJsonObject();
 
         JsonObject merged = mergeJsonObjects(sourceJson, patchJson);
 
-        try (FileWriter writer = new FileWriter(getDestinationPath().toFile())) {
+        try (FileWriter writer = new FileWriter(OptionalPack.WORKING_PATH.resolve(realPath).toFile())) {
             writer.write(Constants.GSON.toJson(merged));
         }
     }

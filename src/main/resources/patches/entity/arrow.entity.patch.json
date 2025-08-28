@@ -1,0 +1,9 @@
+{
+  "minecraft:client_entity": {
+    "description": {
+      "textures": {
+        "spectral": "textures/geyser/entity/arrow/spectral_arrow"
+      }
+    }
+  }
+}

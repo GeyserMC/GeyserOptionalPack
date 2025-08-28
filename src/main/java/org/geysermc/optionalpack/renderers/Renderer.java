@@ -55,9 +55,6 @@ public interface Renderer {
      */
     default Path getDestinationPath() {
         String destination = getDestination();
-        if (destination.isEmpty()) {
-            return null;
-        }
         return OptionalPack.WORKING_PATH.resolve(destination);
     }
 
@@ -67,4 +64,8 @@ public interface Renderer {
      * @throws IOException If an error occurs during rendering.
      */
     void render() throws IOException;
+
+    default void log(String message) {
+        OptionalPack.log(message);
+    }
 }

@@ -1,7 +1,5 @@
 package org.geysermc.optionalpack;
 
-import com.google.gson.Gson;
-
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,15 +14,15 @@ public class LauncherMetaWrapper {
     public static Path getLatest() {
         OptionalPack.log("Downloading " + Constants.JAVA_TARGET_VERSION + " client.jar from Mojang...");
 
-        VersionManifest versionManifest = Constants.GSON.fromJson(HTTP.getAsString(LAUNCHER_META_URL), VersionManifest.class);
+        VersionManifest versionManifest = Constants.GSON.fromJson(WebUtils.getAsString(LAUNCHER_META_URL), VersionManifest.class);
 
         for (Version version : versionManifest.versions()) {
             if (version.id().equals(Constants.JAVA_TARGET_VERSION)) {
-                VersionInfo versionInfo = Constants.GSON.fromJson(HTTP.getAsString(version.url()), VersionInfo.class);
+                VersionInfo versionInfo = Constants.GSON.fromJson(WebUtils.getAsString(version.url()), VersionInfo.class);
                 VersionDownload client = versionInfo.downloads().get("client");
                 if (!Files.exists(CLIENT_JAR) || !client.sha1.equals(getSha1(CLIENT_JAR))) {
                     // Download the client jar
-                    try (InputStream in = HTTP.request(client.url())) {
+                    try (InputStream in = WebUtils.request(client.url())) {
                         Files.copy(in, CLIENT_JAR);
                     } catch (Exception e) {
                         throw new RuntimeException("Could not download client jar", e);
