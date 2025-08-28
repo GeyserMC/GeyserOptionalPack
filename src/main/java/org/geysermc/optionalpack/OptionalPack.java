@@ -101,7 +101,7 @@ public class OptionalPack {
             // Step 5: Cleanup temporary folders and files
             log("Clearing temporary files...");
             clientJar.close();
-//            deleteDirectory(WORKING_PATH.toFile());
+            deleteDirectory(WORKING_PATH.toFile());
 
             // Step 6: Finish!!
             DecimalFormat r3 = new DecimalFormat("0.000");
