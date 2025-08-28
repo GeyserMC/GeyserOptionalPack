@@ -27,6 +27,7 @@ package org.geysermc.optionalpack;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -60,12 +61,15 @@ public class JavaResources {
                 String assetFileName = Path.of(jarAssetPath).toFile().getName();
                 Path destination = OptionalPack.WORKING_PATH.resolve(destinationPath).resolve(assetFileName);
 
-                if (destination.toFile().mkdirs()) {
-                    Files.copy(asset, destination, StandardCopyOption.REPLACE_EXISTING);
+                File destinationFolder = OptionalPack.WORKING_PATH.resolve(destinationPath).toFile();
+                if (!destinationFolder.exists()) {
+                    if (!destinationFolder.mkdirs()) {
+                        OptionalPack.log("Could not make directories for copying " + jarAssetPath + " to " + destinationPath + "!");
+                        continue;
+                    }
                 }
-                else {
-                    OptionalPack.log("Could not make directories for copying " + jarAssetPath + " to " + destinationPath + "!");
-                }
+
+                Files.copy(asset, destination, StandardCopyOption.REPLACE_EXISTING);
             }
 
         } catch (IOException e) {

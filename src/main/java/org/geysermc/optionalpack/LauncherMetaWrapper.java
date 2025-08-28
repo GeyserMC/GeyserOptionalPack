@@ -1,7 +1,5 @@
 package org.geysermc.optionalpack;
 
-import com.google.gson.Gson;
-
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,24 +8,21 @@ import java.util.List;
 import java.util.Map;
 
 public class LauncherMetaWrapper {
-    private static final String TARGET_VERSION = "1.21.8";
-
     private static final Path CLIENT_JAR = OptionalPack.TEMP_PATH.resolve("client.jar");
     private static final String LAUNCHER_META_URL = "https://launchermeta.mojang.com/mc/game/version_manifest.json";
-    private static final Gson GSON = new Gson();
 
     public static Path getLatest() {
-        OptionalPack.log("Downloading " + TARGET_VERSION + " client.jar from Mojang...");
+        OptionalPack.log("Downloading " + Constants.JAVA_TARGET_VERSION + " client.jar from Mojang...");
 
-        VersionManifest versionManifest = GSON.fromJson(HTTP.getAsString(LAUNCHER_META_URL), VersionManifest.class);
+        VersionManifest versionManifest = Constants.GSON.fromJson(WebUtils.getAsString(LAUNCHER_META_URL), VersionManifest.class);
 
         for (Version version : versionManifest.versions()) {
-            if (version.id().equals(TARGET_VERSION)) {
-                VersionInfo versionInfo = GSON.fromJson(HTTP.getAsString(version.url()), VersionInfo.class);
+            if (version.id().equals(Constants.JAVA_TARGET_VERSION)) {
+                VersionInfo versionInfo = Constants.GSON.fromJson(WebUtils.getAsString(version.url()), VersionInfo.class);
                 VersionDownload client = versionInfo.downloads().get("client");
                 if (!Files.exists(CLIENT_JAR) || !client.sha1.equals(getSha1(CLIENT_JAR))) {
                     // Download the client jar
-                    try (InputStream in = HTTP.request(client.url())) {
+                    try (InputStream in = WebUtils.request(client.url())) {
                         Files.copy(in, CLIENT_JAR);
                     } catch (Exception e) {
                         throw new RuntimeException("Could not download client jar", e);
@@ -61,8 +56,6 @@ public class LauncherMetaWrapper {
             throw new RuntimeException("Could not compute SHA-1 hash", e);
         }
     }
-
-
 
     public record VersionManifest(
         LatestVersion latest,

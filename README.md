@@ -23,9 +23,8 @@ Download: [GeyserOptionalPack.mcpack](https://download.geysermc.org/v2/projects/
 ### Manually compiling the pack
 
 1. Clone the repo to your computer
-2. Run `gradlew build`.
-3. Run the pack compiler using `java -jar build/libs/GeyserOptionalPackCompiler.jar`
-4. When it finishes compiling, it will output the `GeyserOptionalPack.mcpack`.
+2. Run `gradlew run`.
+3. When it finishes compiling, it will output the `GeyserOptionalPack.mcpack`.
 
 ### Legal
 

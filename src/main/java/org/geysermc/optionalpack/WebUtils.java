@@ -30,7 +30,7 @@ import java.io.InputStream;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
 
-public class HTTP {
+public class WebUtils {
 
     /**
      * Requests a URL and returns the InputStream.
