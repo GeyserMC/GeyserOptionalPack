@@ -27,6 +27,7 @@ package org.geysermc.optionalpack;
 
 import org.geysermc.optionalpack.renderers.Renderer;
 import org.geysermc.optionalpack.renderers.SweepAttackRenderer;
+import org.reflections.Reflections;
 
 import javax.imageio.ImageIO;
 import java.io.*;
@@ -38,6 +39,8 @@ import java.text.DecimalFormat;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
@@ -47,13 +50,20 @@ public class OptionalPack {
     public static final Path TEMP_PATH = Path.of("temp");
     public static final Path WORKING_PATH = TEMP_PATH.resolve("optionalpack");
 
-    /*
-    List of renderers that will be used to convert sprites for the resource pack.
-    They are executed in order from start to end.
-     */
-    private static List<Renderer> renderers = List.of(
-            new SweepAttackRenderer()
-    );
+    private static final Renderer[] RENDERERS;
+
+    static {
+        Reflections reflections = new Reflections("org.geysermc.optionalpack.renderers");
+        Set<Class<? extends Renderer>> renderers = reflections.getSubTypesOf(Renderer.class);
+
+        RENDERERS = renderers.stream().map(rendererClass -> {
+            try {
+                return rendererClass.getDeclaredConstructor().newInstance();
+            } catch (Exception e) {
+                return null;
+            }
+        }).filter(Objects::nonNull).toArray(Renderer[]::new);
+    }
 
     public static void main(String[] args) {
         Instant start = Instant.now();
@@ -73,12 +83,15 @@ public class OptionalPack {
             JavaResources.extract(clientJar);
 
             /* Step 3: Rendering sprites in a format that we use in the resource pack */
-            for (Renderer renderer : renderers) {
+            for (Renderer renderer : RENDERERS) {
                 log("Rendering " + renderer.getName() + "...");
-                File imageFile = WORKING_PATH.resolve(renderer.getDestination()).toFile();
-                if (imageFile.mkdirs()) {
-                    ImageIO.write(renderer.render(), "PNG", imageFile);
+                File destinationFolder = renderer.getDestinationPath().toFile().getParentFile();
+                if (!destinationFolder.exists()) {
+                    if (!destinationFolder.mkdirs()) {
+                        throw new IOException("Failed to create directory: " + destinationFolder);
+                    }
                 }
+                renderer.render();
             }
 
             // Step 4: Compile pack folder into a mcpack.
@@ -88,7 +101,7 @@ public class OptionalPack {
             // Step 5: Cleanup temporary folders and files
             log("Clearing temporary files...");
             clientJar.close();
-            deleteDirectory(WORKING_PATH.toFile());
+//            deleteDirectory(WORKING_PATH.toFile());
 
             // Step 6: Finish!!
             DecimalFormat r3 = new DecimalFormat("0.000");

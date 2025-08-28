@@ -27,7 +27,9 @@ package org.geysermc.optionalpack.renderers;
 
 import org.geysermc.optionalpack.JavaResources;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +60,7 @@ public class VerticalSpriteSheetRenderer implements Renderer {
     }
 
     @Override
-    public BufferedImage render() throws IOException {
+    public void render() throws IOException {
         List<BufferedImage> sprites = new ArrayList<>();
         for (String path : spritePaths) {
             // Retrieve the image from the client jar
@@ -72,6 +74,7 @@ public class VerticalSpriteSheetRenderer implements Renderer {
             BufferedImage sprite = sprites.get(i);
             canvas.getGraphics().drawImage(sprite, 0, i * sprite.getHeight(), null);
         }
-        return canvas;
+
+        ImageIO.write(canvas, "PNG", getDestinationPath().toFile());
     }
 }

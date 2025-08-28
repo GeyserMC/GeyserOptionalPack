@@ -25,8 +25,11 @@
 
 package org.geysermc.optionalpack.renderers;
 
+import org.geysermc.optionalpack.OptionalPack;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.nio.file.Path;
 
 public interface Renderer {
     /**
@@ -46,10 +49,22 @@ public interface Renderer {
     }
 
     /**
-     * Draws the image as a BufferedImage.
+     * Gets the destination path as a Path object, or null if no destination is set.
      *
-     * @return The rendered output as a BufferedImage.
+     * @return The destination path
+     */
+    default Path getDestinationPath() {
+        String destination = getDestination();
+        if (destination.isEmpty()) {
+            return null;
+        }
+        return OptionalPack.WORKING_PATH.resolve(destination);
+    }
+
+    /**
+     * Renders the output of the renderer.
+     *
      * @throws IOException If an error occurs during rendering.
      */
-    BufferedImage render() throws IOException;
+    void render() throws IOException;
 }
